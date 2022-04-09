@@ -2,6 +2,18 @@
 A File Sharing Web Application
   Repository for the code dedicated to the management of the BAM! project for CSE115A at UCSC for the Spring '22 quarter.
 
+## Project Structure
+    .
+    ├── client              # Front End Folder structure (React)
+    │   ├── node_modules    # Holds all modules/plugin/libraries dependency data
+    │   ├── public          # Holds other data (icons, images, txt, etc.)
+    │   ├── src             # Holds main code
+    │   │   ├── index.js    # the js code executed when front end is booted up
+    ├── server              # Back End Folder structure (Node.js + ExpressJS)
+    │   ├── node_modules    # Holds all modules/plugin/libraries dependency data
+    │   ├── server.js       # Main server app      
+    └── README.md
+
 # getting-started-with-UI
 ## Step 1:
   Install Node v16.14.0 to your computer (use homebrew or install from website). Confirm version by running: 'node --version'
