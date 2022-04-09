@@ -49,7 +49,7 @@ npm run lint
 1. Start the server in dev mode\
 `npm run dev`
 
-2. Open [http://localhost:5000](http://localhost:5000)
+2. Open [http://localhost:5000](http://localhost:5000). \
 Open [http://localhost:5000/api](http://localhost:5000/api) to see the test 'get' API call (returns a test JSON object).\
 
 3. The server will automatically refresh with file changes
