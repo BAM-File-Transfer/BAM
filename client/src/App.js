@@ -8,9 +8,9 @@ function App() {
       <header className="App-header">
         <label>BAM!</label>
         <div>
-        <Form.Group controlId="formFileMultiple" className="mb-3">
-          <Form.Control className="btn_file_select" type="file" multiple />
-        </Form.Group>
+          <Form.Group controlId="formFileMultiple" className="mb-3">
+            <Form.Control className="btn_file_select" type="file" multiple />
+          </Form.Group>
         </div>
       </header>
     </div>
