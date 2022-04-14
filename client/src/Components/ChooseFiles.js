@@ -1,16 +1,13 @@
-import './button.css'
+import '../styles/button.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const ChooseFiles = () => {
 
-    const handleClick = () => {
-        alert("Choose Files")
-    }
-
     return (
-        <div className = "choosefiles">
-            <button type = "button" class="button chooseFilesButton col-2" onClick={handleClick}>CHOOSE FILES</button>
+        <div className = "chooseFilesButtonCSS">
+            <input class="col-2 button chooseFilesButton" type="file" names="files[]" multiple></input>
+            <div className="fileList"></div>
         </div>
     );
 }

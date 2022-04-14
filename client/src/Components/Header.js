@@ -1,4 +1,4 @@
-import './button.css'
+import '../styles/button.css'
 import BAMLogo from '../assets/BAMLogo.png'
 
 const Header = () => {

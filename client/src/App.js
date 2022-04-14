@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import ChooseFiles from './Components/ChooseFiles';
 import Receive from './Components/Receive';
 import SuperheroName from './Components/SuperheroName';
