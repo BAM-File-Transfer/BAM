@@ -1,18 +1,16 @@
-import '../styles/button.css'
+import '../styles/button.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/ChooseFile.css';
 
 
 const ChooseFiles = () => {
+    // Populates pre component with file names
     function handleFile(e) {
         e.preventDefault();
-        console.log("here");
         var list = document.getElementById('filelist');
-        var files = document.getElementById('files');
-        var userFiles = files.files;
-        console.log(userFiles);
+        var userFiles = document.getElementById('files').files;
         list.innerHTML = '';
         for (var i = 0; i < userFiles.length; i++) {
-            console.log(userFiles[i].name);
           list.innerHTML += (i + 1) + '. ' + userFiles[i].name + '\n';
         }
         if (list.innerHTML == '') list.style.display = 'none';
@@ -22,7 +20,7 @@ const ChooseFiles = () => {
     return (
         <div className="chooseFile">
             <input type="file" className="button" id="files" onChange={handleFile} multiple ></input>
-            <pre id="filelist"></pre>
+            <pre className="fileList" id="filelist"></pre>
         </div>
     );
 }
