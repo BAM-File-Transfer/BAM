@@ -1,4 +1,6 @@
 import './button.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const ChooseFiles = () => {
 
@@ -8,7 +10,7 @@ const ChooseFiles = () => {
 
     return (
         <div className = "choosefiles">
-            <button class="btn chooseFilesButton" onClick={handleClick}>CHOOSE FILES</button>
+            <button type = "button" class="button chooseFilesButton col-2" onClick={handleClick}>CHOOSE FILES</button>
         </div>
     );
 }

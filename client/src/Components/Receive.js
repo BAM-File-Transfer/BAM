@@ -8,7 +8,7 @@ const Receive = () => {
 
     return (
         <div className = "receivefiles">
-            <button class="btn receiveFilesButton" onClick={handleClick}>RECEIVE</button>
+            <button type = "button" class="button receiveFilesButton col-2" onClick={handleClick}>RECEIVE</button>
         </div>
     );
 }
