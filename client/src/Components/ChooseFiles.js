@@ -1,26 +1,34 @@
 import '../styles/button.css';
+import '../styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/ChooseFile.css';
-
 
 const ChooseFiles = () => {
+
     // Populates pre component with file names
     function handleFile(e) {
         e.preventDefault();
-        var list = document.getElementById('filelist');
+        var fileListContainer = document.getElementById('fileListContainer');
+        var fileList = document.getElementById('filelist');
         var userFiles = document.getElementById('files').files;
-        list.innerHTML = '';
+        fileList.innerHTML = '';
         for (var i = 0; i < userFiles.length; i++) {
-          list.innerHTML += (i + 1) + '. ' + userFiles[i].name + '\n';
+          fileList.innerHTML += (i + 1) + '. ' + userFiles[i].name + '\n\n';
         }
-        if (list.innerHTML == '') list.style.display = 'none';
-        else list.style.display = 'block';
+        if (fileList.innerHTML == '' || fileList.innerHTML == null){
+            fileList.style.display = 'none';
+            fileListContainer.style.display = 'none';
+        }else{
+            fileList.style.display = 'block';
+            fileListContainer.style.display = 'flex';
+        } 
     };
 
     return (
         <div className="chooseFile">
             <input type="file" className="button" id="files" onChange={handleFile} multiple ></input>
-            <pre className="fileList" id="filelist"></pre>
+            <div className="fileListContainer" id="fileListContainer">
+                <pre className="fileList" id="filelist"></pre>
+            </div>
         </div>
     );
 }
