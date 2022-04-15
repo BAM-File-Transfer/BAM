@@ -44,11 +44,6 @@ npm run start
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
 # BAM! API server
 
 ## Project Setup

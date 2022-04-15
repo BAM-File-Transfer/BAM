@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
 import ChooseFiles from './Components/ChooseFiles';
 import Receive from './Components/Receive';
 import SuperheroName from './Components/SuperheroName';
@@ -10,8 +9,10 @@ function App() {
     <div className="App">
       <Header />
       <SuperheroName />
-      <ChooseFiles />
-      <Receive />
+      <div>
+        <ChooseFiles />
+        <Receive />
+      </div>
     </div>
   );
 }
