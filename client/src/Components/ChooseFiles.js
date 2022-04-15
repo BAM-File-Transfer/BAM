@@ -12,7 +12,7 @@ const ChooseFiles = () => {
         var userFiles = document.getElementById('files').files;
         fileList.innerHTML = '';
         for (var i = 0; i < userFiles.length; i++) {
-          fileList.innerHTML += (i + 1) + '. ' + userFiles[i].name + '\n\n';
+          fileList.innerHTML += userFiles[i].name + '\n\n';
         }
         if (fileList.innerHTML == '' || fileList.innerHTML == null){
             fileList.style.display = 'none';
