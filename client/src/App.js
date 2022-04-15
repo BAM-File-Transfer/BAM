@@ -9,8 +9,10 @@ function App() {
     <div className="App">
       <Header />
       <SuperheroName />
-      <ChooseFiles />
-      <Receive />
+      <div>
+        <ChooseFiles />
+        <Receive />
+      </div>
     </div>
   );
 }
