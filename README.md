@@ -18,7 +18,12 @@ A File Sharing Web Application
 
 # getting-started-with-UI
 ## Step 1:
-  Install Node v16.14.0 to your computer (use homebrew or install from website). Confirm version by running: `node --version`
+  Install Node v17.x to your computer:  
+  ```shell
+  curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  ```
+  Confirm by running: `node -v`
 ## Step 2:
   Install npm v8.3.1 to your computer. Confirm by running: `npm --version`
 ## Step 3:
@@ -77,4 +82,12 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.\
 Starts the server in prod mode.\
 This is the command that the prod box runs.
 
+# Ubuntu 20.04 Oracle Cloud Server
+## iptable Setup:
+The Ubuntu image from Oracle has blocked network traffic and requires adding a rule to iptables to allow HTTP, HTTPS, and Node.js traffic.  
+We need to use iptables to open the ports within Ubuntu to allow network traffic on the needed ports. We can do that by:
+```bash
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --match multiport --dports 80,443,3000,5000 -j ACCEPT
+sudo netfilter-persistent save
+```
 
