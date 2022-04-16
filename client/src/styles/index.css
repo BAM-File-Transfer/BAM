@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+pre{
+  display:'none';
+  font-family: "Roboto", sans-serif !important;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: left;
+  white-space: pre-wrap;       /* CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla*/
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  max-height: 300px;
+  max-width: 300px;
+  margin: 0px;
+  border-radius: 13px;
+  border: 1px solid grey;
+  padding:10px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* SCROLL BAR CSS ------------------------*/
+/* width */
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c0; 
+}
+
+/*--------------------------------------*/
+
+.bam-image-size{
+  width: 170px;
+  height: 150px;
+}
+
+.fileListContainer{
+  display: none;
+  padding: 1% 1%;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+}

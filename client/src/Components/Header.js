@@ -1,4 +1,4 @@
-import './button.css'
+import '../styles/button.css'
 import BAMLogo from '../assets/BAMLogo.png'
 import { useNavigate } from "react-router-dom"
 
@@ -10,6 +10,7 @@ const Header = () => {
             <button onClick={() => {
                 navigate("/About");
             }}>?</button>
+
         </div>
     );
 }
