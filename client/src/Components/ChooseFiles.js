@@ -21,7 +21,7 @@ const ChooseFiles = () => {
       fileList.style.display = 'block'
       fileListContainer.style.display = 'flex'
     }
-  };
+  }
 
   return (
         <div className="chooseFile">

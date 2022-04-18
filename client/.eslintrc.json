@@ -1,11 +1,17 @@
 {
+    "settings": {
+        "react": {
+          "version": "detect"
+        }
+    },
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
-        "standard"
+        "eslint:recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
