@@ -12,7 +12,7 @@ function App () {
       <SuperheroName />
       <div>
         <ChooseFiles />
-        <Receive />
+            <Receive />
       </div>
     </div>
   )
