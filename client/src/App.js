@@ -1,10 +1,10 @@
 import './styles/App.css';
-import ChooseFiles from './Components/ChooseFiles';
-import Receive from './Components/Receive';
-import SuperheroName from './Components/SuperheroName';
-import Header from './Components/Header';
-import About from './Components/About';
-import Home from './Components/Home';
+import ChooseFiles from './components/ChooseFiles';
+import Receive from './components/Receive';
+import SuperheroName from './components/SuperheroName';
+import Header from './components/Header';
+import About from './components/About';
+import Home from './components/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
