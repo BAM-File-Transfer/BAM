@@ -1,21 +1,19 @@
-import './styles/App.css'
-import React from 'react'
-import ChooseFiles from './Components/ChooseFiles'
-import Receive from './Components/Receive'
-import SuperheroName from './Components/SuperheroName'
-import Header from './Components/Header'
+import React from "react"
+import './styles/App.css';
+import About from './components/About';
+import Home from './components/Home';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App () {
   return (
-    <div className="App">
-      <Header />
-      <SuperheroName />
-      <div>
-        <ChooseFiles />
-            <Receive />
-      </div>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='/About' element={<About />} />
+      </Routes>
+    </Router>
+
+  );
 }
 
 export default App
