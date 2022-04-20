@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.text-style{
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+}
+
 .fists-bumping-container {
     position: absolute;
-    top: 50%;
+    top: 42%;
     left: 50%;
     margin-top: -150px;
     margin-left: -190px;
@@ -8,7 +15,6 @@
 
 .fists-bumping-image-size{
     margin-top: 30px;
-    margin-bottom: 30px;
     width: 380px;
     height: 300px;
 }
@@ -16,7 +22,7 @@
 .fists-bumping-cancel{
     font-family: "Roboto", sans-serif;
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 50%;
     font-size: 23px;
     font-weight: 800;

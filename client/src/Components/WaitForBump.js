@@ -14,13 +14,13 @@ const WaitForBump = () => {
         <Header />
         <SuperheroName />
         <div className='fists-bumping-container'>
-            <h1 className="WaitForBump">
                 <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
-                <br/>
-                FIST BUMP THE DEVICES
-                <br/>
-                TO INITIATE TRANSFER!
-            </h1>
+                <h1 className="text-style">
+                    <br/>
+                    FIST BUMP THE DEVICES
+                    <br/>
+                    TO INITIATE TRANSFER!
+                </h1>
         </div>
         <button className = "fists-bumping-cancel" onClick={() => {
             navigate('/')
