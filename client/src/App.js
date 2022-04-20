@@ -10,8 +10,10 @@ function App() {
     <div className="App">
       <Header />
       <SuperheroName />
-      <ChooseFiles />
-      <Receive />
+      <div className = "ButtonSection">
+        <ChooseFiles />
+        <Receive />
+      </div>
     </div>
   );
 }

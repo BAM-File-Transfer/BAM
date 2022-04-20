@@ -5,9 +5,9 @@ const SuperheroName = () => {
     return (
         <div className = "SuperheroName">
             <form>
-                Superhero Name<br></br>
+                Superhero Name:
                 <label>
-                    <input type="text" name="name" placeholder="Enter Name"/>
+                    <input type="text" name="name" className = "FilenameBox" placeholder="Enter Name"/>
                 </label>
             </form>
         </div>
