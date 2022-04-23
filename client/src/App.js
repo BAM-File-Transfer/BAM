@@ -4,6 +4,7 @@ import ChooseFiles from './Components/ChooseFiles'
 import Receive from './Components/Receive'
 import SuperheroName from './Components/SuperheroName'
 import Header from './Components/Header'
+import SendButton from './Components/SendButton'
 
 function App () {
   return (
@@ -13,6 +14,7 @@ function App () {
       <div>
         <ChooseFiles />
             <Receive />
+            <SendButton />
       </div>
     </div>
   )
