@@ -11,7 +11,6 @@ const SendButton = () => {
     
     return (
         <div>
-            <script src="webtorrent.min.js"></script>
             <button className="button" onClick={onClick}>Send</button>
         </div>
     )
