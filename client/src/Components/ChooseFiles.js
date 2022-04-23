@@ -1,18 +1,38 @@
-import './button.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../styles/button.css'
+import '../styles/index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react'
 
 const ChooseFiles = () => {
-
-    const handleClick = () => {
-        alert("Choose Files")
+  // Populates pre component with file names
+  function handleFile (e) {
+    e.preventDefault()
+    
+    const fileListContainer = document.getElementById('fileListContainer')
+    const fileList = document.getElementById('filelist')
+    const userFiles = document.getElementById('files').files
+    fileList.innerHTML = ''
+    for (let i = 0; i < userFiles.length; i++) {
+      fileList.innerHTML += userFiles[i].name + '\n\n'
     }
+    if (fileList.innerHTML === '' || fileList.innerHTML === null) {
+      fileList.style.display = 'none'
+      fileListContainer.style.display = 'none'
+    } else {
+      fileList.style.display = 'block'
+      fileListContainer.style.display = 'flex'
+    }
+    
+  }
 
-    return (
-        <div className = "choosefiles">
-            <button type = "button" class="button chooseFilesButton col-2" onClick={handleClick}>CHOOSE FILES</button>
+  return (
+        <div className="chooseFile">
+            <input type="file" className="button" id="files" onChange={handleFile} multiple ></input>
+            <div className="fileListContainer" id="fileListContainer">
+                <pre className="fileList" id="filelist"></pre>
+            </div>
         </div>
-    );
+  )
 }
 
-export default ChooseFiles;
+export default ChooseFiles

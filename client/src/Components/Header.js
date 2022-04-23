@@ -1,17 +1,19 @@
-import './button.css'
+import '../styles/button.css'
+import React from 'react'
 import BAMLogo from '../assets/BAMLogo.png'
+import { useNavigate } from "react-router-dom"
 
 const Header = () => {
-    const handleClick = () => {
-        alert("About")
-    }
+  let navigate = useNavigate();
+  return (
+    <div className = "Header">
+      <img src = {BAMLogo} className="bam-image-size" alt="BAM! Logo"/>
+      <button className ="QuestionMark" onClick={() => {
+        navigate("/About");
+      }}>?</button>
 
-    return (
-        <div className = "Header">
-           <img src = {BAMLogo} class="bam-image-size" alt="BAM! Logo"/>
-            <button class="QuestionMark" onClick={handleClick}>?</button>
-        </div>
-    );
+    </div>
+  )
 }
 
-export default Header;
+export default Header

@@ -1,8 +1,8 @@
-import './button.css'
+import '../styles/button.css'
+import React from 'react'
 
 const SuperheroName = () => {
-
-    return (
+  return (
         <div className = "SuperheroName">
             <form>
                 Superhero Name:
@@ -11,7 +11,7 @@ const SuperheroName = () => {
                 </label>
             </form>
         </div>
-    );
+  )
 }
 
-export default SuperheroName;
+export default SuperheroName

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .App-logo {
@@ -26,6 +28,24 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.btn_file_select {
+  width: 100%;
+  height: 100%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+.About {
+  background-color: black;
+  color: white;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 25px;
+  line-height: 1.5;
+  font-family: 'Bangers', cursive;
+
 }
 
 @keyframes App-logo-spin {
