@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 const SendButton = ({files}) => {    
     const onClick = () => {
         const { WebTorrent } = window  // Imports webtorrent from the window object
-        console.log("WebTorrent: ", WebTorrent);
         let client = new WebTorrent();
-        console.log("Client: ", client);
 
-        // Try to send files
-        console.log("Inside SendButton")
-        console.log(files); 
+        // Send files
+        console.log(files);
+
+        // https://webtorrent.io/intro
+        client.seed(files, function (torrent) {
+            console.log('Client is seeding ' + torrent.magnetURI);
+        })
     }
     
     return (
