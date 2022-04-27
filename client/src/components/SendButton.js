@@ -40,7 +40,6 @@ class SendButton extends React.Component {
             let file = torrent.files.find(function (file) {
                 return file.name.endsWith('')
             })
-            this.updateFileList(temp)
             file.getBlobURL(function callback(err, url) {
                 if (err) throw err
                 var receive_btn = document.getElementById('receive')
@@ -56,9 +55,6 @@ class SendButton extends React.Component {
             <div>
                 <button className="button" onClick={this.onClick}>Send</button>
                 <a href="#" download="" id="receive"><button type = "button receive" className="button receiveFilesButton col-2">RECEIVE FILES</button></a>
-                <div className="container-fluid" id="fileListContainer">
-                    <pre className="fileList" id="filelist"></pre>
-                </div>
             </div>
         )
     }
