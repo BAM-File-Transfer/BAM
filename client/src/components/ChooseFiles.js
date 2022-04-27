@@ -42,10 +42,10 @@ class ChooseFiles extends React.Component {
   render() {
     return (
         <div className="chooseFile">
-            <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
+            <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
             <SendButton files={this.state.files} torr={this.state.torr} updateState={(newFiles, newTorr) => this.stateUpdate(newFiles, newTorr)}/>
         </div>
     )

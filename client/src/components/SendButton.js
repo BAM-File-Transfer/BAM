@@ -9,27 +9,38 @@ class SendButton extends React.Component {
         super(props);
         this.state = {
             files: this.props.files,
-            torr: this.props.torr
+            torr: this.props.torr,
+            fileList: []
         }
-      } 
-
+      }
+      
     updateTorrent(torrent){
         this.props.updateState({files: this.props.files, torr: torrent})
+    }
+    updateFileList = (fileList) => {
+        this.props.updateState({files: this.props.files, torr: this.props.torr, fileList: fileList})
     }
 
     onClick = () => {
         const { WebTorrent } = window  // Imports webtorrent from the window object
-        let client = new WebTorrent();
+        let client = new WebTorrent()
 
         // Send files
-        console.log(this.props.files);
-
+        console.log(this.props.files)
         // https://webtorrent.io/intro
         client.seed(this.props.files, function (torrent) {
-            console.log('Client is seeding ' + torrent.magnetURI);
+            console.log('Client is seeding:\n' + torrent.magnetURI);
+            var index = 0
+            var temp = []
+            torrent.files.forEach(function(file){
+                temp[index] = file
+                console.log(temp[index])
+                index++
+             })
             let file = torrent.files.find(function (file) {
                 return file.name.endsWith('')
             })
+            this.updateFileList(temp)
             file.getBlobURL(function callback(err, url) {
                 if (err) throw err
                 var receive_btn = document.getElementById('receive')
@@ -45,6 +56,9 @@ class SendButton extends React.Component {
             <div>
                 <button className="button" onClick={this.onClick}>Send</button>
                 <a href="#" download="" id="receive"><button type = "button receive" className="button receiveFilesButton col-2">RECEIVE FILES</button></a>
+                <div className="container-fluid" id="fileListContainer">
+                    <pre className="fileList" id="filelist"></pre>
+                </div>
             </div>
         )
     }
@@ -53,7 +67,8 @@ class SendButton extends React.Component {
 SendButton.propTypes = {
     files: PropTypes.object,
     torr: PropTypes.object,
-    updateState: PropTypes.func
+    updateState: PropTypes.func,
+    updateFileList: PropTypes.func
 }
 
 export default SendButton
