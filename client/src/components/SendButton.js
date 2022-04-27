@@ -33,6 +33,7 @@ class SendButton extends React.Component {
             var index = 0
             var temp = []
             torrent.files.forEach(function(file){
+                // temporary code. will be replaced with updating Parent Component torr state
                 temp[index] = file
                 console.log(temp[index])
                 index++
