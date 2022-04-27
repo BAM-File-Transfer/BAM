@@ -2,6 +2,10 @@ import '../styles/button.css'
 import React from "react"
 import PropTypes from 'prop-types';
 
+// ----------------------------------------------------------------------------
+// TEMPORARILY NOT NEEDED. ISSUE IS PASSING TORRENT LIST FROM SEND BUTTON TO THIS COMPONENT
+// ----------------------------------------------------------------------------
+
 const Receive = ({torrent}) => {    
     const onClick = () => {
       console.log(torrent)
