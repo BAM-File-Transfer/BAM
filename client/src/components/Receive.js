@@ -25,14 +25,16 @@ const Receive = ({ torrent }) => {
         // temporary code. will be replaced with updating Parent Component torr state
         file.getBlobURL(function callback(err, url) {
           if (err) throw err
+
+          // Create the list
+          let downloadList = document.getElementById('downloadList')
+          let fileRow = document.createElement('li')
+          downloadList.appendChild(fileRow)
           var a = document.createElement('a')
           a.download = file.name
           a.href = url
           a.textContent = 'Download ' + file.name
-          // this.setState( {files:file} )
-          console.log(a)
-          document.body.appendChild(a)
-
+          fileRow.appendChild(a)
         })
 
         // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
@@ -45,6 +47,11 @@ const Receive = ({ torrent }) => {
     <div className="receivefiles">
       <input type="text" id="seeder" placeholder="Enter seed" />
       <button type="button receive" className="button receiveFilesButton col-2" onClick={onClick}>RECEIVE FILES</button>
+      <div id="downloadList" className="container-fluid">
+        <div id="fileRow" className="row">
+
+        </div>
+      </div>
     </div>
   )
 }
