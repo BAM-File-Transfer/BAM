@@ -1,4 +1,5 @@
 import '../styles/button.css'
+import '../styles/containers.css'
 import React from "react"
 import PropTypes from 'prop-types';
 
@@ -45,12 +46,16 @@ const Receive = ({ torrent }) => {
 
   return (
     <div className="receivefiles">
-      <input type="text" id="seeder" placeholder="Enter seed" />
-      <button type="button receive" className="button receiveFilesButton col-2" onClick={onClick}>RECEIVE FILES</button>
+      <ul className="receiveContainer">
+        <li>
+          <input type="text" id="seeder" placeholder="Enter seed" />
+        </li>
+        <li>
+          <button type="button receive" className="button receiveFilesButton" onClick={onClick}>RECEIVE FILES</button>
+        </li>
+      </ul>
       <div id="downloadList" className="container-fluid">
-        <div id="fileRow" className="row">
-
-        </div>
+        <div id="fileRow" />
       </div>
     </div>
   )
