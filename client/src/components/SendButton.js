@@ -3,6 +3,7 @@ import '../styles/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
+import Receive from './Receive';
 
 class SendButton extends React.Component {   
     constructor(props) {
@@ -64,7 +65,8 @@ class SendButton extends React.Component {
             <div>
                 <button className="button" onClick={this.onClick}>Send</button>
                 {/* TEMPORARY RECEIVE BUTTON. WILL BE REPLACED LATER W/ RECEIVE COMPONENT */}
-                <a href="#" download="" id="receive"><button type = "button receive" className="button receiveFilesButton col-2">RECEIVE FILES</button></a>
+                {/* <a href="#" download="" id="receive"><button type = "button receive" className="button receiveFilesButton col-2">RECEIVE FILES</button></a> */}
+                <Receive />
             </div>
         )
     }
