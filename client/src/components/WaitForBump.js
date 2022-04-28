@@ -21,6 +21,12 @@ const WaitForBump = () => {
                     <br/>
                     TO INITIATE TRANSFER!
                 </h1>
+                <button className = "test-button" onClick={() => {
+                    navigate('/TransferInProgress')
+                }}>Sender</button>
+                <button className = "test-button" onClick={() => {
+                    navigate('/TransferInProgress')
+                }}>Receiver</button>
         </div>
         <button className = "fists-bumping-cancel" onClick={() => {
             navigate('/')
