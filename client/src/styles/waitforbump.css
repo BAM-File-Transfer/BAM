@@ -19,12 +19,12 @@
     height: 300px;
 }
 
-.fists-bumping-cancel{
-    font-family: "Roboto", sans-serif;
+.red-button-bottom{
+    font-family: 'Bangers', cursive;
+    font-size: 26px;
     position: absolute;
     bottom: 5%;
     left: 50%;
-    font-size: 23px;
     font-weight: 800;
     border-radius: 15px;
     max-width: 350px;

@@ -28,9 +28,9 @@ const WaitForBump = () => {
                     navigate('/TransferInProgress')
                 }}>Receiver</button>
         </div>
-        <button className = "fists-bumping-cancel" onClick={() => {
+        <button className = "red-button-bottom" onClick={() => {
             navigate('/')
-        }}>Cancel!</button>
+        }}>CANCEL</button>
     </div>
   )
 }
