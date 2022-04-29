@@ -7,9 +7,11 @@ import SendButton from './SendButton'
 class ChooseFiles extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {files: null}
+    this.state = {
+      files: null
+    }
   }
-  
+
   // Populates pre component with file names
   handleFile = (e) => {
     const fileListContainer = document.getElementById('fileListContainer')
@@ -37,10 +39,10 @@ class ChooseFiles extends React.Component {
   render() {
     return (
         <div className="chooseFile">
-            <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
+            <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
             <SendButton files={this.state.files}/>
         </div>
     )
