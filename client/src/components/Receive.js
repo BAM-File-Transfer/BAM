@@ -1,9 +1,12 @@
 import '../styles/button.css'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Receive = () => {
+  const navigate = useNavigate()
   const handleClick = () => {
     alert('Receive Files')
+    navigate('/WaitForBump')
   }
 
   return (
