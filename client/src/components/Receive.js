@@ -1,4 +1,15 @@
 import '../styles/button.css'
+
+// --- Abdullah's Routing ---
+//import React from 'react'
+//import { useNavigate } from 'react-router-dom'
+
+//const Receive = () => {
+//  const navigate = useNavigate()
+//  const handleClick = () => {
+//    alert('Receive Files')
+//    navigate('/WaitForBump')
+
 import '../styles/containers.css'
 import React from "react"
 import PropTypes from 'prop-types';

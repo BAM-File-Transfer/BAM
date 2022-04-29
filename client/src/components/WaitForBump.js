@@ -13,6 +13,12 @@ const WaitForBump = () => {
     <div className="App">
         <Header />
         <SuperheroName />
+        <button className = "test-button" onClick={() => {
+            navigate('/Progress')
+        }}>Sender</button>
+        <button className = "test-button" onClick={() => {
+            navigate('/Progress')
+        }}>Receiver</button>
         <div className='fists-bumping-container'>
                 <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
                 <h1 className="text-style">
@@ -22,9 +28,9 @@ const WaitForBump = () => {
                     TO INITIATE TRANSFER!
                 </h1>
         </div>
-        <button className = "fists-bumping-cancel" onClick={() => {
+        <button className = "red-button-bottom" onClick={() => {
             navigate('/')
-        }}>Cancel!</button>
+        }}>CANCEL</button>
     </div>
   )
 }
