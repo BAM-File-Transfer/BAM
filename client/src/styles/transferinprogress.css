@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+.transfertext {
+  background-color: black;
+  color: white;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 25px;
+  line-height: 1.5;
+  padding-bottom: 250px;
+  margin-top: 20px;
+  
+}
+
+.text-style {
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    margin-top: 50px;
+}

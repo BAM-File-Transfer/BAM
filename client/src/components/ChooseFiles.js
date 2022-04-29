@@ -11,11 +11,9 @@ class ChooseFiles extends React.Component {
       files: null
     }
   }
-  stateUpdate(newFiles, newTorr) {
-    this.setState({files:newFiles, torr:newTorr})
-  }
+
   // Populates pre component with file names
-  handleFile(e){
+  handleFile = (e) => {
     const fileListContainer = document.getElementById('fileListContainer')
     const fileList = document.getElementById('filelist')
     const userFiles = document.getElementById('files').files
@@ -45,7 +43,7 @@ class ChooseFiles extends React.Component {
                 <pre className="fileList" id="filelist"></pre>
             </div>
             <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
-            <SendButton files={this.state.files} torr={this.state.torr} updateState={(newFiles, newTorr) => this.stateUpdate(newFiles, newTorr)}/>
+            <SendButton files={this.state.files}/>
         </div>
     )
   }

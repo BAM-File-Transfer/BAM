@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
+// import { useNavigate } from 'react-router-dom'
 
 class SendButton extends React.Component {   
     constructor(props) {
@@ -12,8 +13,8 @@ class SendButton extends React.Component {
             files: this.props.files
         }
       }
-
-    onClick(){
+    // useNavigate(){}
+    onClick = () => {
         const { WebTorrent } = window  // Imports webtorrent from the window object
         let client = new WebTorrent()
 
@@ -23,9 +24,9 @@ class SendButton extends React.Component {
         client.seed(this.props.files, function (torrent) {
             console.log('Client is seeding:\n' + torrent.magnetURI);
         })
+        //navigate('/Progress')
     }
 
-    
     render(){
         return (
             <div>
