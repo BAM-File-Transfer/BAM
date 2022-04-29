@@ -8,15 +8,14 @@ class ChooseFiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: null,
-      torr: null
+      files: null
     }
   }
   stateUpdate(newFiles, newTorr) {
     this.setState({files:newFiles, torr:newTorr})
   }
   // Populates pre component with file names
-  handleFile = (e) => {
+  handleFile(e){
     const fileListContainer = document.getElementById('fileListContainer')
     const fileList = document.getElementById('filelist')
     const userFiles = document.getElementById('files').files
