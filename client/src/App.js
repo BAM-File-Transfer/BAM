@@ -5,6 +5,7 @@ import Home from './components/Home';
 import WaitForBump from './components/WaitForBump';
 import SenderSuccess from './components/SenderSuccess';
 import ReceiverSuccess from './components/ReceiverSuccess'
+import TransferInProgress from "./components/TransferInProgress";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App () {
@@ -16,6 +17,7 @@ function App () {
         <Route path='/WaitForBump' element={<WaitForBump />} />
         <Route path='/SenderSuccess' element={<SenderSuccess />} />
         <Route path='/ReceiverSuccess' element={<ReceiverSuccess />} />
+        <Route path='/Progress' element={<TransferInProgress />} />
       </Routes>
     </Router>
 
