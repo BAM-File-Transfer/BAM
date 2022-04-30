@@ -9,6 +9,11 @@
     transition: transform 0.3s ease;
 }
 
+.ButtonSection {
+    position:relative; 
+    margin-top:14%;
+  }
+
 .receiveFilesButton {
     background-color: rgba(168,198,250,255);
 }
