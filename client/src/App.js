@@ -1,11 +1,11 @@
 import React from "react"
 import './styles/App.css';
-import About from './Components/About';
-import Home from './Components/Home';
-import WaitForBump from './Components/WaitForBump';
-import SenderSuccess from './Components/SenderSuccess';
-import ReceiverSuccess from './Components/ReceiverSuccess'
-import TransferInProgress from "./Components/TransferInProgress";
+import About from './components/About';
+import Home from './components/Home';
+import WaitForBump from './components/WaitForBump';
+import SenderSuccess from './components/SenderSuccess';
+import ReceiverSuccess from './components/ReceiverSuccess'
+import TransferInProgress from "./components/TransferInProgress";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App () {
