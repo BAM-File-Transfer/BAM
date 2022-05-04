@@ -9,7 +9,7 @@ const Home = () => {
     <div className = "App">
         <Header />
         <SuperheroName />
-        <div>
+        <div className="ButtonSection">
             <ChooseFiles />
         </div>
     </div>

@@ -1,4 +1,6 @@
 import '../styles/button.css'
+import '../styles/superheronamebox.css'
+
 import React from 'react'
 
 const SuperheroName = () => {
@@ -7,7 +9,7 @@ const SuperheroName = () => {
             <form>
                 Superhero Name<br></br>
                 <label>
-                    <input type="text" name="name" placeholder="Enter Name"/>
+                    <input type="text" className="SuperheroNameBox" name="name" placeholder="Enter Name"/>
                 </label>
             </form>
         </div>

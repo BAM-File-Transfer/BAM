@@ -1,4 +1,6 @@
 import '../styles/button.css'
+import '../styles/questionmark.css'
+
 import React from 'react'
 import BAMLogo from '../assets/BAMLogo.png'
 import { useNavigate } from "react-router-dom"
@@ -8,7 +10,7 @@ const Header = () => {
   return (
     <div className = "Header">
       <img src = {BAMLogo} className="bam-image-size" alt="BAM! Logo"/>
-      <button onClick={() => {
+      <button className = "QuestionMark" onClick={() => {
         navigate("/About");
       }}>?</button>
 
