@@ -23,8 +23,6 @@
 }
 
 .downloadButton{
-    font: bold 11px Arial;
-    text-decoration: none;
     background-color: white;
     border-radius: 50%;
     color: #ffffff;
@@ -36,6 +34,24 @@
     height: 30px !important;
     margin-top: 3%;
     margin-left: 3%;
+}
+
+.downloadAllButton{
+    background-color: rgb(40, 191, 68);
+    border-radius: 7%/14%;
+    color: #ffffff;
+    padding: 1.5% !important;
+    width: 200px !important;
+    height: 30px !important;
+    padding-top: 5%;
+    margin-top: 5%;
+    margin-left: 3%;
+}
+.downloadAllButton:active{
+    color: white;
+}
+.downloadAllButton:focus{
+    color: white;
 }
 
 .downloadIcon{

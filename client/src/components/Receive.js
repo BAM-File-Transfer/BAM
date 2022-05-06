@@ -49,12 +49,14 @@ const Receive = ({ torrent }) => {
                 .then(function (blob) {
                   let downloadList = document.getElementById('downloadList')
                   let fileRow = document.createElement('div')
+                  fileRow.className = 'downloadAllContainer'
                   downloadList.appendChild(fileRow)
                   const url = URL.createObjectURL(blob)
                   const a = document.createElement('a')
                   a.download = "downloaded_files"
                   a.href = url
                   a.textContent = 'Download All Files'
+                  a.className = 'downloadAllButton'
                   fileRow.appendChild(a)
                   setTimeout(function () {
                     URL.revokeObjectURL(url)
