@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
+import { postTo } from './ApiFetch'
 // import { useNavigate } from 'react-router-dom'
 
 // --- Abdullah's Routing ---
@@ -30,18 +31,9 @@ class SendButton extends React.Component {
         client.seed(this.props.files, function (torrent) {
             console.log('Client is seeding:\n' + torrent.magnetURI);
         })
-      
-      // --- Abdullah's Routing ---
-      //  navigate('/WaitForBump')
-   // }
 
-  //  return (
-   //     <div>
-    //        <button className="button" onClick={onClick}>Send</button>
-     //   </div>
-    //)
-      // --------------------------------
-        //navigate('/Progress')
+        // Send to API server
+        postTo("/send")
     }
 
     render(){
