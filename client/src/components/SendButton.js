@@ -29,11 +29,17 @@ class SendButton extends React.Component {
         console.log(this.props.files)
         // CREATE TORRENT SEED
         client.seed(this.props.files, function (torrent) {
-            console.log('Client is seeding:\n' + torrent.magnetURI);
-        })
+            console.log("Client is seeding:\n" + torrent.magnetURI);
 
-        // Send to API server
-        postTo("/send")
+            // Send to API server
+            const clientData = {
+                name: "Saitama",
+                time: "now",
+                location: "here",
+                magnet: torrent.magnetURI,
+            };
+            postTo(clientData, "/send");
+        })
     }
 
     render(){
