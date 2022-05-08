@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
-import { postTo } from './ApiFetch'
+import { APIsend } from './ApiFetch'
 // import { useNavigate } from 'react-router-dom'
 
 // --- Abdullah's Routing ---
@@ -38,7 +38,7 @@ class SendButton extends React.Component {
                 location: "here",
                 magnet: torrent.magnetURI,
             };
-            postTo(clientData, "/send");
+            APIsend (clientData);
         })
     }
 

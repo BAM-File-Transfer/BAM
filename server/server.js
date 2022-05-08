@@ -15,6 +15,9 @@ app.post('/send', (req, res) => {  // Change these GET requests to POST requests
 })
 
 app.post('/recv', (req, res) => {  // Change these GET requests to POST requests
+  let time = Date().getTime()
+  console.info("Time:", time);
+  
   res.json({
     name: "Saitama",
     time: "now",

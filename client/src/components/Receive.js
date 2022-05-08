@@ -20,7 +20,8 @@ const Receive = ({ torrent }) => {
     const { WebTorrent } = window;
     let client = new WebTorrent();
 
-    var torrentId = document.getElementById('seeder').value
+    // var torrentId = document.getElementById('seeder').value //TODO remove
+    //TODO fetch from API
     console.log("Torrent ID: ", torrentId)
 
     // https://webtorrent.io/docs
