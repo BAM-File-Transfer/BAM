@@ -5,7 +5,12 @@ import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
 import { APIsend } from './ApiFetch'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+
+// --- Abdullah's Routing ---
+//const SendButton = ({files}) => {
+//    const navigate = useNavigate()
+//    const onClick = () => {
 
 class SendButton extends React.Component {   
     constructor(props) {
@@ -14,7 +19,6 @@ class SendButton extends React.Component {
             files: this.props.files
         }
       }
-    
     // useNavigate(){}
     onClick = () => {
 
@@ -36,7 +40,6 @@ class SendButton extends React.Component {
             };
             APIsend (clientData);
         })
-        useNavigate()
     }
 
     render(){

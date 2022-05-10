@@ -1,7 +1,14 @@
 import "../styles/button.css";
 
 // --- Abdullah's Routing ---
-import { useNavigate } from 'react-router-dom'
+//import { useNavigate } from 'react-router-dom'
+
+//const Receive = () => {
+//  const navigate = useNavigate()
+//  const handleClick = () => {
+//    alert('Receive Files')
+//    navigate('/WaitForBump')
+
 import "../styles/button.css";
 import "../styles/containers.css";
 import React from "react";
@@ -95,7 +102,6 @@ const Receive = ({ torrent }) => {
         });
       });
     });
-    useNavigate('/WaitForBump')
   };
 
   return (
