@@ -13,6 +13,7 @@ import '../styles/button.css'
 import '../styles/containers.css'
 import React from "react"
 import PropTypes from 'prop-types';
+import { APIrecv } from './ApiFetch';
 
 const Receive = ({ torrent }) => {
   const onClick = () => {
@@ -21,28 +22,38 @@ const Receive = ({ torrent }) => {
     let client = new WebTorrent();
 
     // var torrentId = document.getElementById('seeder').value //TODO remove
+    let clientData = {
+      name: "Superman",
+      time: "now",
+      location: "here",
+    }
     //TODO fetch from API
-    console.log("Torrent ID: ", torrentId)
+    APIrecv(clientData).then((response) => {
+      console.log("Torrent ID: ", response.magnet);
 
-    // https://webtorrent.io/docs
-    client.add(torrentId, function (torrent) {
-      torrent.files.forEach(function (file) {
-        // temporary code. will be replaced with updating Parent Component torr state
-        file.getBlobURL(function callback(err, url) {
-          if (err) throw err
+      let torrentId = response.magnet;
+      
+      // https://webtorrent.io/docs
+      client.add(torrentId, function (torrent) {
+        torrent.files.forEach(function (file) {
+          // temporary code. will be replaced with updating Parent Component torr state
+          file.getBlobURL(function callback(err, url) {
+            if (err) throw err;
 
-          // Create the list
-          let downloadList = document.getElementById('downloadList')
-          let fileRow = document.createElement('li')
-          downloadList.appendChild(fileRow)
-          var a = document.createElement('a')
-          a.download = file.name
-          a.href = url
-          a.textContent = 'Download ' + file.name
-          fileRow.appendChild(a)
-        })
-      })
+            // Create the list
+            let downloadList = document.getElementById("downloadList");
+            let fileRow = document.createElement("li");
+            downloadList.appendChild(fileRow);
+            var a = document.createElement("a");
+            a.download = file.name;
+            a.href = url;
+            a.textContent = "Download " + file.name;
+            fileRow.appendChild(a);
+          });
+        });
+      });
     })
+
   }
 
   return (

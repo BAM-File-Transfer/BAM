@@ -26,19 +26,14 @@ async function postTo(clientData, path) {
   let fetchRes = await fetch(API_IP + ":" + API_PORT + path, options);
   console.log(fetchRes);
   let datamsg = await fetchRes.json()
-  console.log(datamsg);
+  // console.log(datamsg);
   return datamsg;
 }
 
 export async function APIsend (clientData) {
-  postTo (clientData, '/send');
+  return postTo (clientData, '/send');
 }
 
 export async function APIrecv (clientData) {
-  var response;
-  while (response['magnet']) {
-    response = await postTo (clientData, '/recv');
-    // if (response['magnet']) { break; }
-  }
-  console.log(response);
+  return postTo (clientData, '/recv')
 }
