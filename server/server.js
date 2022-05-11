@@ -22,9 +22,9 @@ app.get("/api", (req, res) => {
 app.post("/send", async (req, res) => {
   // Change these GET requests to POST requests
   const dataEntry = {
-    name: 'Bob',
-    magnetLink: 'whatever'
-    // location: 'here'
+    name: req.body.name,
+    magnetLink: req.body.magnet,
+    coordinates: [115, 115]
   }
   const send = await sender.create(dataEntry)
   console.log(send);

@@ -9,9 +9,9 @@ async function postTo(clientData, path) {
   Example:
     const clientData = {
         name: "Saitama",
-        time: "now",
-        location: "here",
-        magnet: torrent.magnetURI,
+        date: "now",
+        coordinates: [longitude, lattitude],
+        magnetLink: torrent.magnetURI,
     };
   */
   
