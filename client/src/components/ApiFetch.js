@@ -25,7 +25,7 @@ Example:
       name: "Saitama",
       magnetLink: torrent.magnetURI,
       coordinates: [longitude, lattitude],
-      date: "now",
+      date: Date.now(),
   };
 
 Schema: See "models/Sender.js" for the most up-to-date MongoDB schema.
@@ -33,7 +33,7 @@ The types that the MongoDB database is expecting are...
   name:         String
   magnetLink:   String
   coordinates:  [Number]    // Array of numbers
-  date:         String
+  date:         Date
 */
 
 export async function APIsend (clientData) {

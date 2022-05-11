@@ -20,8 +20,7 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/send", async (req, res) => {
-  // Change these GET requests to POST requests
-  const dataEntry = req.body;
+  const dataEntry = req.body
   // const dataEntry = {
   //   name: req.body.name,
   //   magnetLink: req.body.magnetLink,
@@ -37,10 +36,6 @@ app.post("/send", async (req, res) => {
 });
 
 app.post("/recv", (req, res) => {
-  // Change these GET requests to POST requests
-  // let time = Date().getTime()
-  // console.info("Time:", time);
-
   res.json({
     name: "Saitama",
     time: "now",

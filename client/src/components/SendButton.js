@@ -36,7 +36,7 @@ class SendButton extends React.Component {
                 name: "Saitama",
                 magnetLink: torrent.magnetURI,
                 coordinates: [115, 115],
-                date: "now",
+                date: Date.now(),
             };
             APIsend (clientData);
         })
