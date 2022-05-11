@@ -34,9 +34,9 @@ class SendButton extends React.Component {
             // Send to API server
             const clientData = {
                 name: "Saitama",
-                time: "now",
-                location: "here",
-                magnet: torrent.magnetURI,
+                magnetLink: torrent.magnetURI,
+                coordinates: [115, 115],
+                date: "now",
             };
             APIsend (clientData);
         })
