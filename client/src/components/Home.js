@@ -1,7 +1,7 @@
 import Header from "./Header"
 import SuperheroName from "./SuperheroName"
 import ChooseFiles from "./ChooseFiles"
-import GetSensorData from "./GetSensorData"
+import GetLocation from "./GetLocation"
 
 import React from 'react'
 
@@ -12,7 +12,7 @@ const Home = () => {
         <SuperheroName />
         <div className="ButtonSection">
             <ChooseFiles />
-            <GetSensorData />
+            <GetLocation />
         </div>
     </div>
   )

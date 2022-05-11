@@ -10,10 +10,15 @@ import React, { useState } from 'react';
       setStatus('Geolocation is not supported by your browser');
     } else {
       setStatus('Locating...');
+      console.log("hello");
       navigator.geolocation.getCurrentPosition((position) => {
         setStatus(null);
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
+        // can create variables to store longitude and latitide here (for putting in database / server use)
+        // let lat = position.coords.latitude
+        // let lng = position.coords.longitude
+        
       }, () => {
         setStatus('Unable to retrieve your location');
       });
@@ -22,7 +27,7 @@ import React, { useState } from 'react';
 
   return (
     <div className="App">
-      <button onClick={getLocation}>Get Location</button>
+      <button className="button" onClick={getLocation}>Get Location</button>
       <h1>Coordinates</h1>
       <p>{status}</p>
       {lat && <p>Latitude: {lat}</p>}
