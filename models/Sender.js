@@ -16,18 +16,18 @@ const SenderSchema = new mongoose.Schema({
         required: true
     },
 
-    location: {
-        type: {
-          type: String,
-          enum: ['Point'],
-          required: true
-        },
+    // location: {
+    //     type: {
+    //       type: String,
+    //       enum: ['Point'],
+    //       required: true
+    //     },
 
-        coordinates: {
-          type: [Number],
-          required: true
-        }
-      },
+    //     coordinates: {
+    //       type: [Number],
+    //       required: true
+    //     }
+    //   },
 
     date: {
         type: Date,

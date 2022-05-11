@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("../config/db");
+const sender = require('../models/Sender')
 
 dotenv.config({ path: "./../config/config.env" });
 
@@ -18,9 +19,18 @@ app.get("/api", (req, res) => {
   res.json({ testObject: ["testElement"] });
 });
 
-app.post("/send", (req, res) => {
+app.post("/send", async (req, res) => {
   // Change these GET requests to POST requests
-  console.log("server.js: " + JSON.stringify(req.body));
+  const dataEntry = {
+    name: 'Bob',
+    magnetLink: 'whatever'
+    // location: 'here'
+  }
+  const send = await sender.create(dataEntry)
+  console.log(send);
+  
+  // console.log("server.js: " + JSON.stringify(req.body));
+
   res.json({ status: "OK" });
 });
 
