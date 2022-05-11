@@ -12,6 +12,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/api", (req, res) => {
   res.json({ testObject: ["testElement"] });
@@ -19,6 +20,7 @@ app.get("/api", (req, res) => {
 
 app.post("/send", (req, res) => {
   // Change these GET requests to POST requests
+  console.log("server.js: " + JSON.stringify(req.body));
   res.json({ status: "OK" });
 });
 
