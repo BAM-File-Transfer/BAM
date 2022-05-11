@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-  const App = () => {
+  const myLocation = () => {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
@@ -28,7 +28,9 @@ import React, { useState } from 'react';
       {lat && <p>Latitude: {lat}</p>}
       {lng && <p>Longitude: {lng}</p>}
     </div>
+  
+    
   );
 }
 
-export default App;
+export default myLocation;
