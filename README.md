@@ -10,6 +10,11 @@ A File Sharing Web Application
     │   ├── src             # Holds main code
     │   │   ├── index.js    # the js code executed when front end is booted up
     │   ├── package.json    # Dependency, script, version, etc. data
+    ├── config              # Back End Folder structure (Node.js + ExpressJS)
+    │   ├── config.env      # Contains sensitive environment variables 
+    │   ├── db.js           # Contains function for database connection
+    ├── models              # Holds Models for MongoDB
+    │   ├── Sender.js       # Sender model
     ├── server              # Back End Folder structure (Node.js + ExpressJS)
     │   ├── node_modules    # Holds all downloaded NPM packages
     │   ├── server.js       # Main server app
