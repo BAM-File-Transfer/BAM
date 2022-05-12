@@ -1,7 +1,7 @@
 import '../styles/button.css'
 
 // --- Abdullah's Routing ---
-//import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 //const Receive = () => {
 //  const navigate = useNavigate()
@@ -19,6 +19,7 @@ import downloadIcon from '../assets/download.png'
 let addedFiles = 0
 var torrentId = ''
 const Receive = ({ torrent }) => {
+  const navigate = useNavigate()
   const onClick = () => {
     var zip = new JSZip();
     zip.file("Hello.txt", "Hello World\n");
@@ -35,10 +36,10 @@ const Receive = ({ torrent }) => {
           file.getBlob(function (err, blob) {
             addedFiles += 1
             if (err) throw err
-    
+
             // add file to zip
             zip.file(file.path, blob)
-    
+
             // start the download when all files have been added
             if (addedFiles === torrent.files.length) {
               if (torrent.files.length > 1) {
@@ -84,14 +85,14 @@ const Receive = ({ torrent }) => {
             var img = document.createElement('img')
             img.className = 'downloadIcon'
             img.src = downloadIcon
-            a.appendChild(img)  
+            a.appendChild(img)
 
             fileRow.appendChild(p)
             fileRow.appendChild(a)
           })
         })
       })
-
+      navigate('/WaitForBump')
   }
 
   return (

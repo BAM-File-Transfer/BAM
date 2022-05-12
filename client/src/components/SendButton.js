@@ -4,14 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // --- Abdullah's Routing ---
 //const SendButton = ({files}) => {
 //    const navigate = useNavigate()
 //    const onClick = () => {
 
-class SendButton extends React.Component {   
+class SendButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +20,6 @@ class SendButton extends React.Component {
       }
     // useNavigate(){}
     onClick = () => {
-
         const { WebTorrent } = window  // Imports webtorrent from the window object
         let client = new WebTorrent()
 
@@ -30,9 +29,10 @@ class SendButton extends React.Component {
         client.seed(this.props.files, function (torrent) {
             console.log('Client is seeding:\n' + torrent.magnetURI);
         })
-      
-      // --- Abdullah's Routing ---
-      //  navigate('/WaitForBump')
+        // --- Abdullah's Routing ---
+        // navigate('/WaitForBump')
+        const { navigation } = this.props;
+        navigation('/WaitForBump')
    // }
 
   //  return (
@@ -56,7 +56,13 @@ class SendButton extends React.Component {
 
 // DECLARING PROP TYPES
 SendButton.propTypes = {
-    files: PropTypes.object
+    files: PropTypes.object,
+    navigation: PropTypes.func
 }
 
-export default SendButton
+export default function wrapper(props) {
+  const navigation = useNavigate();
+  return <SendButton {...props} navigation={navigation} />;
+}
+
+//export default SendButton
