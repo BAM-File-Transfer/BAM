@@ -20,13 +20,13 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/send", async (req, res) => {
-  const dataEntry = req.body
-  // const dataEntry = {
-  //   name: req.body.name,
-  //   magnetLink: req.body.magnetLink,
-  //   coordinates: req.body.coordinates,
-  //   date: req.body.date
-  // }
+  // const dataEntry = req.body
+  const dataEntry = {
+    name: req.body.name,
+    magnetLink: req.body.magnetLink,
+    coordinates: req.body.coordinates,
+    date: req.body.date
+  }
   const send = await sender.create(dataEntry)
   console.log(send);
   
@@ -35,7 +35,17 @@ app.post("/send", async (req, res) => {
   res.json({ status: "OK" });
 });
 
-app.post("/recv", (req, res) => {
+app.post("/recv", async (req, res) => {
+  // Request from database
+  const dataEntry = {
+    coordinates: req.body.coordinates
+    // date: req.body.date
+  }
+
+  /*const receiver = */await sender.find(dataEntry).then( (response) => {
+    console.log(response)
+  })
+  
   res.json({
     name: "Saitama",
     time: "now",
