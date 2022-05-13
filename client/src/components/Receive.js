@@ -35,9 +35,9 @@ const Receive = ({ torrent }) => {
       date: Date.now(),
     };
     APIrecv(clientData).then((response) => {
-      console.log("Torrent ID: ", response.magnet);
+      console.log("Torrent ID: ", response.magnetLink);
 
-      let torrentId = response.magnet;
+      let torrentId = response.magnetLink;
       // https://webtorrent.io/docs
       client.add(torrentId, function (torrent) {
         torrent.files.forEach(function (file) {
