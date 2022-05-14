@@ -1,7 +1,9 @@
+import { sleep } from "../util/sleep";
+
 const API_IP = "http://129.146.60.126";
 const API_PORT = 5000;
 
-// Helper Function
+// Helper Functions
 async function request(method, clientData, path) {
   const options = {
     method: method,
@@ -15,6 +17,11 @@ async function request(method, clientData, path) {
   console.log(fetchRes);
   let datamsg = await fetchRes.json()
   return datamsg;
+}
+
+function hasProperty (obj, prop) {
+  // https://simplernerd.com/fix-error-do-not-access-object-prototype-method-hasownproperty/
+  return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
 /*
@@ -41,6 +48,11 @@ export async function APIsend (clientData) {
 }
 
 export async function APIrecv (clientData) {
-  //TODO Make this retry a few times
-  return request ("POST", clientData, '/recv');
+  let response = await request ("POST", clientData, '/recv');
+  let retriesLeft = 3
+  while (retriesLeft-- > 0 && !hasProperty(response, "magnetLink")) {
+    await sleep(500);  // 500 = half a second
+    response = await request ("POST", clientData, '/recv');
+  }
+  return response;
 }
