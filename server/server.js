@@ -49,10 +49,6 @@ app.post("/recv", async (req, res) => {
   } catch {
     console.log("Invalid Date: " + req.body.date);
   }
-
-  //TODO remove Debug prints
-  console.log(new Date(max_date));
-  console.log(new Date(min_date));
   
   // Request from database
   const request = {
@@ -60,8 +56,6 @@ app.post("/recv", async (req, res) => {
     date: {
       $gt: new Date(min_date),
       $lt: new Date(max_date),
-      // $gt: getDateOffsetBySec(req.body.date, -1 * SECOND_OFFSET),
-      // $lt: getDateOffsetBySec(req.body.date, SECOND_OFFSET),
     },
   };
 
