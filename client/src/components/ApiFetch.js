@@ -49,7 +49,7 @@ export async function APIsend (clientData) {
 
 export async function APIrecv (clientData) {
   let response = await request ("POST", clientData, '/recv');
-  let retriesLeft = 3
+  let retriesLeft = 10
   while (retriesLeft-- > 0 && !hasProperty(response, "magnetLink")) {
     await sleep(500);  // 500 = half a second
     response = await request ("POST", clientData, '/recv');
