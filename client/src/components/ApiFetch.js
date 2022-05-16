@@ -1,7 +1,7 @@
 import { sleep } from "../util/sleep";
 
-const API_IP = "http://129.146.60.126";
-const API_PORT = 5000;
+const API_IP = "https://bambam.app";
+// const API_PORT = 5000;
 
 // Helper Functions
 async function request(method, clientData, path) {
@@ -13,7 +13,7 @@ async function request(method, clientData, path) {
     },
   };
 
-  let fetchRes = await fetch(API_IP + ":" + API_PORT + path, options);
+  let fetchRes = await fetch(API_IP + path, options);
   console.log(fetchRes);
   let datamsg = await fetchRes.json()
   return datamsg;
