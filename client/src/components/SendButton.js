@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
+import { APIsend } from './ApiFetch'
 // import { useNavigate } from 'react-router-dom'
 
 // --- Abdullah's Routing ---
@@ -28,20 +29,17 @@ class SendButton extends React.Component {
         console.log(this.props.files)
         // CREATE TORRENT SEED
         client.seed(this.props.files, function (torrent) {
-            console.log('Client is seeding:\n' + torrent.magnetURI);
-        })
-      
-      // --- Abdullah's Routing ---
-      //  navigate('/WaitForBump')
-   // }
+            console.log("Client is seeding:\n" + torrent.magnetURI);
 
-  //  return (
-   //     <div>
-    //        <button className="button" onClick={onClick}>Send</button>
-     //   </div>
-    //)
-      // --------------------------------
-        //navigate('/Progress')
+            // Send to API server
+            const clientData = {
+                name: "Saitama",
+                magnetLink: torrent.magnetURI,
+                coordinates: [115, 115],
+                date: Date.now(),
+            };
+            APIsend (clientData);
+        })
     }
 
     render(){
