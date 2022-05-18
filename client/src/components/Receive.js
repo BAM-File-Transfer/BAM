@@ -28,16 +28,16 @@ const Receive = ({ torrent }) => {
     let client = new WebTorrent();
 
     // var torrentId = document.getElementById('seeder').value //TODO remove
-    let clientData = {
+    const clientData = {
       name: "Superman",
-      time: "now",
-      location: "here",
+      // magnetLink: "",
+      coordinates: [115, 115],
+      date: Date.now(),
     };
-    //TODO fetch from API
     APIrecv(clientData).then((response) => {
-      console.log("Torrent ID: ", response.magnet);
+      console.log("Torrent ID: ", response.magnetLink);
 
-      let torrentId = response.magnet;
+      let torrentId = response.magnetLink;
       // https://webtorrent.io/docs
       client.add(torrentId, function (torrent) {
         torrent.files.forEach(function (file) {
