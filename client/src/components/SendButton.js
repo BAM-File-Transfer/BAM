@@ -12,7 +12,23 @@ import { APIsend } from './ApiFetch'
 //    const navigate = useNavigate()
 //    const onClick = () => {
 
-class SendButton extends React.Component {   
+// --- James's Geolocation ---
+const getLocation = (callback) => {
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition((position) => {
+      // can create variables to store longitude and latitide here (for putting in database / server use)
+      let lat = position.coords.latitude
+      let lng = position.coords.longitude
+      callback([lat, lng])
+    }, () => {
+      alert('Unable to retrieve your location');
+    });
+  }
+}
+
+class SendButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,15 +46,19 @@ class SendButton extends React.Component {
         // CREATE TORRENT SEED
         client.seed(this.props.files, function (torrent) {
             console.log("Client is seeding:\n" + torrent.magnetURI);
-
-            // Send to API server
-            const clientData = {
-                name: "Saitama",
-                magnetLink: torrent.magnetURI,
-                coordinates: [115, 115],
-                date: Date.now(),
-            };
-            APIsend (clientData);
+            // Callback function lets the program wait until the geolocation
+            // data is ready around 1-3 seconds
+            getLocation(function (geolocation_arr) {
+              // Send to API server
+              const clientData = {
+                  name: "Saitama",
+                  magnetLink: torrent.magnetURI,
+                  coordinates: geolocation_arr,
+                  date: Date.now(),
+              };
+              console.log(clientData)
+              APIsend (clientData);
+            });
         })
     }
 
