@@ -17,6 +17,22 @@ import { APIrecv } from "./ApiFetch";
 import JSZip from "../../node_modules/jszip/dist/jszip";
 import downloadIcon from "../assets/download.png";
 
+// --- James's Geolocation ---
+const getLocation = (callback) => {
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition((position) => {
+      // can create variables to store longitude and latitide here (for putting in database / server use)
+      let lat = position.coords.latitude
+      let lng = position.coords.longitude
+      callback([lat, lng])
+    }, () => {
+      alert('Unable to retrieve your location');
+    });
+  }
+}
+
 let addedFiles = 0;
 // var torrentId = "";
 const Receive = ({ torrent }) => {
@@ -28,76 +44,83 @@ const Receive = ({ torrent }) => {
     let client = new WebTorrent();
 
     // var torrentId = document.getElementById('seeder').value //TODO remove
-    const clientData = {
-      name: "Superman",
-      // magnetLink: "",
-      coordinates: [115, 115],
-      date: Date.now(),
-    };
-    APIrecv(clientData).then((response) => {
-      console.log("Torrent ID: ", response.magnetLink);
 
-      let torrentId = response.magnetLink;
-      // https://webtorrent.io/docs
-      client.add(torrentId, function (torrent) {
-        torrent.files.forEach(function (file) {
-          zip.file(file.path, Blob, { base64: true });
-          // temporary code. will be replaced with updating Parent Component torr state
-          file.getBlob(function (err, blob) {
-            addedFiles += 1;
-            if (err) throw err;
+    // Callback function lets the program wait until the geolocation
+    // data is ready around 1-3 seconds
+    getLocation(function (geolocation_arr) {
+      // Send to API server
+      const clientData = {
+        name: "Superman",
+        // magnetLink: "",
+        coordinates: geolocation_arr,
+        date: Date.now(),
+      };
+      console.log(clientData)
+      APIrecv(clientData).then((response) => {
+        console.log("Torrent ID: ", response.magnetLink);
 
-            // add file to zip
-            zip.file(file.path, blob);
+        let torrentId = response.magnetLink;
+        // https://webtorrent.io/docs
+        client.add(torrentId, function (torrent) {
+          torrent.files.forEach(function (file) {
+            zip.file(file.path, Blob, { base64: true });
+            // temporary code. will be replaced with updating Parent Component torr state
+            file.getBlob(function (err, blob) {
+              addedFiles += 1;
+              if (err) throw err;
 
-            // start the download when all files have been added
-            if (addedFiles === torrent.files.length) {
-              if (torrent.files.length > 1) {
-                // generate the zip relative to the torrent folder
-                zip = zip.folder(torrent.name);
+              // add file to zip
+              zip.file(file.path, blob);
+
+              // start the download when all files have been added
+              if (addedFiles === torrent.files.length) {
+                if (torrent.files.length > 1) {
+                  // generate the zip relative to the torrent folder
+                  zip = zip.folder(torrent.name);
+                }
+                zip.generateAsync({ type: "blob" }).then(function (blob) {
+                  let downloadList = document.getElementById("downloadList");
+                  let fileRow = document.createElement("div");
+                  fileRow.className = "downloadAllContainer";
+                  downloadList.appendChild(fileRow);
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.download = "downloaded_files";
+                  a.href = url;
+                  a.textContent = "Download All Files";
+                  a.className = "downloadAllButton";
+                  fileRow.appendChild(a);
+                  setTimeout(function () {
+                    URL.revokeObjectURL(url);
+                  }, 30 * 1000);
+                });
               }
-              zip.generateAsync({ type: "blob" }).then(function (blob) {
-                let downloadList = document.getElementById("downloadList");
-                let fileRow = document.createElement("div");
-                fileRow.className = "downloadAllContainer";
-                downloadList.appendChild(fileRow);
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.download = "downloaded_files";
-                a.href = url;
-                a.textContent = "Download All Files";
-                a.className = "downloadAllButton";
-                fileRow.appendChild(a);
-                setTimeout(function () {
-                  URL.revokeObjectURL(url);
-                }, 30 * 1000);
-              });
-            }
-          });
-          file.getBlobURL(function callback(err, url) {
-            if (err) throw err;
-            // Create the list
-            let downloadList = document.getElementById("downloadList");
-            let fileRow = document.createElement("div");
-            fileRow.className = "row fileRow";
-            downloadList.appendChild(fileRow);
+            });
+            file.getBlobURL(function callback(err, url) {
+              if (err) throw err;
+              // Create the list
+              let downloadList = document.getElementById("downloadList");
+              let fileRow = document.createElement("div");
+              fileRow.className = "row fileRow";
+              downloadList.appendChild(fileRow);
 
-            var p = document.createElement("p");
-            p.innerHTML = file.name;
-            p.className = "col-10 fileNameContainer";
+              var p = document.createElement("p");
+              p.innerHTML = file.name;
+              p.className = "col-10 fileNameContainer";
 
-            var a = document.createElement("a");
-            a.download = file.name;
-            a.href = url;
-            a.className = "col-4 downloadButton";
+              var a = document.createElement("a");
+              a.download = file.name;
+              a.href = url;
+              a.className = "col-4 downloadButton";
 
-            var img = document.createElement("img");
-            img.className = "downloadIcon";
-            img.src = downloadIcon;
-            a.appendChild(img);
+              var img = document.createElement("img");
+              img.className = "downloadIcon";
+              img.src = downloadIcon;
+              a.appendChild(img);
 
-            fileRow.appendChild(p);
-            fileRow.appendChild(a);
+              fileRow.appendChild(p);
+              fileRow.appendChild(a);
+            });
           });
         });
       });
