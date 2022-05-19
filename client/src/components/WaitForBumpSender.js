@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
 import FistsBumping from '../assets/FistsBumping.png'
 
-const WaitForBump = () => {
+const WaitForBumpSender = () => {
   const navigate = useNavigate()
   return (
     <div className="App">
@@ -16,9 +16,6 @@ const WaitForBump = () => {
         <button className = "test-button" onClick={() => {
             navigate('/Progress')
         }}>Sender</button>
-        <button className = "test-button" onClick={() => {
-            navigate('/Progress')
-        }}>Receiver</button>
         <div className='fists-bumping-container'>
                 <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
                 <h1 className="text-style">
@@ -35,4 +32,4 @@ const WaitForBump = () => {
   )
 }
 
-export default WaitForBump
+export default WaitForBumpSender
