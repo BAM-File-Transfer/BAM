@@ -44,7 +44,7 @@ class ChooseFiles extends React.Component {
   }
 
   finishChoosingFiles = () => {
-    this.setState({isChoosingFiles: false})
+    this.setState({ isChoosingFiles: false });
   } 
 
   render() {
@@ -53,7 +53,7 @@ class ChooseFiles extends React.Component {
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
-            
+
             { // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
               this.state.isChoosingFiles && (
                 <div>
@@ -69,9 +69,8 @@ class ChooseFiles extends React.Component {
 
 // DECLARING PROP TYPES
 ChooseFiles.propTypes = {
-  files: PropTypes.object,
-  isChoosingFiles: PropTypes.bool,
   client: PropTypes.object,
+  startedSendingCallback: PropTypes.function,
 };
 
 export default ChooseFiles;
