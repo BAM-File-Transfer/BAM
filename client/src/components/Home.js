@@ -1,6 +1,6 @@
 import Header from "./Header"
 import SuperheroName from "./SuperheroName"
-import ChooseFiles from "./ChooseFiles"
+import SendFiles from "./SendFiles"
 import TransferInProgress from "./TransferInProgress"
 
 import React from 'react'
@@ -30,7 +30,7 @@ class Home extends React.Component {
         <Header />
         <SuperheroName />
         <div className="ButtonSection">
-          <ChooseFiles
+          <SendFiles
             client = {this.state.client}
             startedSendingCallback = {this.startedSending}
           />

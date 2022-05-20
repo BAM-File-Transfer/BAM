@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import SendButton from './SendButton'
 
 /**
- * ChooseFiles handles all the sending files logic. Honestly, it should
- * probably be renamed to SendFiles.
+ * SendFiles handles all the sending files logic.
  */
-class ChooseFiles extends React.Component {
+class SendFiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,28 +48,40 @@ class ChooseFiles extends React.Component {
 
   render() {
     return (
-        <div className="chooseFile">
-            <div className="fileListContainer" id="fileListContainer">
-                <pre className="fileList" id="filelist"></pre>
-            </div>
-
-            { // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
-              this.state.isChoosingFiles && (
-                <div>
-                  <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
-                  <SendButton files={this.state.files} parentClickHandler={this.finishChoosingFiles} client={this.state.client}/>
-                </div>
-              )
-            }
+      <div className="chooseFile">
+        <div className="fileListContainer" id="fileListContainer">
+          <pre className="fileList" id="filelist"></pre>
         </div>
-    )
+
+        {
+          // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
+          this.state.isChoosingFiles && (
+            <div>
+              <input
+                type="file"
+                className="button"
+                id="files"
+                onChange={this.handleFile}
+                multiple
+              ></input>
+
+              <SendButton
+                files = {this.state.files}
+                parentClickHandler = {this.finishChoosingFiles}
+                client = {this.state.client}
+              />
+            </div>
+          )
+        }
+      </div>
+    );
   }
 }
 
 // DECLARING PROP TYPES
-ChooseFiles.propTypes = {
+SendFiles.propTypes = {
   client: PropTypes.object,
   startedSendingCallback: PropTypes.function,
 };
 
-export default ChooseFiles;
+export default SendFiles;
