@@ -1,7 +1,6 @@
 import Header from "./Header"
 import SuperheroName from "./SuperheroName"
 import ChooseFiles from "./ChooseFiles"
-// import SendButton from "./SendButton"
 
 import React from 'react'
 

@@ -15,7 +15,6 @@ class SendButton extends React.Component {
             client: this.props.client,  // WebTorrent client from parent
         }
       }
-    // useNavigate(){}
     onClick = () => {
         // FILES TO SEND
         console.log(this.props.files)
