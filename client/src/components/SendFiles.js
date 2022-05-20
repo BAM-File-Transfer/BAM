@@ -63,6 +63,7 @@ class SendFiles extends React.Component {
     });
 
     this.setState({ isChoosingFiles: false });
+    this.props.startedSendingCallback();
   }
 
   render() {

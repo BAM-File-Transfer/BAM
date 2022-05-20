@@ -1,6 +1,4 @@
 import React from 'react'
-import Header from './Header'
-import SuperheroName from './SuperheroName'
 import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -11,8 +9,6 @@ const WaitForBumpSender = () => {
   const navigate = useNavigate()
   return (
     <div className="App">
-        <Header />
-        <SuperheroName />
         <button className = "test-button" onClick={() => {
             navigate('/Progress')
         }}>Sender</button>

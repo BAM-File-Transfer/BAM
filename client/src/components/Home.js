@@ -2,8 +2,7 @@ import Header from "./Header"
 import SuperheroName from "./SuperheroName"
 import SendFiles from "./SendFiles"
 import Receive from './Receive';
-import TransferInProgress from "./TransferInProgress"
-
+import WaitForBumpSender from './WaitForBumpSender'
 import React from 'react'
 
 class Home extends React.Component {
@@ -21,7 +20,7 @@ class Home extends React.Component {
   /**
    * Called by ChooseFiles when it has started sending/seeding the files.
    */
-  startedSending() {
+  startedSending = () => {
     this.setState({ isCurrentlySending: true });
   }
   
@@ -36,7 +35,7 @@ class Home extends React.Component {
             startedSendingCallback = {this.startedSending}
           />
         </div>
-        { this.state.isCurrentlySending && (<TransferInProgress />) }
+        { this.state.isCurrentlySending && (<WaitForBumpSender />) }
         { !this.state.isCurrentlySending && (<Receive />) }
       </div>
     );
