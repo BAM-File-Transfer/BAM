@@ -16,11 +16,14 @@ class SendButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: this.props.files
+            files: this.props.files,
+            parentClickHandler: this.props.parentClickHandler
         }
       }
     // useNavigate(){}
     onClick = () => {
+
+        this.state.parentClickHandler();
 
         const { WebTorrent } = window  // Imports webtorrent from the window object
         let client = new WebTorrent()
@@ -54,7 +57,8 @@ class SendButton extends React.Component {
 
 // DECLARING PROP TYPES
 SendButton.propTypes = {
-    files: PropTypes.object
+    files: PropTypes.object,
+    parentClickHandler: PropTypes.func
 }
 
 export default SendButton

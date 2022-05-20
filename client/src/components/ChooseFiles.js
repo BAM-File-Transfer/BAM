@@ -8,7 +8,8 @@ class ChooseFiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: null
+      files: null,
+      isChoosingFiles: true
     }
   }
 
@@ -36,14 +37,24 @@ class ChooseFiles extends React.Component {
     });
   }
 
+  finishChoosingFiles = () => {
+    this.setState({isChoosingFiles: false})
+  } 
+
   render() {
     return (
         <div className="chooseFile">
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
-            <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
-            <SendButton files={this.state.files}/>
+            {
+              this.state.isChoosingFiles && (
+                <div>
+                  <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
+                  <SendButton files={this.state.files} parentClickHandler={this.finishChoosingFiles}/>
+                </div>
+              )
+            }
         </div>
     )
   }
