@@ -107,9 +107,9 @@ const Receive = ({ torrent }) => {
   return (
     <div className="receivefiles">
       <ul className="receiveContainer">
-        <li>
+        {/* <li>
           <input type="text" id="seeder" placeholder="Enter seed" />
-        </li>
+        </li> */}
         <li>
           <button
             type="button receive"
