@@ -5,12 +5,6 @@ import React from "react"
 import PropTypes from 'prop-types';
 import Receive from './Receive';
 import { APIsend } from './ApiFetch'
-// import { useNavigate } from 'react-router-dom'
-
-// --- Abdullah's Routing ---
-//const SendButton = ({files}) => {
-//    const navigate = useNavigate()
-//    const onClick = () => {
 
 class SendButton extends React.Component {   
     constructor(props) {
@@ -23,9 +17,6 @@ class SendButton extends React.Component {
       }
     // useNavigate(){}
     onClick = () => {
-
-        this.state.parentClickHandler();
-
         // FILES TO SEND
         console.log(this.props.files)
         // CREATE TORRENT SEED
@@ -41,6 +32,8 @@ class SendButton extends React.Component {
             };
             APIsend (clientData);
         })
+
+        this.state.parentClickHandler();
     }
 
     render(){

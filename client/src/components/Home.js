@@ -1,19 +1,32 @@
 import Header from "./Header"
 import SuperheroName from "./SuperheroName"
 import ChooseFiles from "./ChooseFiles"
+// import SendButton from "./SendButton"
 
 import React from 'react'
 
-const Home = () => {
-  return (
-    <div className = "App">
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { WebTorrent } = window  // Imports webtorrent from the window object
+
+    this.state = {
+      client: new WebTorrent(),   // This client should be passed down to all components
+    }
+  }
+  
+  render() {
+    return (
+      <div className="App">
         <Header />
         <SuperheroName />
         <div className="ButtonSection">
-            <ChooseFiles />
+          <ChooseFiles client={this.state.client} />
         </div>
-    </div>
-  )
+      </div>
+    );
+  }
 }
 
 export default Home

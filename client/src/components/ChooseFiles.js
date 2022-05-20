@@ -2,16 +2,20 @@ import '../styles/button.css'
 import '../styles/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
+import PropTypes from 'prop-types';
 import SendButton from './SendButton'
-const { WebTorrent } = window  // Imports webtorrent from the window object
 
+/**
+ * ChooseFiles handles all the sending files logic. Honestly, it should
+ * probably be renamed to SendFiles.
+ */
 class ChooseFiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       files: null,
       isChoosingFiles: true,
-      client: new WebTorrent()
+      client: this.props.client,
     }
   }
 
@@ -49,6 +53,7 @@ class ChooseFiles extends React.Component {
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
+            
             { // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
               this.state.isChoosingFiles && (
                 <div>
@@ -62,4 +67,11 @@ class ChooseFiles extends React.Component {
   }
 }
 
-export default ChooseFiles
+// DECLARING PROP TYPES
+ChooseFiles.propTypes = {
+  files: PropTypes.object,
+  isChoosingFiles: PropTypes.bool,
+  client: PropTypes.object,
+};
+
+export default ChooseFiles;
