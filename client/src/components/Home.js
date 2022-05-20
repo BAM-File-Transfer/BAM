@@ -1,6 +1,7 @@
 import Header from "./Header"
 import SuperheroName from "./SuperheroName"
 import SendFiles from "./SendFiles"
+import Receive from './Receive';
 import TransferInProgress from "./TransferInProgress"
 
 import React from 'react'
@@ -35,9 +36,8 @@ class Home extends React.Component {
             startedSendingCallback = {this.startedSending}
           />
         </div>
-        {
-          this.state.isCurrentlySending && (<TransferInProgress />)
-        }
+        { this.state.isCurrentlySending && (<TransferInProgress />) }
+        { !this.state.isCurrentlySending && (<Receive />) }
       </div>
     );
   }
