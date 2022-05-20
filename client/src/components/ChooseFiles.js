@@ -3,13 +3,15 @@ import '../styles/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import SendButton from './SendButton'
+const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class ChooseFiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       files: null,
-      isChoosingFiles: true
+      isChoosingFiles: true,
+      client: new WebTorrent()
     }
   }
 
@@ -47,11 +49,11 @@ class ChooseFiles extends React.Component {
             <div className="fileListContainer" id="fileListContainer">
                 <pre className="fileList" id="filelist"></pre>
             </div>
-            {
+            { // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
               this.state.isChoosingFiles && (
                 <div>
                   <input type="file" className="button" id="files" onChange={this.handleFile} multiple ></input>
-                  <SendButton files={this.state.files} parentClickHandler={this.finishChoosingFiles}/>
+                  <SendButton files={this.state.files} parentClickHandler={this.finishChoosingFiles} client={this.state.client}/>
                 </div>
               )
             }
