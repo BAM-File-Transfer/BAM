@@ -3,7 +3,6 @@ import '../styles/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import PropTypes from 'prop-types';
-// import { APIsend } from './ApiFetch'
 
 /**
  * SendFiles handles all the sending files logic.

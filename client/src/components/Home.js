@@ -4,6 +4,7 @@ import SendFiles from "./SendFiles"
 import Receive from './Receive';
 import WaitForBumpSender from './WaitForBumpSender'
 import React from 'react'
+import { APIsend } from './ApiFetch'
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,6 +36,16 @@ class Home extends React.Component {
    */
   senderBAM = (sensorData) => {
     console.log("Sender BAM!", sensorData);
+    
+    // Build the API request body
+    const clientData = {
+      name: "Placeholder",
+      magnetLink: this.state.magnetLink,
+      coordinates: sensorData.coordinates,
+      date: sensorData.date,
+    }
+
+    APIsend(clientData);
   }
   
   render() {
