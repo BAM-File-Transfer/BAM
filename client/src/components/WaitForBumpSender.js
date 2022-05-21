@@ -1,22 +1,29 @@
 import React from 'react'
-import Header from './Header'
-import SuperheroName from './SuperheroName'
 import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types';
 import FistsBumping from '../assets/FistsBumping.png'
 
-const WaitForBumpSender = () => {
-  const navigate = useNavigate()
-  return (
-    <div className="App">
-        <Header />
-        <SuperheroName />
-        <button className = "test-button" onClick={() => {
-            navigate('/Progress')
-        }}>Sender</button>
-        <div className='fists-bumping-container'>
+class WaitForBumpSender extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    bamEvent = () => {
+        const sensorData = {
+            coordinates: [115, 115],
+            date: Date.now(),
+        }
+        this.props.bumpCallback(sensorData);
+    }
+    
+    render(){ return (
+        <div className="App">
+            <button className = "test-button" onClick={this.bamEvent}>Simulate BAM! by Sender</button>
+
+            <div className='fists-bumping-container'>
                 <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
                 <h1 className="text-style">
                     <br/>
@@ -24,12 +31,18 @@ const WaitForBumpSender = () => {
                     <br/>
                     TO INITIATE TRANSFER!
                 </h1>
+            </div>
+
+            <button className = "red-button-bottom" onClick={() => {
+                useNavigate('/');
+            }}>CANCEL</button>
         </div>
-        <button className = "red-button-bottom" onClick={() => {
-            navigate('/')
-        }}>CANCEL</button>
-    </div>
-  )
+    )}
 }
+
+// Prop validation
+WaitForBumpSender.propTypes = {
+    bumpCallback: PropTypes.func,
+};
 
 export default WaitForBumpSender
