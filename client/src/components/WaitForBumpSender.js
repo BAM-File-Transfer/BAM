@@ -16,7 +16,7 @@ class WaitForBumpSender extends React.Component {
             coordinates: [115, 115],
             date: Date.now(),
         }
-        this.props.bamCallback(sensorData);
+        this.props.bumpCallback(sensorData);
     }
     
     render(){ return (
@@ -42,7 +42,7 @@ class WaitForBumpSender extends React.Component {
 
 // Prop validation
 WaitForBumpSender.propTypes = {
-    bamCallback: PropTypes.func,
+    bumpCallback: PropTypes.func,
 };
 
 export default WaitForBumpSender

@@ -13,28 +13,29 @@ class Home extends React.Component {
     const { WebTorrent } = window  // Imports webtorrent from the window object
 
     this.state = {
+      appState: "Choosing",
       client: new WebTorrent(),   // This client should be passed down to all components
-      isCurrentlySending: false,
       magnetLink: "",
     }
   }
 
   /**
-   * Called by SendFiles when it has started sending/seeding the files.
-   * Returns the magnet link.
+   * Called by SendFiles when the user has pressed the "Send" button.
+   * @param link: Magnet link send by SendFiles
    */
-  pressedSend = (link) => {
+  pressedSendButtonCallback = (link) => {
     this.setState({
-      isCurrentlySending: true,
+      appState: "ReadyToSend",
       magnetLink: link,
     });
     console.log("Magnet Link: ", link);
   }
 
   /**
-   * Called by WaitForBumpSender when it wants to initiate a BAM
+   * Called by WaitForBumpSender when a BAM/Bump has been detected
+   * @param sensorData: Coordinates and Date sent by WaitForBumpSender
    */
-  senderBAM = (sensorData) => {
+  senderBumpCallback = (sensorData) => {
     console.log("Sender BAM!", sensorData);
     
     // Build the API request body
@@ -51,18 +52,19 @@ class Home extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <SuperheroName />
-        <div className="ButtonSection">
-          <SendFiles
-            client = {this.state.client}
-            startedSendingCallback = {this.pressedSend}
-          />
-        </div>
+        {this.state.appState == "Choosing" && <Header />}
+        {this.state.appState == "Choosing" && <SuperheroName />}
+        
+        <SendFiles
+          client={this.state.client}
+          pressedSendButtonCallback={this.pressedSendButtonCallback}
+        />
 
-        { /* Conditional Rendering */ }
-        { this.state.isCurrentlySending && (<WaitForBumpSender bamCallback = {this.senderBAM} />) }
-        { !this.state.isCurrentlySending && (<Receive />) }
+        {this.state.appState == "ReadyToSend" && (
+          <WaitForBumpSender bumpCallback={this.senderBumpCallback} />
+        )}
+        
+        {this.state.appState == "Choosing" && <Receive />}
       </div>
     );
   }

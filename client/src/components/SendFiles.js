@@ -48,7 +48,7 @@ class SendFiles extends React.Component {
     // FILES TO SEND
     console.log(this.state.files);
     // CREATE TORRENT SEED
-    let returnMagnetLink = this.props.startedSendingCallback;
+    let returnMagnetLink = this.props.pressedSendButtonCallback;
     this.state.client.seed(this.state.files, function (torrent) {
       // console.log("Client is seeding:\n" + torrent.magnetURI);
       returnMagnetLink(torrent.magnetURI);
@@ -64,28 +64,31 @@ class SendFiles extends React.Component {
           <pre className="fileList" id="filelist"></pre>
         </div>
 
-        {
-          // Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button
-          this.state.isChoosingFiles && (
-            <div>
-              {/* File Choosing */}
-              <input
-                type="file"
-                className="button"
-                id="files"
-                onChange={this.handleFile}
-                multiple
-              />
+        {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
+        {this.state.isChoosingFiles && (
+          <div>
 
-              {/* Send Files button */}
+            {/* File Choosing */}
+            <input
+              type="file"
+              className="button"
+              id="files"
+              onChange={this.handleFile}
+              multiple
+            />
+
+            {/* Send Files button */}
+            {/* Don't render "Send" Button if no files were chosen */}
+            {this.state.files && this.state.files.length > 0 && (
               <div>
                 <button className="button" onClick = {this.sendButtonClicked}>
                   Send Files
                 </button>
               </div>
-            </div>
-          )
-        }
+            )}
+
+          </div>
+        )}
       </div>
     );
   }
@@ -94,7 +97,7 @@ class SendFiles extends React.Component {
 // DECLARING PROP TYPES
 SendFiles.propTypes = {
   client: PropTypes.object,
-  startedSendingCallback: PropTypes.func,
+  pressedSendButtonCallback: PropTypes.func,
 };
 
 export default SendFiles;
