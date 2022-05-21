@@ -21,6 +21,7 @@ ul{
     min-height: 200px;
     max-height: 200px;
     margin: auto;
+    margin-bottom: 1%;
     padding: auto;
 }
 .fileNameContainer{
