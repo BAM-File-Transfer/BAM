@@ -39,18 +39,6 @@ class Home extends React.Component {
     console.log("Magnet Link: ", link);
   }
 
-    /**
-   * Called by ReceiveFiles when the user has pressed the "Receive" button.
-   * @param link: ReceiveFiles receives magnet link from db
-   */
-  pressedReceiveButtonCallback = (link) => {
-    this.setState({
-      appState: "ReadyToReceive",
-      magnetLink: link,
-    });
-    console.log("Magnet Link: ", link);
-  }
-
   /**
    * Called by WaitForBumpSender when a BAM/Bump has been detected
    * @param sensorData: Coordinates and Date sent by WaitForBumpSender
@@ -73,7 +61,7 @@ class Home extends React.Component {
  * Called by WaitForBumpReceiver when a BAM/Bump has been detected
  * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
  */
-    receiveBumpCallback = (sensorData) => {
+  receiverBumpCallback = (sensorData) => {
     console.log("Sender BAM!", sensorData);
     
     // Build the API request body

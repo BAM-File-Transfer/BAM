@@ -26,6 +26,7 @@ ul{
 }
 .fileNameContainer{
     margin: 0;
+    overflow-wrap: break-word;
 }
 .downloadListContainer{
     padding: 5%;
