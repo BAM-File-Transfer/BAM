@@ -12,6 +12,16 @@ ul{
     align-items: center;
     border: 1px solid rgb(107, 107, 107);
 }
+.fileList{
+    max-height: 200px;
+    margin: auto;
+    padding: auto;
+}
+.fileListContainer{
+    max-height: 200px;
+    margin: auto;
+    padding: auto;
+}
 .fileNameContainer{
     margin: 0;
 }
