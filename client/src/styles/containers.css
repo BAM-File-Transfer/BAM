@@ -18,6 +18,7 @@ ul{
     padding: auto;
 }
 .fileListContainer{
+    min-height: 200px;
     max-height: 200px;
     margin: auto;
     padding: auto;

@@ -3,6 +3,7 @@
 .text-style{
     font-family: 'Bangers', cursive;
     font-size: 36px;
+    margin-top: none !important;
 }
 
 .fists-bumping-container {

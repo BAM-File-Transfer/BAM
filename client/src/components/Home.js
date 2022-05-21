@@ -23,7 +23,7 @@ class Home extends React.Component {
 
   onReceiveButtonClick = () => {
     this.setState({
-      appState: "ReadyToReceive",
+      appState: "WaitingToReceive",
     });
   }
 
@@ -90,21 +90,20 @@ class Home extends React.Component {
   render() {
     return (
       <div className="App">
-        {(this.state.appState == "Choosing" || this.state.appState == "ReadyToReceive") && <Header />}
+        {(this.state.appState == "Choosing" || this.state.appState == "WaitingToReceive") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
 
-        {this.state.appState != "ReadyToReceive" && (
-            <SendFiles
+        {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
+          <SendFiles
             client={this.state.client}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
-          />
-        )}
+          />}
         
         {this.state.appState == "ReadyToSend" && (
           <WaitForBumpSender bumpCallback={this.senderBumpCallback} />
         )}
 
-        {this.state.appState != "ReadyToReceive" && (
+        {this.state.appState == "Choosing" && (
           <button
             type="button receive"
             className="button receiveFilesButton"
@@ -114,8 +113,11 @@ class Home extends React.Component {
           </button>
         )}
 
-        {this.state.appState == "ReadyToReceive" && (
-          <WaitForBumpReceiver bumpCallback={this.receiverBumpCallback} />
+        {this.state.appState == "WaitingToReceive" && (
+          
+          <WaitForBumpReceiver 
+          client={this.state.client}
+          bumpCallback={this.receiverBumpCallback} />
         )}
 
       </div>

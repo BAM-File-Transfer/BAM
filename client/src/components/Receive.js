@@ -40,6 +40,11 @@ const Receive = ({ torrent }) => {
       let torrentId = response.magnetLink;
       // https://webtorrent.io/docs
       client.add(torrentId, function (torrent) {
+        while (torrent.progress != 1) {
+          console.log('Progress: ' + (torrent.progress * 100).toFixed(1) + '%')
+          setProgress((torrent.progress * 100).toFixed(1));
+          setInterval()
+        } 
         torrent.files.forEach(function (file) {
           zip.file(file.path, Blob, { base64: true });
           // temporary code. will be replaced with updating Parent Component torr state

@@ -28,15 +28,13 @@ class WaitForBumpSender extends React.Component {
             <button className = "test-button" onClick={this.bamEvent}>
               <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
             </button>
-            
-            <div className='fists-bumping-container'>
-                <h1 className="text-style">
-                    <br/>
-                    FIST BUMP THE DEVICES
-                    <br/>
-                    TO INITIATE TRANSFER!
-                </h1>
-            </div>
+          
+            <h1 className="text-style">
+                <br/>
+                FIST BUMP THE DEVICES
+                <br/>
+                TO INITIATE TRANSFER!
+            </h1>
 
             <button className = "red-button-bottom" onClick={this.cancelSend}>CANCEL</button>
             </div>

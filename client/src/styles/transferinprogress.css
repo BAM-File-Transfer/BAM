@@ -13,13 +13,13 @@
 .text-style {
     font-family: 'Bangers', cursive;
     font-size: 36px;
-    margin-top: 50px;
+    margin-top: none;
 }
 
 
 /* credit to lukehaas for loading spinner*/
 .loader {
-  color: #ebebeb;
+  color: #3b3b3b;
   font-size: 90px;
   text-indent: -9999em;
   overflow: hidden;
