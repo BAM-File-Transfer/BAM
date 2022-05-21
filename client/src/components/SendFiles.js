@@ -3,7 +3,7 @@ import '../styles/index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import PropTypes from 'prop-types';
-import { APIsend } from './ApiFetch'
+// import { APIsend } from './ApiFetch'
 
 /**
  * SendFiles handles all the sending files logic.
@@ -49,21 +49,13 @@ class SendFiles extends React.Component {
     // FILES TO SEND
     console.log(this.state.files);
     // CREATE TORRENT SEED
+    let returnMagnetLink = this.props.startedSendingCallback;
     this.state.client.seed(this.state.files, function (torrent) {
-      console.log("Client is seeding:\n" + torrent.magnetURI);
-
-      // Send to API server
-      const clientData = {
-        name: "Saitama",
-        magnetLink: torrent.magnetURI,
-        coordinates: [115, 115],
-        date: Date.now(),
-      };
-      APIsend(clientData);  //TODO replace this with rendering of TransferInProgress
+      // console.log("Client is seeding:\n" + torrent.magnetURI);
+      returnMagnetLink(torrent.magnetURI);
     });
 
     this.setState({ isChoosingFiles: false });
-    this.props.startedSendingCallback();
   }
 
   render() {

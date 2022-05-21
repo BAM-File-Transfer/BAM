@@ -14,14 +14,27 @@ class Home extends React.Component {
     this.state = {
       client: new WebTorrent(),   // This client should be passed down to all components
       isCurrentlySending: false,
+      magnetLink: "",
     }
   }
 
   /**
-   * Called by ChooseFiles when it has started sending/seeding the files.
+   * Called by SendFiles when it has started sending/seeding the files.
+   * Returns the magnet link.
    */
-  startedSending = () => {
-    this.setState({ isCurrentlySending: true });
+  pressedSend = (link) => {
+    this.setState({
+      isCurrentlySending: true,
+      magnetLink: link,
+    });
+    console.log("Magnet Link: ", link);
+  }
+
+  /**
+   * Called by WaitForBumpSender when it wants to initiate a BAM
+   */
+  senderBAM = (sensorData) => {
+    console.log("Sender BAM!", sensorData);
   }
   
   render() {
@@ -32,10 +45,12 @@ class Home extends React.Component {
         <div className="ButtonSection">
           <SendFiles
             client = {this.state.client}
-            startedSendingCallback = {this.startedSending}
+            startedSendingCallback = {this.pressedSend}
           />
         </div>
-        { this.state.isCurrentlySending && (<WaitForBumpSender />) }
+
+        { /* Conditional Rendering */ }
+        { this.state.isCurrentlySending && (<WaitForBumpSender bamCallback = {this.senderBAM} />) }
         { !this.state.isCurrentlySending && (<Receive />) }
       </div>
     );
