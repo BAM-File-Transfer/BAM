@@ -54,6 +54,7 @@ class SendFiles extends React.Component {
     // Files to send
     console.log(this.state.files);
     // Create torrent seed
+    console.log(this.state.client)
     let returnMagnetLink = this.props.pressedSendButtonCallback;
     this.state.client.seed(this.state.files, function (torrent) {
       // console.log("Client is seeding:\n" + torrent.magnetURI);
