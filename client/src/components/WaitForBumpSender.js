@@ -18,6 +18,10 @@ class WaitForBumpSender extends React.Component {
         }
         this.props.bumpCallback(sensorData);
     }
+
+    cancelSend = () => {
+      useNavigate('/');
+    }
     
     render(){ return (
         <div className="App">
@@ -34,10 +38,8 @@ class WaitForBumpSender extends React.Component {
                 </h1>
             </div>
 
-            <button className = "red-button-bottom" onClick={() => {
-                useNavigate('/');
-            }}>CANCEL</button>
-        </div>
+            <button className = "red-button-bottom" onClick={this.cancelSend}>CANCEL</button>
+            </div>
     )}
 }
 
