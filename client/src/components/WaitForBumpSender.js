@@ -18,25 +18,26 @@ class WaitForBumpSender extends React.Component {
         }
         this.props.bumpCallback(sensorData);
     }
+
+    cancelSend = () => {
+      useNavigate('/');
+    }
     
     render(){ return (
         <div className="App">
-            <button className = "test-button" onClick={this.bamEvent}>Simulate BAM! by Sender</button>
+            <button className = "test-button" onClick={this.bamEvent}>
+              <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
+            </button>
+          
+            <h1 className="text-style">
+                <br/>
+                FIST BUMP THE DEVICES
+                <br/>
+                TO INITIATE TRANSFER!
+            </h1>
 
-            <div className='fists-bumping-container'>
-                <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
-                <h1 className="text-style">
-                    <br/>
-                    FIST BUMP THE DEVICES
-                    <br/>
-                    TO INITIATE TRANSFER!
-                </h1>
+            <button className = "red-button-bottom" onClick={this.cancelSend}>CANCEL</button>
             </div>
-
-            <button className = "red-button-bottom" onClick={() => {
-                useNavigate('/');
-            }}>CANCEL</button>
-        </div>
     )}
 }
 

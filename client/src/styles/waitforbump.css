@@ -3,15 +3,10 @@
 .text-style{
     font-family: 'Bangers', cursive;
     font-size: 36px;
+    margin-top: none !important;
 }
 
 .fists-bumping-container {
-    /* original css
-    position: absolute;
-    top: 47%;
-    left: 50%;
-    margin-top: -150px;
-    margin-left: -190px;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,13 +14,8 @@
 }
 
 .fists-bumping-image-size{
-    /* original css
-    margin-top: 30px;
-    max-width: 380px;
-    height: auto;*/
     max-width: 380px;
     height: 200px;
-    margin-bottom: -90px;
 }
 
 .red-button-bottom{
@@ -33,25 +23,22 @@
     font-size: 26px;
     position: relative;
     bottom: 5%;
-    /*left: 50%;*/
     font-weight: 800;
     border-radius: 15px;
     max-width: 350px;
     min-width:350px;
     margin: 10px;
-    /*margin-left: -175px;*/
     transition: transform 0.3s ease;
     background-color: rgba(255,180,176,255);
 }
 
 .test-button {
-  font-family: "Roboto", sans-serif;
   font-size: 23px;
+  border: none;
   font-weight: 800;
-  border-radius: 15px;
-  max-width: 175px;
-  min-width: 175px;
-  margin: 10px;
+  max-width: auto;
+  min-width: auto;
+  margin-top: 8%;
   transition: transform 0.3s ease;
-  background-color: rgba(153,153,255,255);
+  background-color: rgba(153,153,255,0);
 }

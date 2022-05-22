@@ -12,8 +12,21 @@ ul{
     align-items: center;
     border: 1px solid rgb(107, 107, 107);
 }
+.fileList{
+    max-height: 200px;
+    margin: auto;
+    padding: auto;
+}
+.fileListContainer{
+    min-height: 200px;
+    max-height: 200px;
+    margin: auto;
+    margin-bottom: 1%;
+    padding: auto;
+}
 .fileNameContainer{
     margin: 0;
+    overflow-wrap: break-word;
 }
 .downloadListContainer{
     padding: 5%;

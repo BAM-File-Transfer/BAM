@@ -19,15 +19,20 @@ class SendFiles extends React.Component {
 
   // Populates pre component with file names
   handleFile = (e) => {
+    // Creating html components
+    e.preventDefault()
     const fileListContainer = document.getElementById('fileListContainer')
     const fileList = document.getElementById('filelist')
     const userFiles = document.getElementById('files').files
-  
-    e.preventDefault()
+
+    // Loop through userFiles and set html data to each file name
     fileList.innerHTML = ''
     for (let i = 0; i < userFiles.length; i++) {
       fileList.innerHTML += userFiles[i].name + '\n\n'
     }
+
+    // If the list is empty, display nothing
+    // Else, display the html components
     if (fileList.innerHTML === '' || fileList.innerHTML === null) {
       fileList.style.display = 'none'
       fileListContainer.style.display = 'none'
@@ -36,6 +41,7 @@ class SendFiles extends React.Component {
       fileListContainer.style.display = 'flex'
     }
 
+    // Set the current files state to userFiles
     this.setState({
       files: userFiles
     });
@@ -45,9 +51,10 @@ class SendFiles extends React.Component {
    * When the "Send Files" button is clicked, this function is called
    */
   sendButtonClicked = () => {
-    // FILES TO SEND
+    // Files to send
     console.log(this.state.files);
-    // CREATE TORRENT SEED
+    // Create torrent seed
+    console.log(this.state.client)
     let returnMagnetLink = this.props.pressedSendButtonCallback;
     this.state.client.seed(this.state.files, function (torrent) {
       // console.log("Client is seeding:\n" + torrent.magnetURI);
@@ -67,7 +74,6 @@ class SendFiles extends React.Component {
         {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
         {this.state.isChoosingFiles && (
           <div>
-
             {/* File Choosing */}
             <input
               type="file"
@@ -94,7 +100,7 @@ class SendFiles extends React.Component {
   }
 }
 
-// DECLARING PROP TYPES
+// Declaring prop types
 SendFiles.propTypes = {
   client: PropTypes.object,
   pressedSendButtonCallback: PropTypes.func,
