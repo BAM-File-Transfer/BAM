@@ -24,11 +24,15 @@ class Home extends React.Component {
   }
 
   onCancelButtonClick = () => {
-    this.state.client.remove(this.state.torrent, false);
     this.setState({
       appState: "Choosing",
-      torrent: null,
     });
+    if(this.state.torrent != null){
+      this.state.client.remove(this.state.torrent, false);
+      this.setState({
+        torrent: null,
+      });
+    }
   }
 
   // Sets the state to WaitingToReceive and

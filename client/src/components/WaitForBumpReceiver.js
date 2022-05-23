@@ -205,9 +205,7 @@ class WaitForBumpReceiver extends React.Component {
                 className="downloadListContainer container-fluid">
             </div>
 
-            {/* Cancel button (currently does not work) */}
-            <button className = "red-button-bottom" onClick={this.cancelReceive}>CANCEL</button>
-            </div>
+        </div>
     )}
 }
 

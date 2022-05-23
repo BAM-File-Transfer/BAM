@@ -58,7 +58,6 @@ class WaitForBumpSender extends React.Component {
                 TO INITIATE TRANSFER!
             </h1>
 
-            <button className = "red-button-bottom" onClick={this.cancelSend}>CANCEL</button>
             </div>
     )}
 }
