@@ -91,7 +91,7 @@ class Home extends React.Component {
             accPermission: true, // Permission to access Accelerometer data is given by the receiver
           });
         }
-      }).then(console.log("yoooooooooo"))
+      })
      }
      // The user must give the app permission to access geolocation data
      if (!navigator.geolocation) {
