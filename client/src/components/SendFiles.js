@@ -12,7 +12,7 @@ class SendFiles extends React.Component {
     super(props);
     this.state = {
       files: null,
-      isChoosingFiles: true,
+      appState: this.props.appState,
       client: this.props.client,
     }
   }
@@ -41,10 +41,9 @@ class SendFiles extends React.Component {
       fileListContainer.style.display = 'flex'
     }
 
-    // Set the current files state to userFiles
     this.setState({
       files: userFiles
-    });
+    })
   }
 
   /**
@@ -58,10 +57,8 @@ class SendFiles extends React.Component {
     let returnMagnetLink = this.props.pressedSendButtonCallback;
     this.state.client.seed(this.state.files, function (torrent) {
       // console.log("Client is seeding:\n" + torrent.magnetURI);
-      returnMagnetLink(torrent.magnetURI);
+      returnMagnetLink(torrent);
     });
-
-    this.setState({ isChoosingFiles: false });
   }
 
   render() {
@@ -72,7 +69,7 @@ class SendFiles extends React.Component {
         </div>
 
         {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
-        {this.state.isChoosingFiles && (
+        {this.state.appState == "Choosing" && (
           <div>
             {/* File Choosing */}
             <input
@@ -103,6 +100,7 @@ class SendFiles extends React.Component {
 // Declaring prop types
 SendFiles.propTypes = {
   client: PropTypes.object,
+  appState: PropTypes.string,
   pressedSendButtonCallback: PropTypes.func,
 };
 

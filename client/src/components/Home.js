@@ -19,7 +19,7 @@ class Home extends React.Component {
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
       client: new WebTorrent(),   // This client should be passed down to all components
-      magnetLink: "",
+      torrent: null,
     }
   }
 
@@ -84,9 +84,9 @@ class Home extends React.Component {
 
   /**
    * Called by SendFiles when the user has pressed the "Send" button.
-   * @param link: Magnet link send by SendFiles
+   * @param torrent: Torrent sent by SendFiles
    */
-  pressedSendButtonCallback = (link) => {
+  pressedSendButtonCallback = (torrent) => {
     // Check if the device is mobile
     // Only mobile devices have Accelerometer sensor
     // If the permission is not given or the device is desktop, the app will
@@ -110,10 +110,10 @@ class Home extends React.Component {
          let lng = position.coords.longitude
          this.setState({
            appState: "ReadyToSend",
-           magnetLink: link,
+           torrent: torrent,
            locationArr: [lat, lng],
          });
-         console.log("Magnet Link: ", link);
+         console.log("Magnet Link: ", torrent.magnetURI);
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
@@ -130,7 +130,7 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.magnetLink,
+      magnetLink: this.state.torrent.magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
@@ -148,7 +148,7 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.magnetLink,
+      magnetLink: this.state.torrent.magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
@@ -165,6 +165,7 @@ class Home extends React.Component {
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
             client={this.state.client}
+            appState={this.state.appState}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
           />}
 
