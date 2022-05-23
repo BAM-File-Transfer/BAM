@@ -24,8 +24,10 @@ class Home extends React.Component {
   }
 
   onCancelButtonClick = () => {
+    this.state.client.remove(this.state.torrent, false);
     this.setState({
-      appState: "Choosing"
+      appState: "Choosing",
+      torrent: null,
     });
   }
 
