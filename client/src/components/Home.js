@@ -15,16 +15,47 @@ class Home extends React.Component {
     const { WebTorrent } = window  // Imports webtorrent from the window object
 
     this.state = {
+      accPermission: false,       // Initially the permission to access to Accelerometer data is not given
+      locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
       client: new WebTorrent(),   // This client should be passed down to all components
       magnetLink: "",
     }
   }
-
+  // Sets the state to WaitingToReceive and
+  // Asks for permission to use Accelerometer data
+  // Gets the geolocation data before proceeding to next state to save time
+  // Fetching Geolocation data takes 1-5 seconds
   onReceiveButtonClick = () => {
-    this.setState({
-      appState: "WaitingToReceive",
-    });
+    // Check if the device is mobile
+    // Only mobile devices have Accelerometer sensor
+    // If the permission is not given or the device is desktop, the app will
+    // proceed to give the user a chance to simulate the bump by clicking the fist bump image
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+          this.setState({
+            accPermission: true, // Permission to access Accelerometer data is given by the receiver
+          });
+        }
+      })
+     }
+     // The user must give the app permission to access geolocation data
+     if (!navigator.geolocation) {
+       alert('Geolocation is not supported by your browser, the App cannot proceed.');
+     } else {
+       document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
+       navigator.geolocation.getCurrentPosition((position) => {
+         let lat = position.coords.latitude
+         let lng = position.coords.longitude
+         this.setState({
+           appState: "WaitingToReceive",
+           locationArr: [lat, lng],
+         });
+       }, () => {
+         alert('Unable to retrieve your location, the App cannot proceed.');
+       });
+     }
   }
 
   /**
@@ -45,7 +76,7 @@ class Home extends React.Component {
    */
   senderBumpCallback = (sensorData) => {
     console.log("Sender BAM!", sensorData);
-    
+
     // Build the API request body
     const clientData = {
       name: "Placeholder",
@@ -63,7 +94,7 @@ class Home extends React.Component {
  */
   receiverBumpCallback = (sensorData) => {
     console.log("Sender BAM!", sensorData);
-    
+
     // Build the API request body
     const clientData = {
       name: "Placeholder",
@@ -74,7 +105,7 @@ class Home extends React.Component {
 
     APIrecv(clientData);
   }
-  
+
   render() {
     return (
       <div className="App">
@@ -86,7 +117,7 @@ class Home extends React.Component {
             client={this.state.client}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
           />}
-        
+
         {this.state.appState == "ReadyToSend" && (
           <WaitForBumpSender bumpCallback={this.senderBumpCallback} />
         )}
@@ -102,11 +133,17 @@ class Home extends React.Component {
         )}
 
         {this.state.appState == "WaitingToReceive" && (
-          
-          <WaitForBumpReceiver 
+
+          <WaitForBumpReceiver
           client={this.state.client}
-          bumpCallback={this.receiverBumpCallback} />
+          bumpCallback={this.receiverBumpCallback}
+          receiverAccPermission={this.accPermission}
+          receiverLocationArr = {this.locationArr} />
         )}
+
+        {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
+          <p id="location-status"></p>
+        }
 
       </div>
     );
