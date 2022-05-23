@@ -10,10 +10,10 @@ class WaitForBumpSender extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     bamEvent = () => {
         const sensorData = {
-            coordinates: [115, 115],
+            coordinates: this.props.senderLocationArr,
             date: Date.now(),
         }
         this.props.bumpCallback(sensorData);
@@ -22,13 +22,13 @@ class WaitForBumpSender extends React.Component {
     cancelSend = () => {
       useNavigate('/');
     }
-    
+
     render(){ return (
         <div className="App">
             <button className = "test-button" onClick={this.bamEvent}>
               <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
             </button>
-          
+
             <h1 className="text-style">
                 <br/>
                 FIST BUMP THE DEVICES
@@ -44,6 +44,8 @@ class WaitForBumpSender extends React.Component {
 // Prop validation
 WaitForBumpSender.propTypes = {
     bumpCallback: PropTypes.func,
+    senderLocationArr: PropTypes.array,
+    senderAccPermission: PropTypes.bool,
 };
 
 export default WaitForBumpSender

@@ -63,11 +63,37 @@ class Home extends React.Component {
    * @param link: Magnet link send by SendFiles
    */
   pressedSendButtonCallback = (link) => {
-    this.setState({
-      appState: "ReadyToSend",
-      magnetLink: link,
-    });
-    console.log("Magnet Link: ", link);
+    // Check if the device is mobile
+    // Only mobile devices have Accelerometer sensor
+    // If the permission is not given or the device is desktop, the app will
+    // proceed to give the user a chance to simulate the bump by clicking the fist bump image
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+          this.setState({
+            accPermission: true, // Permission to access Accelerometer data is given by the receiver
+          });
+        }
+      })
+     }
+     // The user must give the app permission to access geolocation data
+     if (!navigator.geolocation) {
+       alert('Geolocation is not supported by your browser, the App cannot proceed.');
+     } else {
+       document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
+       navigator.geolocation.getCurrentPosition((position) => {
+         let lat = position.coords.latitude
+         let lng = position.coords.longitude
+         this.setState({
+           appState: "ReadyToSend",
+           magnetLink: link,
+           locationArr: [lat, lng],
+         });
+         console.log("Magnet Link: ", link);
+       }, () => {
+         alert('Unable to retrieve your location, the App cannot proceed.');
+       });
+     }
   }
 
   /**
@@ -119,7 +145,9 @@ class Home extends React.Component {
           />}
 
         {this.state.appState == "ReadyToSend" && (
-          <WaitForBumpSender bumpCallback={this.senderBumpCallback} />
+          <WaitForBumpSender bumpCallback={this.senderBumpCallback}
+            senderAccPermission={this.state.accPermission}
+            senderLocationArr = {this.state.locationArr} />
         )}
 
         {this.state.appState == "Choosing" && (
@@ -141,9 +169,9 @@ class Home extends React.Component {
           receiverLocationArr = {this.state.locationArr} />
         )}
 
-        {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
-          <p id="location-status"></p>
-        }
+        {(this.state.appState == "Choosing") && (
+          <h3 id="location-status"></h3>
+        )}
 
       </div>
     );
