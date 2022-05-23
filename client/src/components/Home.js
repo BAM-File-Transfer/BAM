@@ -22,6 +22,13 @@ class Home extends React.Component {
       magnetLink: "",
     }
   }
+
+  onCancelButtonClick = () => {
+    this.setState({
+      appState: "Choosing"
+    });
+  }
+
   // Sets the state to WaitingToReceive and
   // Asks for permission to use Accelerometer data
   // Gets the geolocation data before proceeding to next state to save time
@@ -184,6 +191,15 @@ class Home extends React.Component {
           bumpCallback={this.receiverBumpCallback}
           receiverAccPermission={this.state.accPermission}
           receiverLocationArr = {this.state.locationArr} />
+        )}
+
+        {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
+          <button
+            className="red-button-bottom"
+            onClick={this.onCancelButtonClick}
+          >
+            CANCEL
+          </button>
         )}
 
         {(this.state.appState == "Choosing") && (
