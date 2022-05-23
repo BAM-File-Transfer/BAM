@@ -22,6 +22,29 @@ import PropTypes from 'prop-types';
 
 */
 class WaitForBumpReceiver extends React.Component {
+    componentDidMount() {
+      // if the permission to access Accelerometer data is granted
+      if (this.props.receiverAccPermission) {
+        let isAccListenerActive = true
+        window.addEventListener("devicemotion", (event) => {
+          //let x_acceleration = event.acceleration.x;
+          //let y_acceleration = event.acceleration.y;
+          //let z_acceleration = event.acceleration.z;
+          // if x axis acceleration is more than 20 m/s^2, a bump is detected
+          if(isAccListenerActive && Math.abs(event.acceleration.x) > 15) {
+            console.log(Math.abs(event.acceleration.x))
+            // Deactivate the listener temporarily
+            isAccListenerActive = false
+            this.bamEvent()
+            // After 5 seconds let the user be able to bump again
+            setTimeout(function(){
+                isAccListenerActive = true;
+            }, 5000);
+          }
+        })
+      }
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,10 +60,10 @@ class WaitForBumpReceiver extends React.Component {
         const clientData = {
             name: "Superman",
             // magnetLink: "",
-            coordinates: [115, 115],
+            coordinates: this.props.receiverLocationArr,
             date: Date.now(),
         };
-        
+
         // Check if the client has been created and created one if false
         if(this.state.client == null){
             const { WebTorrent } = window
@@ -75,13 +98,13 @@ class WaitForBumpReceiver extends React.Component {
                 file.getBlob(function (err, blob) {
                   if (err) throw err;
                   addedFiles += 1;
-                  
+
                   // Add file path to zip
                   zip.file(file.path, blob);
-      
+
                   // Start the download when all files have been added
                   if (addedFiles === torrent.files.length) {
-                    
+
                     // Name the the file in the zip and start generating each file component
                     if (torrent.files.length > 1) { zip = zip.folder(torrent.name);}
                     zip.generateAsync({ type: "blob" }).then(function (blob) {
@@ -117,24 +140,24 @@ class WaitForBumpReceiver extends React.Component {
                   let fileRow = document.createElement("div");
                   fileRow.className = "row fileRow";
                   downloadList.appendChild(fileRow);
-                  
+
                   // Create html component for file names
                   var p = document.createElement("p");
                   p.innerHTML = file.name;
                   p.className = "col-10 fileNameContainer";
-      
+
                   // Create html component for individual download button
                   var a = document.createElement("a");
                   a.download = file.name;
                   a.href = url;
                   a.className = "col-4 downloadButton";
-      
+
                   // Insert download image into button
                   var img = document.createElement("img");
                   img.className = "downloadIcon";
                   img.src = downloadIcon;
                   a.appendChild(img);
-      
+
                   // Add components to html body
                   fileRow.appendChild(p);
                   fileRow.appendChild(a);
@@ -161,7 +184,7 @@ class WaitForBumpReceiver extends React.Component {
             <button className = "test-button" onClick={this.bamEvent}>
               <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
             </button>
-            
+
             <div className='fists-bumping-container'>
                 <h1 className="text-style">
                     <br/>
@@ -172,7 +195,7 @@ class WaitForBumpReceiver extends React.Component {
             </div>
 
             {/* If currently downloading torrent, render loading spinner; else, render nothing */}
-            { this.state.showProgress 
+            { this.state.showProgress
             ? <div className="loader">Loading...</div>
             : null}
 
@@ -180,7 +203,7 @@ class WaitForBumpReceiver extends React.Component {
             <div
                 id="downloadList"
                 className="downloadListContainer container-fluid">
-            </div> 
+            </div>
 
             {/* Cancel button (currently does not work) */}
             <button className = "red-button-bottom" onClick={this.cancelReceive}>CANCEL</button>
@@ -192,7 +215,9 @@ class WaitForBumpReceiver extends React.Component {
 WaitForBumpReceiver.propTypes = {
     showProgress: PropTypes.bool,
     client: PropTypes.object,
-    bumpCallback: PropTypes.func
+    bumpCallback: PropTypes.func,
+    receiverAccPermission: PropTypes.bool,
+    receiverLocationArr: PropTypes.array,
 };
 
 export default WaitForBumpReceiver
