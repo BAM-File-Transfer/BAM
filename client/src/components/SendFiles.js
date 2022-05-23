@@ -12,7 +12,6 @@ class SendFiles extends React.Component {
     super(props);
     this.state = {
       files: null,
-      appState: this.props.appState,
       client: this.props.client,
     }
   }
@@ -69,7 +68,7 @@ class SendFiles extends React.Component {
         </div>
 
         {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
-        {this.state.appState == "Choosing" && (
+        {this.props.appState == "Choosing" && (
           <div>
             {/* File Choosing */}
             <input

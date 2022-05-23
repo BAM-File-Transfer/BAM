@@ -165,7 +165,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="App">
-        {(this.state.appState == "Choosing" || this.state.appState == "WaitingToReceive") && <Header />}
+        {(this.state.appState == "Choosing") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
