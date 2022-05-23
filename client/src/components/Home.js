@@ -38,24 +38,41 @@ class Home extends React.Component {
             accPermission: true, // Permission to access Accelerometer data is given by the receiver
           });
         }
+        // The user must give the app permission to access geolocation data
+        if (!navigator.geolocation) {
+          alert('Geolocation is not supported by your browser, the App cannot proceed.');
+        } else {
+          document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
+          navigator.geolocation.getCurrentPosition((position) => {
+            let lat = position.coords.latitude
+            let lng = position.coords.longitude
+            this.setState({
+              appState: "WaitingToReceive",
+              locationArr: [lat, lng],
+            });
+          }, () => {
+            alert('Unable to retrieve your location, the App cannot proceed.');
+          });
+        }
       })
-     }
-     // The user must give the app permission to access geolocation data
-     if (!navigator.geolocation) {
-       alert('Geolocation is not supported by your browser, the App cannot proceed.');
-     } else {
-       document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
-       navigator.geolocation.getCurrentPosition((position) => {
-         let lat = position.coords.latitude
-         let lng = position.coords.longitude
-         this.setState({
-           appState: "WaitingToReceive",
-           locationArr: [lat, lng],
-         });
-       }, () => {
-         alert('Unable to retrieve your location, the App cannot proceed.');
-       });
-     }
+    } else {
+      // The user must give the app permission to access geolocation data
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser, the App cannot proceed.');
+      } else {
+        document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
+        navigator.geolocation.getCurrentPosition((position) => {
+          let lat = position.coords.latitude
+          let lng = position.coords.longitude
+          this.setState({
+            appState: "WaitingToReceive",
+            locationArr: [lat, lng],
+          });
+        }, () => {
+          alert('Unable to retrieve your location, the App cannot proceed.');
+        });
+      }
+    }
   }
 
   /**
@@ -74,7 +91,7 @@ class Home extends React.Component {
             accPermission: true, // Permission to access Accelerometer data is given by the receiver
           });
         }
-      })
+      }).then(console.log("yoooooooooo"))
      }
      // The user must give the app permission to access geolocation data
      if (!navigator.geolocation) {
