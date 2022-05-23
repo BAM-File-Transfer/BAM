@@ -137,8 +137,8 @@ class Home extends React.Component {
           <WaitForBumpReceiver
           client={this.state.client}
           bumpCallback={this.receiverBumpCallback}
-          receiverAccPermission={this.accPermission}
-          receiverLocationArr = {this.locationArr} />
+          receiverAccPermission={this.state.accPermission}
+          receiverLocationArr = {this.state.locationArr} />
         )}
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
