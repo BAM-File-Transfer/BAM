@@ -174,9 +174,29 @@ class Home extends React.Component {
 
     APIrecv(clientData).then((response) => {
       this.setState({magnetLink: response.magnetLink})
-    });  
+    }).then(() => {
+      if(this.state.magnetLink != null){
+        this.setState({appState: "Transfer"})
+        // Update Download Progress
+        if (this.receiverInterval == null) {
+          this.receiverInterval = setInterval(() => {
+            console.log("Progress: ", this.client.progress);
+            this.setState({ progress: this.client.progress });
 
-    this.setState({appState: "Transfer"})
+            // Stop updating when done downloading
+            this.client.torrents.forEach(torrent => {
+              if (torrent.done == true) {
+                clearInterval(this.receiverInterval);
+                this.receiverInterval = null;
+              }
+            });
+            
+          }, 250);      
+        }
+      } else{
+        this.setState({appState: "WaitingToReceive"})
+      }
+    })
   }
 
   transferBumpCallback = () => {

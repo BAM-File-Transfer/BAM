@@ -18,14 +18,13 @@ class FileTransfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSpinner: true,
+      showSpinner: false,
       showReceivedFiles: true,
       progress: 0,
     }
   }
 
-  // (will be) Called when detected BAM action
-  bamEvent = () => {
+  componentDidMount() {
     let addedFiles = 0;
     var zip = new JSZip();
 
@@ -35,15 +34,15 @@ class FileTransfer extends React.Component {
     })
 
     // Log magnet link
-    console.log("here")
     let torrentId = this.props.magnetLink;
     console.log("Torrent ID: ", torrentId);
 
     // https://webtorrent.io/docs
     // Start downloading torrent
+    let filetransfer = this;
     this.props.client.add(torrentId, function (torrent) {
       torrent.on('done', () =>{
-        this.setState({
+        filetransfer.setState({
           showSpinner: false,
           showReceivedFiles: true
         })
