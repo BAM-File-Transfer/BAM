@@ -6,7 +6,8 @@ import "../styles/containers.css";
 import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
 import React from 'react'
-import { APIrecv, APIsend } from './ApiFetch'
+import { APIsend } from './ApiFetch'
+// import { APIrecv, APIsend } from './ApiFetch'
 const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class Home extends React.Component {
@@ -20,7 +21,8 @@ class Home extends React.Component {
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
       torrent: null,
-      uploadRate: 0,
+      uploadSpeed: 0,
+      progress: 0,
     }
   }
 
@@ -143,30 +145,32 @@ class Home extends React.Component {
 
     APIsend(clientData);
 
-    //DEBUG
+    // Update Upload Speed
     setInterval(() => {
       console.log("Torrent Mutable: ", this.client.uploadSpeed);
-      this.setState({uploadRate: this.client.uploadSpeed})
+      this.setState({uploadSpeed: this.client.uploadSpeed})
     }, 1000);    
   }
 
-  /**
- * Called by WaitForBumpReceiver when a BAM/Bump has been detected
- * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
- */
-  receiverBumpCallback = (sensorData) => {
-    console.log("Sender BAM!", sensorData);
+//   /**
+//  * Called by WaitForBumpReceiver when a BAM/Bump has been detected
+//  * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
+//  */
+//   receiverBumpCallback = (sensorData) => {
+//     console.log("Sender BAM!", sensorData);
 
-    // Build the API request body
-    const clientData = {
-      name: "Placeholder",
-      magnetLink: this.state.torrent.magnetURI,
-      coordinates: sensorData.coordinates,
-      date: sensorData.date,
-    }
+//     // Build the API request body
+//     const clientData = {
+//       name: "Placeholder",
+//       magnetLink: this.state.torrent.magnetURI,
+//       coordinates: sensorData.coordinates,
+//       date: sensorData.date,
+//     }
 
-    APIrecv(clientData);
-  }
+//     APIrecv(clientData);
+
+    
+//   }
 
   render() {
     return (
@@ -208,8 +212,8 @@ class Home extends React.Component {
           receiverLocationArr = {this.state.locationArr} />
         )}
 
-        {/* DEBUG */}
-        {(this.client.uploadSpeed != 0) && <p>Upload Rate: {this.state.uploadRate} bytes/sec</p>}
+        {(this.client.progress > 0) && (<p>Progress: {this.state.progress}%</p>)}
+        {(this.client.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
           <button
