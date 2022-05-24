@@ -14,7 +14,7 @@ class Home extends React.Component {
   client = new WebTorrent();
   receiverInterval = null;
   senderInterval = null;
-  
+
   constructor(props) {
     super(props);
 
@@ -32,16 +32,20 @@ class Home extends React.Component {
     // App State
     this.setState({
       appState: "Choosing",
+      uploadSpeed: 0,
+      progress: 0,
     });
 
     // Remove current torrent
     if(this.client.torrents[0] != null){
       this.client.remove(this.client.torrents[0], false);
     }
-    
-    // Upload Interval
+
+    // Clear Intervals
     clearInterval(this.senderInterval);
+    clearInterval(this.receiverInterval);
     this.senderInterval = null;
+    this.receiverInterval = null;
   }
 
   // Sets the state to WaitingToReceive and
@@ -53,7 +57,8 @@ class Home extends React.Component {
     // Only mobile devices have Accelerometer sensor
     // If the permission is not given or the device is desktop, the app will
     // proceed to give the user a chance to simulate the bump by clicking the fist bump image
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    // Only IOS requires apps to ask for permission to use the Accelerometer sensor
+    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           this.setState({
@@ -77,6 +82,26 @@ class Home extends React.Component {
           });
         }
       })
+    } else if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        this.setState({
+          accPermission: true, // Permission to access Accelerometer data is given by the receiver
+        });
+        // The user must give the app permission to access geolocation data
+        if (!navigator.geolocation) {
+          alert('Geolocation is not supported by your browser, the App cannot proceed.');
+        } else {
+          document.getElementById("location-status").innerHTML = "Getting the location data... (Estimated loading time 5 seconds)";
+          navigator.geolocation.getCurrentPosition((position) => {
+            let lat = position.coords.latitude
+            let lng = position.coords.longitude
+            this.setState({
+              appState: "WaitingToReceive",
+              locationArr: [lat, lng],
+            });
+          }, () => {
+            alert('Unable to retrieve your location, the App cannot proceed.');
+          });
+        }
     } else {
       // The user must give the app permission to access geolocation data
       if (!navigator.geolocation) {
@@ -99,22 +124,9 @@ class Home extends React.Component {
 
   /**
    * Called by SendFiles when the user has pressed the "Send" button.
-   * @param torrent: Torrent sent by SendFiles
+   * @param torrent: Torrent sent by SendFiles and acceleration permission response
    */
   pressedSendButtonCallback = (torrent) => {
-    // Check if the device is mobile
-    // Only mobile devices have Accelerometer sensor
-    // If the permission is not given or the device is desktop, the app will
-    // proceed to give the user a chance to simulate the bump by clicking the fist bump image
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted') {
-          this.setState({
-            accPermission: true, // Permission to access Accelerometer data is given by the receiver
-          });
-        }
-      })
-     }
      // The user must give the app permission to access geolocation data
      if (!navigator.geolocation) {
        alert('Geolocation is not supported by your browser, the App cannot proceed.');
@@ -125,8 +137,9 @@ class Home extends React.Component {
          let lng = position.coords.longitude
          this.setState({
            appState: "ReadyToSend",
-           torrent: torrent,
+           torrent: torrent[0],
            locationArr: [lat, lng],
+           accPermission: torrent[1],
          });
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
@@ -153,9 +166,8 @@ class Home extends React.Component {
 
     // Update Upload Speed
     this.senderInterval = setInterval(() => {
-      console.log("Torrent Mutable: ", this.client.uploadSpeed);
       this.setState({uploadSpeed: this.client.uploadSpeed})
-    }, 250);    
+    }, 250);
   }
 
   /**
@@ -270,7 +282,7 @@ class Home extends React.Component {
         )}
 
         {(this.client.progress > 0) && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
-        {(this.client.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
+        {(this.state.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || 
           this.state.appState == "WaitingToReceive" || 
