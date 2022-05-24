@@ -35,7 +35,7 @@ class WaitForBumpSender extends React.Component {
 
     bamEvent = () => {
         const sensorData = {
-            coordinates: [this.props.senderLocationArr, this.props.senderLocationArr],
+            coordinates: this.props.senderLocationArr,
             date: Date.now(),
         }
         console.log("Sender coordinates: " + sensorData.coordinates)
