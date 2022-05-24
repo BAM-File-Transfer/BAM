@@ -62,7 +62,7 @@ class WaitForBumpReceiver extends React.Component {
     const clientData = {
       name: "Superman",
       // magnetLink: "",
-      coordinates: [Math.round(1000 * this.props.receiverLocationArr[0])/1000, Math.round(1000 * this.props.receiverLocationArr[1])/1000],
+      coordinates: this.props.receiverLocationArr,
       date: Date.now(),
     };
     console.log("Receiver coordinates: " + clientData.coordinates)
