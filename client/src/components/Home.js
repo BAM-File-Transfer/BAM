@@ -5,9 +5,9 @@ import "../styles/button.css";
 import "../styles/containers.css";
 import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
+import FileTransfer from "./FileTransfer";
 import React from 'react'
-import { APIsend } from './ApiFetch'
-// import { APIrecv, APIsend } from './ApiFetch'
+import { APIrecv, APIsend } from './ApiFetch'
 const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class Home extends React.Component {
@@ -24,6 +24,7 @@ class Home extends React.Component {
       appState: "Choosing",
       uploadSpeed: 0,
       progress: 0,
+      magnetLink: "",
     }
   }
 
@@ -161,32 +162,55 @@ class Home extends React.Component {
  * Called by WaitForBumpReceiver when a BAM/Bump has been detected
  * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
  */
-  receiverBumpCallback = () => {
-    // Update Download Progress
-    if (this.receiverInterval == null) {
-      this.receiverInterval = setInterval(() => {
-        console.log("Progress: ", this.client.progress);
-        this.setState({ progress: this.client.progress });
+   receiverBumpCallback = (sensorData) => {
+    console.log("Receiver BAM!", sensorData);
 
-        // Stop updating when done downloading
-        this.client.torrents.forEach(torrent => {
-          if (torrent.done == true) {
-            clearInterval(this.receiverInterval);
-            this.receiverInterval = null;
-          }
-        });
-        
-      }, 250);      
-    }
+    // Build the API request body
+    const clientData = {
+      name: "Superman",
+      coordinates: sensorData.coordinates,
+      date: sensorData.date,
+    };
+
+    APIrecv(clientData).then((response) => {
+      this.setState({magnetLink: response.magnetLink})
+    });  
+
+    this.setState({appState: "Transfer"})
   }
+
+  transferBumpCallback = () => {
+    this.setState({appState: "Choosing"})
+  }
+
+  /**
+ * Called by WaitForBumpReceiver when a BAM/Bump has been detected
+ * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
+ */
+  // receiverBumpCallback = () => {
+  //   // Update Download Progress
+  //   if (this.receiverInterval == null) {
+  //     this.receiverInterval = setInterval(() => {
+  //       console.log("Progress: ", this.client.progress);
+  //       this.setState({ progress: this.client.progress });
+
+  //       // Stop updating when done downloading
+  //       this.client.torrents.forEach(torrent => {
+  //         if (torrent.done == true) {
+  //           clearInterval(this.receiverInterval);
+  //           this.receiverInterval = null;
+  //         }
+  //       });
+        
+  //     }, 250);      
+  //   }
+  // }
 
   render() {
     return (
       <div className="App">
         {(this.state.appState == "Choosing") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
-
-
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
@@ -196,7 +220,8 @@ class Home extends React.Component {
           />}
 
         {this.state.appState == "ReadyToSend" && (
-          <WaitForBumpSender bumpCallback={this.senderBumpCallback}
+          <WaitForBumpSender 
+            bumpCallback={this.senderBumpCallback}
             senderAccPermission={this.state.accPermission}
             senderLocationArr = {this.state.locationArr} />
         )}
@@ -205,29 +230,34 @@ class Home extends React.Component {
           <button
             type="button receive"
             className="button receiveFilesButton"
-            onClick={this.onReceiveButtonClick}
-          >
+            onClick={this.onReceiveButtonClick}>
             RECEIVE FILES
           </button>
         )}
 
         {this.state.appState == "WaitingToReceive" && (
-
           <WaitForBumpReceiver
-          client={this.client}
-          bumpCallback={this.receiverBumpCallback}
-          receiverAccPermission={this.state.accPermission}
-          receiverLocationArr = {this.state.locationArr} />
+            bumpCallback={this.receiverBumpCallback}
+            receiverAccPermission={this.state.accPermission}
+            receiverLocationArr = {this.state.locationArr} />
+        )}
+
+        {this.state.appState == "Transfer" && (
+          <FileTransfer
+            client={this.client}
+            magnetLink={this.state.magnetLink}
+            bumpCallback={this.transferBumpCallback} />
         )}
 
         {(this.client.progress > 0) && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
         {(this.client.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
-        {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
+        {(this.state.appState == "ReadyToSend" || 
+          this.state.appState == "WaitingToReceive" || 
+          this.state.appState == "Transfer") && (
           <button
             className="red-button-bottom"
-            onClick={this.onCancelButtonClick}
-          >
+            onClick={this.onCancelButtonClick}>
             CANCEL
           </button>
         )}
