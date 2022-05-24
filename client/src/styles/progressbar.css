@@ -1,5 +1,11 @@
+.progressContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #myProgress {
-    width: 100%;
+    width: 90%;
     background-color: grey;
   }
 
