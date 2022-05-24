@@ -12,7 +12,6 @@ class SendFiles extends React.Component {
     super(props);
     this.state = {
       files: null,
-      isChoosingFiles: true,
       client: this.props.client,
     }
   }
@@ -41,27 +40,54 @@ class SendFiles extends React.Component {
       fileListContainer.style.display = 'flex'
     }
 
-    // Set the current files state to userFiles
     this.setState({
       files: userFiles
-    });
+    })
   }
 
   /**
    * When the "Send Files" button is clicked, this function is called
    */
   sendButtonClicked = () => {
-    // Files to send
-    console.log(this.state.files);
-    // Create torrent seed
-    console.log(this.state.client)
-    let returnMagnetLink = this.props.pressedSendButtonCallback;
-    this.state.client.seed(this.state.files, function (torrent) {
-      // console.log("Client is seeding:\n" + torrent.magnetURI);
-      returnMagnetLink(torrent.magnetURI);
-    });
-
-    this.setState({ isChoosingFiles: false });
+    let accResponse = false
+    // Only IOS requires apps to ask for permission to use the Accelerometer sensor
+    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+      DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+          accResponse = true
+        }
+        // Files to send
+        console.log(this.state.files);
+        // Create torrent seed
+        console.log(this.state.client)
+        let returnMagnetLink = this.props.pressedSendButtonCallback;
+        this.state.client.seed(this.state.files, function (torrent) {
+          // console.log("Client is seeding:\n" + torrent.magnetURI);
+          returnMagnetLink([torrent, accResponse]);
+        });
+      })
+    } else if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      accResponse = true
+      // Files to send
+      console.log(this.state.files);
+      // Create torrent seed
+      console.log(this.state.client)
+      let returnMagnetLink = this.props.pressedSendButtonCallback;
+      this.state.client.seed(this.state.files, function (torrent) {
+        // console.log("Client is seeding:\n" + torrent.magnetURI);
+        returnMagnetLink([torrent, accResponse]);
+      });
+    } else {
+      // Files to send
+      console.log(this.state.files);
+      // Create torrent seed
+      console.log(this.state.client)
+      let returnMagnetLink = this.props.pressedSendButtonCallback;
+      this.state.client.seed(this.state.files, function (torrent) {
+        // console.log("Client is seeding:\n" + torrent.magnetURI);
+        returnMagnetLink([torrent, accResponse]);
+      });
+    }
   }
 
   render() {
@@ -72,12 +98,13 @@ class SendFiles extends React.Component {
         </div>
 
         {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
-        {this.state.isChoosingFiles && (
+        {this.props.appState == "Choosing" && (
           <div>
             {/* File Choosing */}
             <input
+              title=" "
               type="file"
-              className="button"
+              className="button chooseFilesButton"
               id="files"
               onChange={this.handleFile}
               multiple
@@ -103,6 +130,7 @@ class SendFiles extends React.Component {
 // Declaring prop types
 SendFiles.propTypes = {
   client: PropTypes.object,
+  appState: PropTypes.string,
   pressedSendButtonCallback: PropTypes.func,
 };
 

@@ -3,9 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("../config/db");
 const sender = require('../models/Sender')
-
 const MS_OFFSET = 5000;
 const GARBAGE_COLLECTION_PERIOD = 1800000;
+const COORDINATE_OFFSET = 0.002;
 
 dotenv.config({ path: "./../config/config.env" });
 
@@ -37,7 +37,6 @@ app.post("/send", async (req, res) => {
   }
   const send = await sender.create(dataEntry)
   console.log(send);
-  
   res.json({ status: "OK" });
 });
 
@@ -50,14 +49,26 @@ app.post("/recv", async (req, res) => {
   } catch {
     console.log("Invalid Date: " + req.body.date);
   }
-  
+
+  // Coordinate matching
+  let min_lat = req.body.coordinates[0] - COORDINATE_OFFSET
+  let max_lat = req.body.coordinates[0] + COORDINATE_OFFSET
+  let min_lng = req.body.coordinates[1] - COORDINATE_OFFSET
+  let max_lng = req.body.coordinates[1] + COORDINATE_OFFSET
   // Request from database
   const request = {
-    coordinates: req.body.coordinates,
-    date: {
-      $gt: new Date(min_date),
-      $lt: new Date(max_date),
-    },
+      'coordinates.0': {
+        $gt: min_lat,
+        $lt: max_lat,
+      },
+      'coordinates.1': {
+        $gt: min_lng,
+        $lt: max_lng,
+      },
+      date: {
+        $gt: new Date(min_date),
+        $lt: new Date(max_date),
+      },
   };
 
   try {
