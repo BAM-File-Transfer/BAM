@@ -3,6 +3,7 @@ import SuperheroName from "./SuperheroName"
 import SendFiles from "./SendFiles"
 import "../styles/button.css";
 import "../styles/containers.css";
+import '../styles/transferinprogress.css'
 import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
 import FileTransfer from "./FileTransfer";
@@ -25,6 +26,7 @@ class Home extends React.Component {
       uploadSpeed: 0,
       progress: 0,
       magnetLink: "",
+      showSpinner: false,
     }
   }
 
@@ -122,6 +124,12 @@ class Home extends React.Component {
     }
   }
 
+  spinnerCallback = (flag) => {
+    this.setState({
+      showSpinner: flag
+    })
+  }
+
   /**
    * Called by SendFiles when the user has pressed the "Send" button.
    * @param torrent: Torrent sent by SendFiles and acceleration permission response
@@ -184,11 +192,21 @@ class Home extends React.Component {
       date: sensorData.date,
     };
 
+    //TODO Enable loading spinner
+    this.setState({
+      showSpinner: true,
+    })
+
     APIrecv(clientData).then((response) => {
-      this.setState({magnetLink: response.magnetLink})
-    }).then(() => {
-      if(this.state.magnetLink != null){
-        this.setState({appState: "Transfer"})
+      //TODO Disable loading spinner
+      this.setState({
+        showSpinner: false,
+      })
+      if(response.magnetLink){
+        this.setState({
+          magnetLink: response.magnetLink,
+          appState: "Transfer"
+        })
         // Update Download Progress
         if (this.receiverInterval == null) {
           this.receiverInterval = setInterval(() => {
@@ -205,10 +223,13 @@ class Home extends React.Component {
             
           }, 250);      
         }
-      } else{
-        this.setState({appState: "WaitingToReceive"})
-      }
+      } 
     })
+    // .then(() => {
+    //   else{
+    //     this.setState({appState: "WaitingToReceive"})
+    //   }
+    // })
   }
 
   transferBumpCallback = () => {
@@ -254,6 +275,7 @@ class Home extends React.Component {
         {this.state.appState == "ReadyToSend" && (
           <WaitForBumpSender 
             bumpCallback={this.senderBumpCallback}
+            spinnerCallback={this.spinnerCallback}
             senderAccPermission={this.state.accPermission}
             senderLocationArr = {this.state.locationArr} />
         )}
@@ -267,12 +289,20 @@ class Home extends React.Component {
           </button>
         )}
 
-        {this.state.appState == "WaitingToReceive" && (
+        {(this.state.appState == "WaitingToReceive" && !this.state.showSpinner) && (
           <WaitForBumpReceiver
             bumpCallback={this.receiverBumpCallback}
+            spinnerCallback={this.spinnerCallback}
             receiverAccPermission={this.state.accPermission}
             receiverLocationArr = {this.state.locationArr} />
         )}
+
+        {(this.state.appState == "WaitingToReceive" && this.state.showSpinner) &&
+          <div>
+            <h1>Looking for match...</h1>
+            <div className="loader">Looking for match...</div>
+          </div>
+        }
 
         {this.state.appState == "Transfer" && (
           <FileTransfer
