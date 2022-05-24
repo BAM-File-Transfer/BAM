@@ -144,6 +144,9 @@ class Home extends React.Component {
          let lat = position.coords.latitude
          let lng = position.coords.longitude
          this.setState({
+          showSpinner: false,
+         })
+         this.setState({
            appState: "ReadyToSend",
            torrent: torrent[0],
            locationArr: [lat, lng],
@@ -153,9 +156,6 @@ class Home extends React.Component {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
      }
-     this.setState({
-       showSpinner: false,
-     })
   }
 
   /**
@@ -285,14 +285,14 @@ class Home extends React.Component {
           </div>
         }
 
-{this.state.appState == "ReadyToSend" && (
+        {this.state.appState == "ReadyToSend" && (
           <WaitForBumpSender 
             bumpCallback={this.senderBumpCallback}
             senderAccPermission={this.state.accPermission}
             senderLocationArr = {this.state.locationArr} />
         )}
 
-        {this.state.appState == "Choosing" && (
+        {this.state.appState == "Choosing" && !this.state.showSpinner && (
           <button
             type="button receive"
             className="button receiveFilesButton"
