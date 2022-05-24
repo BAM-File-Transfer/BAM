@@ -123,22 +123,9 @@ class Home extends React.Component {
 
   /**
    * Called by SendFiles when the user has pressed the "Send" button.
-   * @param torrent: Torrent sent by SendFiles
+   * @param torrent: Torrent sent by SendFiles and acceleration permission response
    */
   pressedSendButtonCallback = (torrent) => {
-    // Check if the device is mobile
-    // Only mobile devices have Accelerometer sensor
-    // If the permission is not given or the device is desktop, the app will
-    // proceed to give the user a chance to simulate the bump by clicking the fist bump image
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted') {
-          this.setState({
-            accPermission: true, // Permission to access Accelerometer data is given by the receiver
-          });
-        }
-      })
-     }
      // The user must give the app permission to access geolocation data
      if (!navigator.geolocation) {
        alert('Geolocation is not supported by your browser, the App cannot proceed.');
@@ -149,8 +136,9 @@ class Home extends React.Component {
          let lng = position.coords.longitude
          this.setState({
            appState: "ReadyToSend",
-           torrent: torrent,
+           torrent: torrent[0],
            locationArr: [lat, lng],
+           accPermission: torrent[1],
          });
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
