@@ -153,6 +153,9 @@ class Home extends React.Component {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
      }
+     this.setState({
+       showSpinner: false,
+     })
   }
 
   /**
@@ -269,13 +272,21 @@ class Home extends React.Component {
           <SendFiles
             client={this.client}
             appState={this.state.appState}
-            pressedSendButtonCallback={this.pressedSendButtonCallback}
-          />}
+            spinnerCallback={this.spinnerCallback}
+            pressedSendButtonCallback={this.pressedSendButtonCallback}/>
+        }
 
-        {this.state.appState == "ReadyToSend" && (
+        
+        {this.state.showSpinner &&
+          <div>
+            <h1>Loading...</h1>
+            <div className="loader">Looking for match...</div>
+          </div>
+        }
+
+{this.state.appState == "ReadyToSend" && (
           <WaitForBumpSender 
             bumpCallback={this.senderBumpCallback}
-            spinnerCallback={this.spinnerCallback}
             senderAccPermission={this.state.accPermission}
             senderLocationArr = {this.state.locationArr} />
         )}
@@ -296,13 +307,6 @@ class Home extends React.Component {
             receiverAccPermission={this.state.accPermission}
             receiverLocationArr = {this.state.locationArr} />
         )}
-
-        {(this.state.appState == "WaitingToReceive" && this.state.showSpinner) &&
-          <div>
-            <h1>Looking for match...</h1>
-            <div className="loader">Looking for match...</div>
-          </div>
-        }
 
         {this.state.appState == "Transfer" && (
           <FileTransfer

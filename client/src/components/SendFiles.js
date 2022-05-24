@@ -62,7 +62,8 @@ class SendFiles extends React.Component {
    * When the "Send Files" button is clicked, this function is called
    */
   sendButtonClicked = () => {
-    this.props.spinnerCallback(true)
+    let returnSpinnerFlag = this.props.spinnerCallback
+    returnSpinnerFlag(true)
     let accResponse = false
     // Only IOS requires apps to ask for permission to use the Accelerometer sensor
     if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
