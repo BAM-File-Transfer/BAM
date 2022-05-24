@@ -37,6 +37,7 @@ class WaitForBumpSender extends React.Component {
             coordinates: this.props.senderLocationArr,
             date: Date.now(),
         }
+        console.log("Sender coordinates: " + sensorData.coordinates)
         this.props.bumpCallback(sensorData);
     }
 
