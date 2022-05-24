@@ -58,7 +58,7 @@ class WaitForBumpSender extends React.Component {
                 TO INITIATE TRANSFER!
             </h1>
 
-            </div>
+          </div>
     )}
 }
 

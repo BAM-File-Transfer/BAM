@@ -49,7 +49,9 @@ class WaitForBumpReceiver extends React.Component {
         super(props);
         this.state = {
             client: this.props.client,
-            showProgress: false
+            showProgress: false,
+            showFistBumpImage: true,
+            showReceivedFiles: false,
         }
     }
 
@@ -169,7 +171,9 @@ class WaitForBumpReceiver extends React.Component {
           }).then(() => {
             setTimeout(function () {}, 30 * 1000);
             this.setState({
-                showProgress: false
+                showProgress: false,
+                showReceivedFiles: true,
+                showFistBumpImage: false
             })
           })
     }
@@ -181,7 +185,25 @@ class WaitForBumpReceiver extends React.Component {
     render(){ return (
         <div className="App">
             {/* Fist bump image is the button. Simulates the bump */}
-            <button className = "test-button" onClick={this.bamEvent}>
+            { this.state.showFistBumpImage
+              ? <div><button className = "test-button" onClick={this.bamEvent}>
+                  <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
+                </button>
+
+                <div className='fists-bumping-container'>
+                    <h1 className="text-style">
+                        <br/>
+                        FIST BUMP THE DEVICES
+                        <br/>
+                        TO INITIATE TRANSFER!
+                    </h1>
+                </div></div>
+              : <div
+                  id="downloadList"
+                  className="downloadListContainer container-fluid">
+                </div>
+            }
+            {/* <button className = "test-button" onClick={this.bamEvent}>
               <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
             </button>
 
@@ -192,18 +214,22 @@ class WaitForBumpReceiver extends React.Component {
                     <br/>
                     TO INITIATE TRANSFER!
                 </h1>
-            </div>
+            </div> */}
 
             {/* If currently downloading torrent, render loading spinner; else, render nothing */}
             { this.state.showProgress
             ? <div className="loader">Loading...</div>
             : null}
 
-            {/* Container for the downloaded files */}
-            <div
+            {/* Container for the downloaded files
+            { this.state.showReceivedFiles
+            ? <div
                 id="downloadList"
                 className="downloadListContainer container-fluid">
-            </div>
+              </div>
+            : null
+            } */}
+     
 
         </div>
     )}
