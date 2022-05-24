@@ -11,8 +11,9 @@ import { APIsend } from './ApiFetch'
 const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class Home extends React.Component {
-  
   client = new WebTorrent();
+  receiverInterval = null;
+  
   constructor(props) {
     super(props);
 
@@ -154,13 +155,21 @@ class Home extends React.Component {
  */
   receiverBumpCallback = () => {
     // Update Download Progress
-    setInterval(() => {
-      console.log("Progress: ", this.client.progress);
-      this.setState({ progress: this.client.progress })
-    }, 250);
+    if (this.receiverInterval == null) {
+      this.receiverInterval = setInterval(() => {
+        console.log("Progress: ", this.client.progress);
+        this.setState({ progress: this.client.progress });
 
-    // Torrent
-
+        // Stop updating when done downloading
+        this.client.torrents.forEach(torrent => {
+          if (torrent.done == true) {
+            clearInterval(this.receiverInterval);
+            this.receiverInterval = null;
+          }
+        });
+        
+      }, 250);      
+    }
   }
 
   render() {
