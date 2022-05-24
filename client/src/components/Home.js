@@ -20,7 +20,6 @@ class Home extends React.Component {
       accPermission: false,       // Initially the permission to access to Accelerometer data is not given
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
-      torrent: null,
       uploadSpeed: 0,
       progress: 0,
     }
@@ -30,11 +29,8 @@ class Home extends React.Component {
     this.setState({
       appState: "Choosing",
     });
-    if(this.state.torrent != null){
-      this.client.remove(this.state.torrent, false);
-      this.setState({
-        torrent: null,
-      });
+    if(this.client.torrents[0] != null){
+      this.client.remove(this.client.torrents[0], false);
     }
   }
 
@@ -138,7 +134,7 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.torrent.magnetURI,
+      magnetLink: this.client.torrents[0].magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
@@ -161,7 +157,10 @@ class Home extends React.Component {
     setInterval(() => {
       console.log("Progress: ", this.client.progress);
       this.setState({ progress: this.client.progress })
-    }, 250);    
+    }, 250);
+
+    // Torrent
+
   }
 
   render() {
