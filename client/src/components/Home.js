@@ -19,9 +19,22 @@ class Home extends React.Component {
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
       client: new WebTorrent(),   // This client should be passed down to all components
-      magnetLink: "",
+      torrent: null,
     }
   }
+
+  onCancelButtonClick = () => {
+    this.setState({
+      appState: "Choosing",
+    });
+    if(this.state.torrent != null){
+      this.state.client.remove(this.state.torrent, false);
+      this.setState({
+        torrent: null,
+      });
+    }
+  }
+
   // Sets the state to WaitingToReceive and
   // Asks for permission to use Accelerometer data
   // Gets the geolocation data before proceeding to next state to save time
@@ -77,9 +90,9 @@ class Home extends React.Component {
 
   /**
    * Called by SendFiles when the user has pressed the "Send" button.
-   * @param link: Magnet link send by SendFiles
+   * @param torrent: Torrent sent by SendFiles
    */
-  pressedSendButtonCallback = (link) => {
+  pressedSendButtonCallback = (torrent) => {
     // Check if the device is mobile
     // Only mobile devices have Accelerometer sensor
     // If the permission is not given or the device is desktop, the app will
@@ -103,10 +116,10 @@ class Home extends React.Component {
          let lng = position.coords.longitude
          this.setState({
            appState: "ReadyToSend",
-           magnetLink: link,
+           torrent: torrent,
            locationArr: [lat, lng],
          });
-         console.log("Magnet Link: ", link);
+         console.log("Magnet Link: ", torrent.magnetURI);
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
@@ -123,7 +136,7 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.magnetLink,
+      magnetLink: this.state.torrent.magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
@@ -141,7 +154,7 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.magnetLink,
+      magnetLink: this.state.torrent.magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
@@ -152,12 +165,13 @@ class Home extends React.Component {
   render() {
     return (
       <div className="App">
-        {(this.state.appState == "Choosing" || this.state.appState == "WaitingToReceive") && <Header />}
+        {(this.state.appState == "Choosing") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
             client={this.state.client}
+            appState={this.state.appState}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
           />}
 
@@ -184,6 +198,15 @@ class Home extends React.Component {
           bumpCallback={this.receiverBumpCallback}
           receiverAccPermission={this.state.accPermission}
           receiverLocationArr = {this.state.locationArr} />
+        )}
+
+        {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
+          <button
+            className="red-button-bottom"
+            onClick={this.onCancelButtonClick}
+          >
+            CANCEL
+          </button>
         )}
 
         {(this.state.appState == "Choosing") && (
