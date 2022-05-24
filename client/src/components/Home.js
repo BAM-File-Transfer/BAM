@@ -214,7 +214,9 @@ class Home extends React.Component {
         if (this.receiverInterval == null) {
           this.receiverInterval = setInterval(() => {
             console.log("Progress: ", this.client.progress);
-            this.setState({ progress: this.client.progress });
+            if (this.client.progress > 0) {
+              this.setState({ progress: this.client.progress });
+            }
 
             // Stop updating when done downloading
             this.client.torrents.forEach(torrent => {
@@ -237,6 +239,10 @@ class Home extends React.Component {
 
   transferBumpCallback = () => {
     this.setState({appState: "Choosing"})
+  }
+
+  progressCallback = () => {
+    this.setState({progress: 1})
   }
 
   /**
@@ -313,10 +319,11 @@ class Home extends React.Component {
           <FileTransfer
             client={this.client}
             magnetLink={this.state.magnetLink}
-            bumpCallback={this.transferBumpCallback} />
+            bumpCallback={this.transferBumpCallback} 
+            progressCallback={this.progressCallback}/>
         )}
 
-        {(this.client.progress > 0) && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
+        {(this.state.appState == "Transfer") && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
         {(this.state.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || 

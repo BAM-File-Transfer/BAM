@@ -20,7 +20,6 @@ class FileTransfer extends React.Component {
     this.state = {
       showSpinner: false,
       showReceivedFiles: true,
-      progress: 0,
     }
   }
 
@@ -46,6 +45,7 @@ class FileTransfer extends React.Component {
           showSpinner: false,
           showReceivedFiles: true
         })
+        filetransfer.props.progressCallback()
       })
 
       // Loop through each file in the torrent
@@ -129,10 +129,10 @@ class FileTransfer extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* If currently downloading torrent, render loading spinner; else, render nothing */}
+        {/* If currently downloading torrent, render loading spinner; else, render nothing
         {this.state.showSpinner &&
           <div className="loader">Loading...</div>
-        }
+        } */}
 
         {this.state.showReceivedFiles &&
             <div
@@ -151,6 +151,7 @@ FileTransfer.propTypes = {
   client: PropTypes.object,
   magnetLink: PropTypes.string,
   bumpCallback: PropTypes.func,
+  progressCallback: PropTypes.func
 };
 
 export default FileTransfer
