@@ -2,7 +2,6 @@ import React from 'react'
 import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import FistsBumping from '../assets/FistsBumping.png'
 
@@ -39,10 +38,6 @@ class WaitForBumpSender extends React.Component {
             date: Date.now(),
         }
         this.props.bumpCallback(sensorData);
-    }
-
-    cancelSend = () => {
-      useNavigate('/');
     }
 
     render(){ return (

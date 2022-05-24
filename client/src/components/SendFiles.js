@@ -102,8 +102,9 @@ class SendFiles extends React.Component {
           <div>
             {/* File Choosing */}
             <input
+              title=" "
               type="file"
-              className="button"
+              className="button chooseFilesButton"
               id="files"
               onChange={this.handleFile}
               multiple
