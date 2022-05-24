@@ -7,19 +7,20 @@ import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
 import React from 'react'
 import { APIrecv, APIsend } from './ApiFetch'
+const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class Home extends React.Component {
+  
+  client = new WebTorrent();
   constructor(props) {
     super(props);
-
-    const { WebTorrent } = window  // Imports webtorrent from the window object
 
     this.state = {
       accPermission: false,       // Initially the permission to access to Accelerometer data is not given
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
-      client: new WebTorrent(),   // This client should be passed down to all components
       torrent: null,
+      uploadRate: null,
     }
   }
 
@@ -28,7 +29,7 @@ class Home extends React.Component {
       appState: "Choosing",
     });
     if(this.state.torrent != null){
-      this.state.client.remove(this.state.torrent, false);
+      this.client.remove(this.state.torrent, false);
       this.setState({
         torrent: null,
       });
@@ -119,7 +120,6 @@ class Home extends React.Component {
            torrent: torrent,
            locationArr: [lat, lng],
          });
-         console.log("Magnet Link: ", torrent.magnetURI);
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
@@ -142,6 +142,12 @@ class Home extends React.Component {
     }
 
     APIsend(clientData);
+
+    //DEBUG
+    setInterval(() => {
+      console.log("Torrent Mutable: ", this.client.uploadSpeed);
+      this.setState({uploadRate: this.client.uploadSpeed})
+    }, 1000);    
   }
 
   /**
@@ -168,9 +174,11 @@ class Home extends React.Component {
         {(this.state.appState == "Choosing") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
 
+
+
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
-            client={this.state.client}
+            client={this.client}
             appState={this.state.appState}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
           />}
@@ -194,11 +202,14 @@ class Home extends React.Component {
         {this.state.appState == "WaitingToReceive" && (
 
           <WaitForBumpReceiver
-          client={this.state.client}
+          client={this.client}
           bumpCallback={this.receiverBumpCallback}
           receiverAccPermission={this.state.accPermission}
           receiverLocationArr = {this.state.locationArr} />
         )}
+
+        {/* DEBUG */}
+        <p>Upload Rate: {this.state.torrent && this.state.uploadRate} bytes/sec</p>
 
         {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
           <button
