@@ -272,6 +272,7 @@ class Home extends React.Component {
           <SendFiles
             client={this.client}
             appState={this.state.appState}
+            showSpinner={this.state.showSpinner}
             spinnerCallback={this.spinnerCallback}
             pressedSendButtonCallback={this.pressedSendButtonCallback}/>
         }

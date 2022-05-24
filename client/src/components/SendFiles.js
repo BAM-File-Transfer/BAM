@@ -89,7 +89,7 @@ class SendFiles extends React.Component {
         </div>
 
         {/* Makes it so that when you click "Send", it un-renders the "Choose Files" and "Send" Button */}
-        {this.props.appState == "Choosing" && (
+        {this.props.appState == "Choosing" && !this.props.showSpinner && (
           <div>
             {/* File Choosing */}
             <input
@@ -103,7 +103,7 @@ class SendFiles extends React.Component {
 
             {/* Send Files button */}
             {/* Don't render "Send" Button if no files were chosen */}
-            {this.state.files && this.state.files.length > 0 && (
+            {this.state.files && this.state.files.length > 0 && !this.props.showSpinner && (
               <div>
                 <button className="button" onClick = {this.sendButtonClicked}>
                   SEND FILES
@@ -122,6 +122,7 @@ class SendFiles extends React.Component {
 SendFiles.propTypes = {
   client: PropTypes.object,
   appState: PropTypes.string,
+  showSpinner: PropTypes.bool,
   pressedSendButtonCallback: PropTypes.func,
   spinnerCallback: PropTypes.func,
 };
