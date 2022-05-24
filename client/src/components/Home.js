@@ -6,33 +6,45 @@ import "../styles/containers.css";
 import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
 import React from 'react'
-import { APIrecv, APIsend } from './ApiFetch'
+import { APIsend } from './ApiFetch'
+// import { APIrecv, APIsend } from './ApiFetch'
+const { WebTorrent } = window  // Imports webtorrent from the window object
 
 class Home extends React.Component {
+  client = new WebTorrent();
+  receiverInterval = null;
+  senderInterval = null;
+  
   constructor(props) {
     super(props);
-
-    const { WebTorrent } = window  // Imports webtorrent from the window object
 
     this.state = {
       accPermission: false,       // Initially the permission to access to Accelerometer data is not given
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
-      client: new WebTorrent(),   // This client should be passed down to all components
-      torrent: null,
+      uploadSpeed: 0,
+      progress: 0,
     }
   }
 
   onCancelButtonClick = () => {
+    // App State
     this.setState({
       appState: "Choosing",
+      uploadSpeed: 0,
+      progress: 0,
     });
-    if(this.state.torrent != null){
-      this.state.client.remove(this.state.torrent, false);
-      this.setState({
-        torrent: null,
-      });
+
+    // Remove current torrent
+    if(this.client.torrents[0] != null){
+      this.client.remove(this.client.torrents[0], false);
     }
+    
+    // Clear Intervals
+    clearInterval(this.senderInterval);
+    clearInterval(this.receiverInterval);
+    this.senderInterval = null;
+    this.receiverInterval = null;
   }
 
   // Sets the state to WaitingToReceive and
@@ -119,7 +131,6 @@ class Home extends React.Component {
            torrent: torrent,
            locationArr: [lat, lng],
          });
-         console.log("Magnet Link: ", torrent.magnetURI);
        }, () => {
          alert('Unable to retrieve your location, the App cannot proceed.');
        });
@@ -136,30 +147,40 @@ class Home extends React.Component {
     // Build the API request body
     const clientData = {
       name: "Placeholder",
-      magnetLink: this.state.torrent.magnetURI,
+      magnetLink: this.client.torrents[0].magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     }
 
     APIsend(clientData);
+
+    // Update Upload Speed
+    this.senderInterval = setInterval(() => {
+      this.setState({uploadSpeed: this.client.uploadSpeed})
+    }, 250);    
   }
 
   /**
  * Called by WaitForBumpReceiver when a BAM/Bump has been detected
  * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
  */
-  receiverBumpCallback = (sensorData) => {
-    console.log("Sender BAM!", sensorData);
+  receiverBumpCallback = () => {
+    // Update Download Progress
+    if (this.receiverInterval == null) {
+      this.receiverInterval = setInterval(() => {
+        console.log("Progress: ", this.client.progress);
+        this.setState({ progress: this.client.progress });
 
-    // Build the API request body
-    const clientData = {
-      name: "Placeholder",
-      magnetLink: this.state.torrent.magnetURI,
-      coordinates: sensorData.coordinates,
-      date: sensorData.date,
+        // Stop updating when done downloading
+        this.client.torrents.forEach(torrent => {
+          if (torrent.done == true) {
+            clearInterval(this.receiverInterval);
+            this.receiverInterval = null;
+          }
+        });
+        
+      }, 250);      
     }
-
-    APIrecv(clientData);
   }
 
   render() {
@@ -168,9 +189,11 @@ class Home extends React.Component {
         {(this.state.appState == "Choosing") && <Header />}
         {this.state.appState == "Choosing" && <SuperheroName />}
 
+
+
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
-            client={this.state.client}
+            client={this.client}
             appState={this.state.appState}
             pressedSendButtonCallback={this.pressedSendButtonCallback}
           />}
@@ -194,11 +217,14 @@ class Home extends React.Component {
         {this.state.appState == "WaitingToReceive" && (
 
           <WaitForBumpReceiver
-          client={this.state.client}
+          client={this.client}
           bumpCallback={this.receiverBumpCallback}
           receiverAccPermission={this.state.accPermission}
           receiverLocationArr = {this.state.locationArr} />
         )}
+
+        {(this.client.progress > 0) && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
+        {(this.state.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
           <button
