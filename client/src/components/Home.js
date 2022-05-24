@@ -20,7 +20,7 @@ class Home extends React.Component {
       locationArr: [0,0],         // latitude and longitude
       appState: "Choosing",
       torrent: null,
-      uploadRate: null,
+      uploadRate: 0,
     }
   }
 
@@ -209,7 +209,7 @@ class Home extends React.Component {
         )}
 
         {/* DEBUG */}
-        <p>Upload Rate: {this.state.torrent && this.state.uploadRate} bytes/sec</p>
+        {(this.client.uploadSpeed != 0) && <p>Upload Rate: {this.state.uploadRate} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (
           <button
