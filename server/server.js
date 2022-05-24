@@ -5,6 +5,7 @@ const connectDB = require("../config/db");
 const sender = require('../models/Sender')
 
 const MS_OFFSET = 5000;
+const GARBAGE_COLLECTION_PERIOD = 1800000;
 
 dotenv.config({ path: "./../config/config.env" });
 
@@ -79,3 +80,17 @@ app.post("/recv", async (req, res) => {
 app.listen(PORT, () => {
   console.log("Server started on 129.146.60.126:%d", PORT);
 });
+
+// Delete all documents in MongoDB after 30 minutes
+setInterval(async(req,res) => {
+  try {
+    const documents = await sender.deleteMany({
+      date: {
+        $lt: Date.now() - MS_OFFSET
+      }
+    });
+  }
+  catch(err) {
+    console.log(err)
+  }
+}, GARBAGE_COLLECTION_PERIOD);
