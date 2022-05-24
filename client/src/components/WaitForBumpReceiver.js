@@ -62,10 +62,10 @@ class WaitForBumpReceiver extends React.Component {
     const clientData = {
       name: "Superman",
       // magnetLink: "",
-      coordinates: this.props.receiverLocationArr,
+      coordinates: [Math.round(1000 * this.props.receiverLocationArr[0])/1000, Math.round(1000 * this.props.receiverLocationArr[1])/1000],
       date: Date.now(),
     };
-
+    console.log("Receiver coordinates: " + clientData.coordinates)
     // // Check if the client has been created and created one if false
     // if(this.props.client == null){
     //     const { WebTorrent } = window
@@ -202,7 +202,7 @@ class WaitForBumpReceiver extends React.Component {
             id="downloadList"
             className="downloadListContainer container-fluid">
           </div>
-        } 
+        }
 
         {/* If currently downloading torrent, render loading spinner; else, render nothing */}
         {this.state.showProgress
