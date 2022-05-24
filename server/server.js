@@ -89,6 +89,7 @@ setInterval(async(req,res) => {
         $lt: Date.now() - MS_OFFSET
       }
     });
+    console.log(documents)
   }
   catch(err) {
     console.log(err)
