@@ -149,28 +149,20 @@ class Home extends React.Component {
     setInterval(() => {
       console.log("Torrent Mutable: ", this.client.uploadSpeed);
       this.setState({uploadSpeed: this.client.uploadSpeed})
-    }, 1000);    
+    }, 250);    
   }
 
-//   /**
-//  * Called by WaitForBumpReceiver when a BAM/Bump has been detected
-//  * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
-//  */
-//   receiverBumpCallback = (sensorData) => {
-//     console.log("Sender BAM!", sensorData);
-
-//     // Build the API request body
-//     const clientData = {
-//       name: "Placeholder",
-//       magnetLink: this.state.torrent.magnetURI,
-//       coordinates: sensorData.coordinates,
-//       date: sensorData.date,
-//     }
-
-//     APIrecv(clientData);
-
-    
-//   }
+  /**
+ * Called by WaitForBumpReceiver when a BAM/Bump has been detected
+ * @param sensorData: Coordinates and Date received by WaitForBumpReceiver from db
+ */
+  receiverBumpCallback = () => {
+    // Update Download Progress
+    setInterval(() => {
+      console.log("Progress: ", this.client.progress);
+      this.setState({ progress: this.client.progress })
+    }, 250);    
+  }
 
   render() {
     return (
@@ -212,7 +204,7 @@ class Home extends React.Component {
           receiverLocationArr = {this.state.locationArr} />
         )}
 
-        {(this.client.progress > 0) && (<p>Progress: {this.state.progress}%</p>)}
+        {(this.client.progress > 0) && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
         {(this.client.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || this.state.appState == "WaitingToReceive") && (

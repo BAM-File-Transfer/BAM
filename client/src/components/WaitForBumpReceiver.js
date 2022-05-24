@@ -51,6 +51,7 @@ class WaitForBumpReceiver extends React.Component {
       showProgress: false,
       showFistBumpImage: true,
       showReceivedFiles: false,
+      progress: 0,
     }
   }
 
@@ -80,6 +81,7 @@ class WaitForBumpReceiver extends React.Component {
 
     // API fetch call to grab magnet link from matching sender
     APIrecv(clientData).then((response) => {
+      this.props.bumpCallback();
 
       // Log response
       console.log("Torrent ID: ", response.magnetLink);
@@ -88,11 +90,6 @@ class WaitForBumpReceiver extends React.Component {
       // https://webtorrent.io/docs
       // Start downloading torrent
       this.props.client.add(torrentId, function (torrent) {
-        // Update Download Progress
-        setInterval(() => {
-          console.log("Progress: ", this.client.progress);
-          this.setState({ progress: this.client.progress })
-        }, 1000);
         // Loop through each file in the torrent
         torrent.files.forEach(function (file) {
 
@@ -205,35 +202,12 @@ class WaitForBumpReceiver extends React.Component {
             id="downloadList"
             className="downloadListContainer container-fluid">
           </div>
-        }
-        {/* <button className = "test-button" onClick={this.bamEvent}>
-              <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
-            </button>
-
-            <div className='fists-bumping-container'>
-                <h1 className="text-style">
-                    <br/>
-                    FIST BUMP THE DEVICES
-                    <br/>
-                    TO INITIATE TRANSFER!
-                </h1>
-            </div> */}
+        } 
 
         {/* If currently downloading torrent, render loading spinner; else, render nothing */}
         {this.state.showProgress
           ? <div className="loader">Loading...</div>
           : null}
-
-        {/* Container for the downloaded files
-            { this.state.showReceivedFiles
-            ? <div
-                id="downloadList"
-                className="downloadListContainer container-fluid">
-              </div>
-            : null
-            } */}
-
-
       </div>
     )
   }
