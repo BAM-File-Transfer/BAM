@@ -33,7 +33,7 @@ class Home extends React.Component {
       appState: "Choosing",
     });
 
-    // Remove all torrents
+    // Remove current torrent
     if(this.client.torrents[0] != null){
       this.client.remove(this.client.torrents[0], false);
     }
