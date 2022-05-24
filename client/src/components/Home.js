@@ -4,6 +4,7 @@ import SendFiles from "./SendFiles"
 import "../styles/button.css";
 import "../styles/containers.css";
 import '../styles/transferinprogress.css'
+import '../styles/progressbar.css'
 import WaitForBumpSender from './WaitForBumpSender'
 import WaitForBumpReceiver from './WaitForBumpReceiver'
 import FileTransfer from "./FileTransfer";
@@ -213,11 +214,13 @@ class Home extends React.Component {
         // Update Download Progress
         if (this.receiverInterval == null) {
           this.receiverInterval = setInterval(() => {
-            console.log("Progress: ", this.client.progress);
             if (this.client.progress > 0) {
               this.setState({ progress: this.client.progress });
+              var elem = document.getElementById("myBar");
+              elem.style.width = (this.state.progress * 100) + '%'
+              elem.innerHTML = (this.state.progress * 100).toFixed(2) + "%";
             }
-
+            
             // Stop updating when done downloading
             this.client.torrents.forEach(torrent => {
               if (torrent.done == true) {
@@ -226,7 +229,7 @@ class Home extends React.Component {
               }
             });
             
-          }, 250);      
+          }, 16.6);      
         }
       } 
     })
@@ -243,6 +246,9 @@ class Home extends React.Component {
 
   progressCallback = () => {
     this.setState({progress: 1})
+    var elem = document.getElementById("myBar");
+    elem.style.width = '100%'
+    elem.innerHTML = '100%'
   }
 
   /**
@@ -323,7 +329,12 @@ class Home extends React.Component {
             progressCallback={this.progressCallback}/>
         )}
 
-        {(this.state.appState == "Transfer") && (<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)}
+        {(this.state.appState == "Transfer") && 
+          <div id="myProgress">
+            <div id="myBar"></div>
+          </div>
+        }
+        {/*(<p>Progress: {(this.state.progress * 100).toFixed(2)}%</p>)} */}
         {(this.state.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
         {(this.state.appState == "ReadyToSend" || 
