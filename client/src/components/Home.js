@@ -13,6 +13,7 @@ const { WebTorrent } = window  // Imports webtorrent from the window object
 class Home extends React.Component {
   client = new WebTorrent();
   receiverInterval = null;
+  senderInterval = null;
   
   constructor(props) {
     super(props);
@@ -27,12 +28,19 @@ class Home extends React.Component {
   }
 
   onCancelButtonClick = () => {
+    // App State
     this.setState({
       appState: "Choosing",
     });
+
+    // Remove all torrents
     if(this.client.torrents[0] != null){
       this.client.remove(this.client.torrents[0], false);
     }
+    
+    // Upload Interval
+    clearInterval(this.senderInterval);
+    this.senderInterval = null;
   }
 
   // Sets the state to WaitingToReceive and
@@ -143,7 +151,7 @@ class Home extends React.Component {
     APIsend(clientData);
 
     // Update Upload Speed
-    setInterval(() => {
+    this.senderInterval = setInterval(() => {
       console.log("Torrent Mutable: ", this.client.uploadSpeed);
       this.setState({uploadSpeed: this.client.uploadSpeed})
     }, 250);    
