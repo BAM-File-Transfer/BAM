@@ -1,5 +1,4 @@
 import Header from "./Header"
-import SuperheroName from "./SuperheroName"
 import SendFiles from "./SendFiles"
 import "../styles/button.css";
 import "../styles/containers.css";
@@ -250,7 +249,6 @@ class Home extends React.Component {
     return (
       <div className="App">
         {this.state.appState == "Choosing" && <Header />}
-        {this.state.appState == "Choosing" && <SuperheroName />}
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
