@@ -19,23 +19,31 @@ class WaitForBumpReceiver extends React.Component {
 
     // if the permission to access Accelerometer data is granted
     if (this.props.receiverAccPermission) {
-      let isAccListenerActive = true;
-      window.addEventListener("devicemotion", (event) => {
-        // if x axis acceleration is more than 20 m/s^2, a bump is detected
-        if (
-          isAccListenerActive &&
-          (Math.abs(event.acceleration.x) > 9 || Math.abs(event.acceleration.y) > 9))
-        {
-          console.log(Math.abs(event.acceleration.x));
-          // Deactivate the listener temporarily
-          isAccListenerActive = false;
-          this.bamEvent();
-          // After 5 seconds let the user be able to bump again
-          setTimeout(function () {
-            isAccListenerActive = true;
-          }, 5000);
-        }
-      });
+      window.addEventListener("devicemotion", this.handleAccelerationEvent);
+    }
+  }
+
+  componentWillUnmount() {
+    console.log("Before Unmount");
+    window.removeEventListener("devicemotion", this.handleAccelerationEvent);
+    console.log("After Unmount");
+  }
+
+  handleAccelerationEvent = (event) => {
+    let isAccListenerActive = true;
+    // if x axis acceleration is more than 20 m/s^2, a bump is detected
+    if (
+      isAccListenerActive &&
+      (Math.abs(event.acceleration.x) > 9 || Math.abs(event.acceleration.y) > 9))
+    {
+      console.log(Math.abs(event.acceleration.x));
+      // Deactivate the listener temporarily
+      isAccListenerActive = false;
+      this.bamEvent();
+      // After 5 seconds let the user be able to bump again
+      setTimeout(function () {
+        isAccListenerActive = true;
+      }, 5000);
     }
   }
 
