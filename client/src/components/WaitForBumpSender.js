@@ -7,6 +7,9 @@ import FistsBumping from '../assets/FistsBumping2.png'
 
 class WaitForBumpSender extends React.Component {
   focusInterval = null;
+  constructor(props) {
+    super(props);
+  }
 
   componentDidMount() {
     this.focusInterval = setInterval(function () {
@@ -35,9 +38,6 @@ class WaitForBumpSender extends React.Component {
         }
       })
     }
-  }
-  constructor(props) {
-    super(props);
   }
 
   bamEvent = () => {
