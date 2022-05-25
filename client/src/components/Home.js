@@ -174,7 +174,10 @@ class Home extends React.Component {
       date: sensorData.date,
     }
 
-    APIsend(clientData);
+    // Enable Spinner while we wait for the APIsend
+    this.setState({showSpinner: true})
+    setTimeout(() => {this.setState({showSpinner: false})}, 1000)
+    APIsend(clientData)
 
     // Update Upload Speed
     this.senderInterval = setInterval(() => {
@@ -271,7 +274,8 @@ class Home extends React.Component {
           <WaitForBumpSender 
             bumpCallback={this.senderBumpCallback}
             senderAccPermission={this.state.accPermission}
-            senderLocationArr = {this.state.locationArr} />
+            senderLocationArr = {this.state.locationArr}
+            showSpinner={this.state.showSpinner} />
         )}
 
         {this.state.appState == "Choosing" && !this.state.showSpinner && (
