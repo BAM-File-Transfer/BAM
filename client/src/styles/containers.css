@@ -18,11 +18,12 @@ ul{
     padding: auto;
 }
 .fileListContainer{
-    min-height: 200px;
+    /* min-height: 200px; */
     max-height: 200px;
     margin: auto;
     margin-bottom: 1%;
     padding: auto;
+    margin-top: 5%;
 }
 .fileNameContainer{
     margin: 0;

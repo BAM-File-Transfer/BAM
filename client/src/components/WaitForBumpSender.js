@@ -3,7 +3,7 @@ import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PropTypes from 'prop-types';
-import FistsBumping from '../assets/FistsBumping.png'
+import FistsBumping from '../assets/FistsBumping2.png'
 
 class WaitForBumpSender extends React.Component {
     componentDidMount() {
