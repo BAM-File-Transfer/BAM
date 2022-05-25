@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("../config/db");
 const sender = require('../models/Sender')
-const MS_OFFSET = 5000;
+const MS_OFFSET = 2000;
 const GARBAGE_COLLECTION_PERIOD = 1800000;
 const COORDINATE_OFFSET = 0.002;
 
