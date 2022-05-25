@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
 .text-style{
-    font-family: 'Bangers', cursive;
+    font-family: 'Bangers';
     font-size: 36px;
     margin-top: none !important;
 }
@@ -19,7 +19,7 @@
 }
 
 .red-button-bottom{
-    font-family: 'Bangers', cursive;
+    font-family: 'Bangers';
     font-size: 26px;
     position: relative;
     bottom: 5%;
@@ -41,4 +41,5 @@
   min-width: auto;
   transition: transform 0.3s ease;
   background-color: rgba(153,153,255,0);
+  outline: none;
 }
