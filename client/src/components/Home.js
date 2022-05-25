@@ -1,5 +1,4 @@
 import Header from "./Header"
-import SuperheroName from "./SuperheroName"
 import SendFiles from "./SendFiles"
 import "../styles/button.css";
 import "../styles/containers.css";
@@ -175,7 +174,10 @@ class Home extends React.Component {
       date: sensorData.date,
     }
 
-    APIsend(clientData);
+    // Enable Spinner while we wait for the APIsend
+    this.setState({showSpinner: true})
+    setTimeout(() => {this.setState({showSpinner: false})}, 1000)
+    APIsend(clientData)
 
     // Update Upload Speed
     this.senderInterval = setInterval(() => {
@@ -250,7 +252,6 @@ class Home extends React.Component {
     return (
       <div className="App">
         {this.state.appState == "Choosing" && <Header />}
-        {this.state.appState == "Choosing" && <SuperheroName />}
 
         {(this.state.appState == "Choosing" || this.state.appState == "ReadyToSend") &&
           <SendFiles
@@ -273,7 +274,8 @@ class Home extends React.Component {
           <WaitForBumpSender 
             bumpCallback={this.senderBumpCallback}
             senderAccPermission={this.state.accPermission}
-            senderLocationArr = {this.state.locationArr} />
+            senderLocationArr = {this.state.locationArr}
+            showSpinner={this.state.showSpinner} />
         )}
 
         {this.state.appState == "Choosing" && !this.state.showSpinner && (

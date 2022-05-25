@@ -3,7 +3,7 @@ import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PropTypes from 'prop-types';
-import FistsBumping from '../assets/FistsBumping.png'
+import FistsBumping from '../assets/FistsBumping2.png'
 
 class WaitForBumpSender extends React.Component {
     componentDidMount() {
@@ -43,16 +43,23 @@ class WaitForBumpSender extends React.Component {
 
     render(){ return (
         <div className="App">
-            <button className = "test-button" onClick={this.bamEvent}>
-              <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
-            </button>
+            {
+            !this.props.showSpinner && 
+            <div>
+                <button className = "test-button" onClick={this.bamEvent}>
+                    <img src = {FistsBumping} className="fists-bumping-image-size" alt="Fist Bump Waiting Pic"/>
+                </button>
 
-            <h1 className="text-style">
-                <br/>
-                FIST BUMP THE DEVICES
-                <br/>
-                TO INITIATE TRANSFER!
-            </h1>
+                <h1 className="text-style">
+                    <br/>
+                    FIST BUMP THE DEVICES
+                    <br/>
+                    TO INITIATE TRANSFER!
+                </h1>
+            </div>
+            }
+
+            
 
           </div>
     )}
@@ -63,6 +70,7 @@ WaitForBumpSender.propTypes = {
     bumpCallback: PropTypes.func,
     senderLocationArr: PropTypes.array,
     senderAccPermission: PropTypes.bool,
+    showSpinner: PropTypes.bool,
 };
 
 export default WaitForBumpSender
