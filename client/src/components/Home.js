@@ -33,22 +33,23 @@ class Home extends React.Component {
 
   onCancelButtonClick = () => {
     // App State
-    this.setState({
-      appState: "Choosing",
-      uploadSpeed: 0,
-      progress: 0,
-    });
+    // this.setState({
+    //   appState: "Choosing",
+    //   uploadSpeed: 0,
+    //   progress: 0,
+    // });
 
-    // Remove current torrent
-    if(this.client.torrents[0] != null){
-      this.client.remove(this.client.torrents[0], false);
-    }
+    // // Remove current torrent
+    // if(this.client.torrents[0] != null){
+    //   this.client.remove(this.client.torrents[0], false);
+    // }
 
-    // Clear Intervals
-    clearInterval(this.senderInterval);
-    clearInterval(this.receiverInterval);
-    this.senderInterval = null;
-    this.receiverInterval = null;
+    // // Clear Intervals
+    // clearInterval(this.senderInterval);
+    // clearInterval(this.receiverInterval);
+    // this.senderInterval = null;
+    // this.receiverInterval = null;
+    window.location.reload();
   }
 
   // Sets the state to WaitingToReceive and
@@ -168,7 +169,7 @@ class Home extends React.Component {
 
     // Build the API request body
     const clientData = {
-      name: "Placeholder",
+      name: "Sender",
       magnetLink: this.client.torrents[0].magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
@@ -194,7 +195,7 @@ class Home extends React.Component {
 
     // Build the API request body
     const clientData = {
-      name: "Superman",
+      name: "Receiver",
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     };

@@ -17,13 +17,6 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Helper Function
-function getDateOffsetBySec (date, seconds) {
-  let offsetDate = new Date(date);
-  offsetDate.setSeconds(date.getSeconds() + seconds);
-  return offsetDate;
-}
-
 app.get("/api", (req, res) => {
   res.json({ testObject: ["testElement"] });
 });
@@ -41,6 +34,7 @@ app.post("/send", async (req, res) => {
 });
 
 app.post("/recv", async (req, res) => {
+  console.log(req.body)
   let max_date = 0;
   let min_date = 0;
   try {
