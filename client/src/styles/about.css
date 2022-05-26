@@ -1,0 +1,11 @@
+.About {
+    font-family: 'Bangers';
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 25px;
+    line-height: 1.5;
+  }
