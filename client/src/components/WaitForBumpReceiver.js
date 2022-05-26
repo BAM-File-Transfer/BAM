@@ -34,7 +34,7 @@ class WaitForBumpReceiver extends React.Component {
     // if x axis acceleration is more than 20 m/s^2, a bump is detected
     if (
       isAccListenerActive &&
-      (Math.abs(event.acceleration.x) > 9 || Math.abs(event.acceleration.y) > 9))
+      (Math.abs(event.acceleration.x) > 9 || Math.abs(event.acceleration.y) > 8))
     {
       console.log(Math.abs(event.acceleration.x));
       // Deactivate the listener temporarily
