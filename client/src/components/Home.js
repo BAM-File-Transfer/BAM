@@ -169,7 +169,7 @@ class Home extends React.Component {
 
     // Build the API request body
     const clientData = {
-      name: "Placeholder",
+      name: "Sender",
       magnetLink: this.client.torrents[0].magnetURI,
       coordinates: sensorData.coordinates,
       date: sensorData.date,
@@ -195,7 +195,7 @@ class Home extends React.Component {
 
     // Build the API request body
     const clientData = {
-      name: "Superman",
+      name: "Receiver",
       coordinates: sensorData.coordinates,
       date: sensorData.date,
     };
