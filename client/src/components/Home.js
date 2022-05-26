@@ -57,12 +57,22 @@ class Home extends React.Component {
   // Gets the geolocation data before proceeding to next state to save time
   // Fetching Geolocation data takes 1-5 seconds
   onReceiveButtonClick = () => {
+    // Helper function to check IOS versions
+    // https://stackoverflow.com/questions/8348139/detect-ios-version-less-than-5-with-javascript
+    function iOSversion() {
+      if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
+        var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+      }
+    }
     // Check if the device is mobile
     // Only mobile devices have Accelerometer sensor
     // If the permission is not given or the device is desktop, the app will
     // proceed to give the user a chance to simulate the bump by clicking the fist bump image
-    // Only IOS requires apps to ask for permission to use the Accelerometer sensor
-    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+    // Only IOS 12.2 and later requires apps to ask for permission to use the Accelerometer sensor
+    let ios_version = iOSversion()
+    if( ios_version != undefined && ((ios_version[0] == 12 && ios_version[1] >= 2) || ios_version[0] >= 13)) {
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           this.setState({
@@ -226,7 +236,7 @@ class Home extends React.Component {
               elem.style.width = (this.state.progress * 100) + '%'
               elem.innerHTML = (this.state.progress * 100).toFixed(2) + "%";
             }
-            
+
             // Stop updating when done downloading
             this.client.torrents.forEach(torrent => {
               if (torrent.done == true) {
@@ -234,9 +244,9 @@ class Home extends React.Component {
                 this.receiverInterval = null;
               }
             });
-          }, FPS60);      
+          }, FPS60);
         }
-      } 
+      }
     })
   }
 
@@ -263,7 +273,7 @@ class Home extends React.Component {
             pressedSendButtonCallback={this.pressedSendButtonCallback}/>
         }
 
-        
+
         {this.state.showSpinner &&
           <div>
             <h1>Loading...</h1>
@@ -272,7 +282,7 @@ class Home extends React.Component {
         }
 
         {this.state.appState == "ReadyToSend" && (
-          <WaitForBumpSender 
+          <WaitForBumpSender
             bumpCallback={this.senderBumpCallback}
             senderAccPermission={this.state.accPermission}
             senderLocationArr = {this.state.locationArr}
@@ -312,8 +322,8 @@ class Home extends React.Component {
 
         {(this.state.uploadSpeed != 0) && <p>Upload Speed: {this.state.uploadSpeed} bytes/sec</p>}
 
-        {(this.state.appState == "ReadyToSend" || 
-          this.state.appState == "WaitingToReceive" || 
+        {(this.state.appState == "ReadyToSend" ||
+          this.state.appState == "WaitingToReceive" ||
           this.state.appState == "Transfer") && (
           <button
             className="red-button-bottom"

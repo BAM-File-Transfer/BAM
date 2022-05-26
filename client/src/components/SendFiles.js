@@ -65,8 +65,19 @@ class SendFiles extends React.Component {
     let returnSpinnerFlag = this.props.spinnerCallback
     returnSpinnerFlag(true)
     let accResponse = false
-    // Only IOS requires apps to ask for permission to use the Accelerometer sensor
-    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+
+    // Helper function to check IOS versions
+    // https://stackoverflow.com/questions/8348139/detect-ios-version-less-than-5-with-javascript
+    function iOSversion() {
+      if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
+        var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+      }
+    }
+    // Only IOS 12.2 and later requires apps to ask for permission to use the Accelerometer sensor
+    let ios_version = iOSversion()
+    if( ios_version != undefined && ((ios_version[0] == 12 && ios_version[1] >= 2) || ios_version[0] >= 13) ) {
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           accResponse = true
