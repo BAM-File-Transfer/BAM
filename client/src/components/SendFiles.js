@@ -84,7 +84,7 @@ class SendFiles extends React.Component {
         }
         this.createTorrent(accResponse);
       })
-    } else if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    } else if( /iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       accResponse = true
       this.createTorrent(accResponse);
     } else {

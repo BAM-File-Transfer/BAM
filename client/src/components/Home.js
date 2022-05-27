@@ -96,7 +96,7 @@ class Home extends React.Component {
           });
         }
       })
-    } else if( /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    } else if( /iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         this.setState({
           accPermission: true, // Permission to access Accelerometer data is given by the receiver
         });
