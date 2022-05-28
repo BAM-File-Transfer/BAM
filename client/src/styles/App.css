@@ -35,18 +35,19 @@
   height: 100%;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+/*
 .About {
+  font-family: 'Bangers';
   background-color: black;
   color: white;
   text-align: center;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
   border-radius: 25px;
   line-height: 1.5;
-  font-family: 'Bangers';
-
 }
+*/
 
 @keyframes App-logo-spin {
   from {

@@ -1,4 +1,6 @@
 import React from 'react'
+import "../styles/about.css"
+import "../styles/button.css"
 import Header from './Header'
 import { useNavigate } from 'react-router-dom'
 
