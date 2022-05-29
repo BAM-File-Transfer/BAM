@@ -1,15 +1,4 @@
 import "../styles/button.css";
-
-// --- Abdullah's Routing ---
-//import { useNavigate } from 'react-router-dom'
-
-//const Receive = () => {
-//  const navigate = useNavigate()
-//  const handleClick = () => {
-//    alert('Receive Files')
-//    navigate('/WaitForBump')
-
-import "../styles/button.css";
 import "../styles/containers.css";
 import React from "react";
 import PropTypes from "prop-types";
@@ -18,7 +7,6 @@ import JSZip from "../../node_modules/jszip/dist/jszip";
 import downloadIcon from "../assets/download.png";
 
 let addedFiles = 0;
-// var torrentId = "";
 const Receive = ({ torrent }) => {
   const onClick = () => {
     var zip = new JSZip();
@@ -27,10 +15,8 @@ const Receive = ({ torrent }) => {
     const { WebTorrent } = window;
     let client = new WebTorrent();
 
-    // var torrentId = document.getElementById('seeder').value //TODO remove
     const clientData = {
       name: "Superman",
-      // magnetLink: "",
       coordinates: [115, 115],
       date: Date.now(),
     };
@@ -47,7 +33,6 @@ const Receive = ({ torrent }) => {
         } 
         torrent.files.forEach(function (file) {
           zip.file(file.path, Blob, { base64: true });
-          // temporary code. will be replaced with updating Parent Component torr state
           file.getBlob(function (err, blob) {
             addedFiles += 1;
             if (err) throw err;
@@ -112,9 +97,6 @@ const Receive = ({ torrent }) => {
   return (
     <div className="receivefiles">
       <ul className="receiveContainer">
-        {/* <li>
-          <input type="text" id="seeder" placeholder="Enter seed" />
-        </li> */}
         <li>
           <button
             type="button receive"
