@@ -1,9 +1,8 @@
 import { sleep } from "../util/sleep";
 
 const API_IP = "https://bambam.app";
-// const API_PORT = 5000;
 
-// Helper Functions
+// Generic API request helper function
 async function request(method, clientData, path) {
   const options = {
     method: method,
@@ -19,6 +18,7 @@ async function request(method, clientData, path) {
   return datamsg;
 }
 
+// Concise wrapper around hasOwnProperty
 function hasProperty (obj, prop) {
   // https://simplernerd.com/fix-error-do-not-access-object-prototype-method-hasownproperty/
   return Object.prototype.hasOwnProperty.call(obj, prop);
@@ -29,7 +29,7 @@ clientData is a json object with the following fields:
 
 Example:
   const clientData = {
-      name: "Saitama",
+      name: "Sender",
       magnetLink: torrent.magnetURI,
       coordinates: [longitude, lattitude],
       date: Date.now(),
@@ -43,10 +43,20 @@ The types that the MongoDB database is expecting are...
   date:         Date
 */
 
+/**
+ * Called by the Sender
+ * @param {*} clientData JSON of data needed to be stored in the database
+ * @returns API server response. Also JSON.
+ */
 export async function APIsend (clientData) {
   return request ("POST", clientData, '/send');
 }
 
+/**
+ * Called by the Receiver. Tries to find a matching Sender.
+ * @param {*} clientData JSON of data needed to be stored in the database
+ * @returns API server response. Also JSON.
+ */
 export async function APIrecv (clientData) {
   let response = await request ("POST", clientData, '/recv');
   let retriesLeft = 5
