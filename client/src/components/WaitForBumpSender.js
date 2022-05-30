@@ -3,7 +3,7 @@ import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PropTypes from 'prop-types';
-import FistsBumping from '../assets/FistsBumping2.png'
+import FistsBumping from '../assets/FistsBumping.png'
 
 class WaitForBumpSender extends React.Component {
   focusInterval = null;
@@ -12,19 +12,18 @@ class WaitForBumpSender extends React.Component {
   }
 
   componentDidMount() {
+    // The component needs focus in order to detect keypresses.
+    // So we periodically set the focus back to this component
+    // in case the user clicks something else.
     this.focusInterval = setInterval(function () {
       let bamButton = document.getElementById('bamButton');
       if (bamButton) { bamButton.focus() }
     }, 100);
-    // if the permission to access Accelerometer data is granted
 
+    // if the permission to access Accelerometer data is granted
     if (this.props.senderAccPermission) {
       let isAccListenerActive = true
       window.addEventListener("devicemotion", (event) => {
-        //let x_acceleration = event.acceleration.x;
-        //let y_acceleration = event.acceleration.y;
-        //let z_acceleration = event.acceleration.z;
-        // if x axis acceleration is more than 20 m/s^2, a bump is detected
         if (isAccListenerActive && 
           (Math.abs(event.acceleration.x) > 9 || Math.abs(event.acceleration.y) > 9)) {
           console.log(Math.abs(event.acceleration.x))
@@ -40,6 +39,7 @@ class WaitForBumpSender extends React.Component {
     }
   }
 
+  // Called when a BAM! is triggered
   bamEvent = () => {
     const sensorData = {
       coordinates: this.props.senderLocationArr,
@@ -49,6 +49,7 @@ class WaitForBumpSender extends React.Component {
     this.props.bumpCallback(sensorData);
   }
 
+  // Called when the spacebar is pressed
   spaceBamEvent = (event) => {
     if (event.keyCode === 'Space') {
       clearInterval(this.focusInterval);

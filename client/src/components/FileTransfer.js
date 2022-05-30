@@ -38,7 +38,7 @@ class FileTransfer extends React.Component {
 
     // https://webtorrent.io/docs
     // Start downloading torrent
-    let filetransfer = this;
+    let filetransfer = this;  // Scope workaround
     this.props.client.add(torrentId, function (torrent) {
       torrent.on('done', () =>{
         filetransfer.setState({
@@ -129,18 +129,12 @@ class FileTransfer extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* If currently downloading torrent, render loading spinner; else, render nothing
-        {this.state.showSpinner &&
-          <div className="loader">Loading...</div>
-        } */}
-
         {this.state.showReceivedFiles &&
             <div
               id="downloadList"
               className="downloadListContainer container-fluid">
             </div>
-        } 
-
+        }
       </div>
     )
   }

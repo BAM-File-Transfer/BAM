@@ -3,7 +3,7 @@ import '../styles/button.css'
 import '../styles/waitforbump.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PropTypes from 'prop-types';
-import FistsBumping from '../assets/FistsBumping2.png'
+import FistsBumping from '../assets/FistsBumping.png'
 
 class WaitForBumpReceiver extends React.Component {
   focusInterval = null;
@@ -12,6 +12,9 @@ class WaitForBumpReceiver extends React.Component {
   }
 
   componentDidMount() {
+    // The component needs focus in order to detect keypresses.
+    // So we periodically set the focus back to this component
+    // in case the user clicks something else.
     this.focusInterval = setInterval(function () {
       let bamButton = document.getElementById("bamButton");
       if (bamButton) { bamButton.focus(); }
@@ -23,6 +26,8 @@ class WaitForBumpReceiver extends React.Component {
     }
   }
 
+  // This disables the accelerometer
+  // so it doesn't trigger on the download screen
   componentWillUnmount() {
     console.log("Before Unmount");
     window.removeEventListener("devicemotion", this.handleAccelerationEvent);
@@ -47,6 +52,7 @@ class WaitForBumpReceiver extends React.Component {
     }
   }
 
+  // Called when a BAM! is triggered
   bamEvent = () => {
     const sensorData = {
       coordinates: this.props.receiverLocationArr,
@@ -55,6 +61,7 @@ class WaitForBumpReceiver extends React.Component {
     this.props.bumpCallback(sensorData);
   };
 
+  // Called when the spacebar is pressed
   spaceBamEvent = (event) => {
     if (event.keyCode === "Space") {
       clearInterval(this.focusInterval);

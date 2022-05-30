@@ -32,23 +32,6 @@ class Home extends React.Component {
   }
 
   onCancelButtonClick = () => {
-    // App State
-    // this.setState({
-    //   appState: "Choosing",
-    //   uploadSpeed: 0,
-    //   progress: 0,
-    // });
-
-    // // Remove current torrent
-    // if(this.client.torrents[0] != null){
-    //   this.client.remove(this.client.torrents[0], false);
-    // }
-
-    // // Clear Intervals
-    // clearInterval(this.senderInterval);
-    // clearInterval(this.receiverInterval);
-    // this.senderInterval = null;
-    // this.receiverInterval = null;
     window.location.reload();
   }
 
