@@ -5,6 +5,8 @@
 | **Team Name:**    | Team BAM! |
 | **Date:**         | 5/31/2022 |
 
+# System Test Scenarios
+
 #  Unit Tests
 
 ## Christopher Cruz
