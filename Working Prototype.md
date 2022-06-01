@@ -8,7 +8,7 @@
 ## List of functions not working correctly:
 - User clients will have magnet links for user files download, but files will occasionally take a long time/hang.
   - Users need to cancel and retry the process.
-  - Especially likely during 8 pm PST.
+  - Especially likely around 8 pm PST.
 - Depending on the Internet connection or user device, the geolocation may be inaccurate.
   - Most commonly affects desktops/laptops.
   - On eduroam, there is inconsistent geolocation data.
