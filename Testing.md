@@ -30,6 +30,6 @@ File Transfer interruptions:
 - As the Sender is transferring the files to the Receiver(s), refresh the Sender's page (the equivalance class contains anything that can interrupt the Sender's connection to the internet, including turning on Airplane mode, turning off WiFi, etc). Then, reestablish the connection/try sending the files again. The Receiver should finish downloading the files.
 
 Order of Operations:
-- Purposefully intiate a BAM! on the Sender slightly before the Receiver. The Receiver should instatntly match with the Sender and should start downloading.
+- Purposefully initiate a BAM! on the Sender slightly before the Receiver. The Receiver should instatntly match with the Sender and should start downloading.
 - Purposefully initiate a BAM! on the Receiver slightly before the Sender. The Receiver should show a loading spinner for a bit before finding a match and initating the download.
 
