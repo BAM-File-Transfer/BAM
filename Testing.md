@@ -13,6 +13,71 @@
 
 ## Abdullah Kose
 
+### Acceleration Event Detecting Bump
+#### Valid case
+Input(s): Acceleration in the x-axis greater than 9 m/s^2 on a mobile device
+ 
+Test Steps: After clicking Send button or Receive button and accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend listens for an acceleration of the client’s device. If the acceleration in the x-axis is greater than 9, the app will initiate the transfer.
+
+Expected Output: After the acceleration, the app shows a loading spinner and starts the file transfer.
+
+#### Valid case
+Input(s): Acceleration in the y-axis greater than 8 m/s^2 on a mobile device
+
+Test Steps: After clicking Send button or Receive button and accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend listens for an acceleration of the client’s device. If the acceleration in the y-axis is greater than 8, the app will initiate the transfer.
+
+Expected Output: After the acceleration, the app shows a loading spinner and starts the file transfer.
+
+#### Valid case
+Input(s): Acceleration in the x-axis less than 9 m/s^2 on a mobile device
+
+Test Steps: After clicking Send button or Receive button and accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend listens for an acceleration of the client’s device. If the acceleration in the x-axis is less than 9, the app will not do anything.
+
+Expected Output: After the acceleration that is less than 9 m/s^2 in the x-axis, the app will stay in the same state waiting for a bigger acceleration.
+
+#### Valid case
+Input(s): Acceleration in the y-axis less than 8 m/s^2 on a mobile device
+
+Test Steps: After clicking Send button or Receive button and accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend listens for an acceleration of the client’s device. If the acceleration in the y-axis is less than 8, the app will not do anything.
+
+Expected Output: After the acceleration that is less than 8 m/s^2 in the y-axis, the app will stay in the same state waiting for a bigger acceleration.
+
+#### Invalid case
+Input(s): Acceleration in the x-axis greater than 9 m/s^2 on a mobile device 
+
+Test Steps: After clicking Send button or Receive button but not accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend cannot listen for an acceleration of the client’s device. The app will not respond to a change in acceleration.
+
+Expected Output: After the acceleration, nothing happens.
+
+#### Invalid case
+Input(s): Acceleration in the y-axis greater than 8 m/s^2 on a mobile device 
+
+Test Steps: After clicking Send button or Receive button but not accepting the permission requests, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend cannot listen for an acceleration of the client’s device. The app will not respond to a change in acceleration.
+
+Expected Output: After the acceleration, nothing happens.
+
+#### Invalid case
+Input(s): Acceleration in the y-axis greater than 8 m/s^2 on a desktop device
+
+Test Steps: After clicking Send button or Receive button, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend cannot listen for an acceleration of the client’s device because it’s desktop. The app will not respond to a change in acceleration.
+
+Expected Output: After the acceleration, nothing happens.
+
+#### Invalid case
+Input(s): Acceleration in the x-axis greater than 9 m/s^2 on a desktop device
+
+Test Steps: After clicking Send button or Receive button, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend cannot listen for an acceleration of the client’s device because it’s desktop. The app will not respond to a change in acceleration.
+
+Expected Output: After the acceleration, nothing happens.
+
+#### Invalid case
+Input(s): Acceleration in the z-axis greater than 9 m/s^2 on a mobile device
+
+Test Steps: After clicking Send button or Receive button, the client will be on either WaitForBumpReceiver or WaitForBumpSender pages where the frontend listens for an acceleration of the client’s device. However, the app will not respond to a change in acceleration because the event listener only checks for accelerations in the x-axis and y-axis.
+
+Expected Output: After the acceleration, nothing happens.
+
+
 ## James Miller
 
 ## Brandon Minjares
