@@ -91,10 +91,34 @@ Delete request of files -- Change GARBAGE_COLLECTION_PERIOD to 60000 so that fil
 MongoDB connection -- 
 
 ## Eric Truong
-File Transfer interruptions:
-- As the Sender is transferring the files to the Receiver(s), refresh the Sender's page (the equivalance class contains anything that can interrupt the Sender's connection to the internet, including turning on Airplane mode, turning off WiFi, etc). Then, reestablish the connection/try sending the files again. The Receiver should finish downloading the files.
+### File Transfer interruptions
+#### Valid Case
+Input(s): A torrent is created from the Sender's chosen files and is added to the WebTorrent client instance.
 
-Order of Operations:
-- Purposefully initiate a BAM! on the Sender slightly before the Receiver. The Receiver should instatntly match with the Sender and should start downloading.
-- Purposefully initiate a BAM! on the Receiver slightly before the Sender. The Receiver should show a loading spinner for a bit before finding a match and initating the download.
+Test Steps: As the Sender is transferring the files to the Receiver(s), refresh the Sender's page mid-transfer. Then try sending the same files again.
+
+Expected Output: When the exact same files are chosen to be sent again, the magnet link that is generated is identical to the first time (due to the hashing function being deterministic). This means that the Receiver can just resume where it left off without needing to BAM! a second time.
+
+#### Invalid Case
+Input(s): A torrent is created from the Sender's chosen files and is added to the WebTorrent client instance.
+
+Test Steps: As the Sender is transferring the files to the Receiver(s), refresh the Sender's page mid-transfer. Then try sending a different set of files.
+
+Expected Output: Since the set of files chosen are different (even if it's a superset or subset), the magnet link generated will be different. Since this is a distinct magnet link, the Receiver will not be able to resume downloading and will need to BAM! once again to get the new magnet link.
+
+
+### Order of Operations:
+#### Valid Case:
+Input(s): Sender senses an API request slightly before the Receiver does.
+
+Test Steps: Purposefully initiate a BAM! on the Sender slightly before the Receiver. =
+
+Expected Output: The Receiver should instatntly match with the Sender and should start downloading.
+
+#### Valid Case:
+Input(s): Receiver sends an API request slightly before the Sender does.
+
+Test Steps: Purposefully initiate a BAM! on the Receiver slightly before the Sender.
+
+Expected Output: The Receiver should show a loading spinner for a bit before finding a match and initating the download.
 
