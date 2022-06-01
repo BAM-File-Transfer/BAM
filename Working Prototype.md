@@ -15,6 +15,7 @@
 - ‘Download All Files’ Button Bugs
   - For larger sized downloads, button will appear delayed from the individual files since it’s still zipping the file.
   - Occasionally has a ‘Network Error’ when attempting to Download All.
+  - Button is not always centered.
 - ‘Choose Files’ button’s ‘no file selected/filename’ is cut off on narrow screens.
 - Certain UI styling elements are incompatible/inconsistent on:
   - Safari iOS, Chrome for iOS, Firefox, Opera
