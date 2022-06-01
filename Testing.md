@@ -5,6 +5,7 @@
 | **Team Name:**    | Team BAM! |
 | **Date:**         | 5/31/2022 |
 
+---
 # System Test Scenarios
 
 ## User Story 1 from Sprint 2:
@@ -56,13 +57,10 @@
 8. Once all the files are downloaded, the Sender can safely close the tab.
 7. Receivers can click on the download button(s).,
 
-
+---
 #  Unit Tests
 
 ## Christopher Cruz
-
-### FileTransfer Component
----
 ### Receiving One File Download
 #### Valid Case
 - Input(s): any file type 
@@ -261,7 +259,7 @@
 - Expected Output: Since the set of files chosen are different (even if it's a superset or subset), the magnet link generated will be different. Since this is a distinct magnet link, the Receiver will not be able to resume downloading and will need to BAM! once again to get the new magnet link.
 
 
-### Order of Operations:
+### API Order of Operations:
 #### Valid Case:
 - Input(s): Sender senses an API request slightly before the Receiver does.
 
