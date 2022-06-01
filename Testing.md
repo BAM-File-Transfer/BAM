@@ -26,3 +26,10 @@ Delete request of files -- Change GARBAGE_COLLECTION_PERIOD to 60000 so that fil
 MongoDB connection -- 
 
 ## Eric Truong
+File Transfer interruptions:
+- As the Sender is transferring the files to the Receiver(s), refresh the Sender's page (the equivalance class contains anything that can interrupt the Sender's connection to the internet, including turning on Airplane mode, turning off WiFi, etc). Then, reestablish the connection/try sending the files again. The Receiver should finish downloading the files.
+
+Order of Operations:
+- Purposefully intiate a BAM! on the Sender slightly before the Receiver. The Receiver should instatntly match with the Sender and should start downloading.
+- Purposefully initiat a BAM! on the Receiver slightly before the Sender. The Receiver should show a loading spinner for a bit before finding a match and initating the download.
+
