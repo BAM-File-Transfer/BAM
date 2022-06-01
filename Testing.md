@@ -31,5 +31,5 @@ File Transfer interruptions:
 
 Order of Operations:
 - Purposefully intiate a BAM! on the Sender slightly before the Receiver. The Receiver should instatntly match with the Sender and should start downloading.
-- Purposefully initiat a BAM! on the Receiver slightly before the Sender. The Receiver should show a loading spinner for a bit before finding a match and initating the download.
+- Purposefully initiate a BAM! on the Receiver slightly before the Sender. The Receiver should show a loading spinner for a bit before finding a match and initating the download.
 
