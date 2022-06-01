@@ -5,6 +5,7 @@
 | **Team Name:**    | Team BAM! |
 | **Date:**         | 5/31/2022 |
 
+---
 # System Test Scenarios
 
 ## User Story 1 from Sprint 2:
@@ -56,13 +57,10 @@
 8. Once all the files are downloaded, the Sender can safely close the tab.
 7. Receivers can click on the download button(s).,
 
-
+---
 #  Unit Tests
 
 ## Christopher Cruz
-
-### FileTransfer Component
----
 ### Receiving One File Download
 #### Valid Case
 - Input(s): any file type 
