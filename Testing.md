@@ -21,7 +21,9 @@
 	- Pressing/clicking the image of the fist-bump.
 	- Pressing the spacebar.
 5. Wait for the Receiver to download the files.
-6. Click on the download link for your file(s).
+6. Once all the files are downloaded, the Sender can safely close the tab.
+7. Receiver can click on the download button(s).,
+
 
 ## User Story 2 from Sprint 3:
 > As a social person, I would like a fun and interactive way of sharing files so that I can fist bump people.
@@ -35,7 +37,24 @@
 4. Initiate a BAM! on all mobile devices by fist-bumping them together.
 5. We know the BAM! was detected if a loading spinner shows up on screen.
 6. Wait for the Receiver to download the files.
-7. Click on the download link for your file(s).
+8. Once all the files are downloaded, the Sender can safely close the tab.
+7. Receivers can click on the download button(s).,
+
+
+## User Story 4 from Sprint 3:
+> As a leader of a team, I want to share files with other members of the team so that we can coordinate the workflow.
+
+1. Go to https://bambam.app on 3+ devices.
+2. The leader needs to press "Choose Files" and select the file(s) they want to send to the other members.
+	1. Accept any device permission requests.
+	2. Wait for the screen to finish loading your files. It should show an image of a fist-bump when it's ready.
+3. Meanwhile, the other members should press "Receive Files" on their devices.
+4. Initiate a BAM! on all devices at the same time.
+	- If it's all mobile devices, just fist-bump all the phones together.
+	- If there are any laptops/desktops, they will need to press Spacebar or click the fist-bump image at the same time as the fist-bump.
+6. Wait for the Receivers to download the files.
+8. Once all the files are downloaded, the Sender can safely close the tab.
+7. Receivers can click on the download button(s).,
 
 
 #  Unit Tests
