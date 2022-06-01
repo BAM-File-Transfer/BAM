@@ -18,7 +18,6 @@
 | ------ | ----------- |
 | Input(s) | any file type |
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
-  |
 
 ##### **Test Steps:**
 1. Open two instances of the web app
@@ -52,7 +51,6 @@
 | ------ | ----------- |
 | Inputs | any file types |
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
-  |
 
 ##### **Test Steps:**
 1. Open two instances of the web app
@@ -87,7 +85,6 @@
 | ------ | ----------- |
 | Inputs | file(s) with increasing size (1GB, 10 GB, 50 GB, 100 GB, …) |
 | Tested | varying sizes <= 120 GB |
-  |
 
 ##### **Test Steps:**
 1. Open two instances of the web app
@@ -115,7 +112,6 @@
 | N/A | File transfer may hang during transfer or get corrupted.  |
 
 > ##### Larger files have a more likely chance of corrupting on file transfer. Larger files will also take a longer time to seed, maybe even getting to a state where it never seeds at all. One reason is a bug where WebTorrent fails to find a tracker it needs in order to start seeding for the client. 
-
 
 
 ## Abdullah Kose
