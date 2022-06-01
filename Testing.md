@@ -43,7 +43,8 @@
 ## Christopher Cruz
 
 ### FileTransfer Component
-#### Receiving One File Download
+---
+### Receiving One File Download
 #### Valid Case
 - Input(s): any file type 
 
@@ -61,7 +62,7 @@
   - Data may corrupt during transfer.
 
 
-#### Receiving Multiple File Download
+### Receiving Multiple File Download
 #### Valid Case:
 - Input(s): any file type(s)
 
@@ -79,7 +80,7 @@
   - Files may still corrupt during transfer or during the download/zipping process.
 
 
-#### Transferring Large File(s) Download
+### Transferring Large File(s) Download
 #### Valid Case:
 - Input(s): file(s) with increasing size (1GB, 10 GB, 50 GB, 100 GB, …)
 
