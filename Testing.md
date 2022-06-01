@@ -187,14 +187,32 @@
 ## James Miller
 
 ## Brandon Minjares
-Post request to "send" -- Magnet link and coordinates are taken from user. Testing can be done by selecting files to send, allowing location permission, bumping phone, and then checking MongoDB collection for that document that was uploaded.
-Secondary test is ensuring other user received file after bumping which would confirm Post request to "send" worked.
 
-POST request to "recv" --
+### Post Request to "send"
+#### Valid case
+- Input(s): Location, accelerometer data, and magnet link are sent to the body of the HTTP post request "/send".
+ 
+- Test Steps: After clicking Send button and accepting the permission requests, the client will be on the WaitForBumpSender page where the frontend listens for an acceleration of the client’s device. Once a valid bump occurs the HTTP request is made.
 
-Delete request of files -- Change GARBAGE_COLLECTION_PERIOD to 60000 so that files delete after 1 minute. Choose file, click send, bump phones. You can check database that file was sent. Wait 1 minute. Check database again to see if file is still in collection
+- Expected Output: After the bump, an object from the request body data will be created in the MongoDB collection ready to be received by the receiver.
 
-MongoDB connection -- 
+### Post Request to "recv"
+#### Valid case
+- Input(s): Location and accelerometer data are sent to the body of the HTTP post request "/recv".
+ 
+- Test Steps: After clicking Receive button and accepting the permission requests, the client will be on the WaitForBumpReceiver page where the frontend listens for an acceleration of the client’s device. Once a valid bump occurs the HTTP request is made.
+
+- Expected Output: After the bump the an object from the request body data will be created and sent to the MongoDB collection to find the object that matches the parameters given from the receiver.
+
+### Delete Request
+#### Valid case
+
+- Input(s): Must create object in database by successfully completing the BUMP!
+
+- Test Steps: Can change GARBAGE_COLLECTION_PERIOD to 300000 so that the deletion time interval is minimized
+
+- Expected Output: After 5 minutes all the objects in the database that have been created more than 2 minutes ago will be deleted so you will not be able to find them.
+
 
 ## Eric Truong
 ### File Transfer interruptions
