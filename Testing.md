@@ -34,6 +34,8 @@
 	1. Accept any device permission requests.
 4. Initiate a BAM! on all mobile devices by fist-bumping them together.
 5. We know the BAM! was detected if a loading spinner shows up on screen.
+6. Wait for the Receiver to download the files.
+7. Click on the download link for your file(s).
 
 
 #  Unit Tests
