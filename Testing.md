@@ -15,6 +15,7 @@
 ---
 #### Receiving One File
 
+| | |
 | ------ | ----------- |
 | Input(s) | any file type |
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
@@ -47,7 +48,7 @@
 > #### The method through which the web application is transferring files is through a torrent. This is a peer-to-peer established connection where a 'sender' will break down a file into bits and send them to the 'receiver'. This is done through the WebTorrent API. This method should handle any file type, but errors may occur during the file transfer process.
 ---
 #### Receiving Multiple File Download
-
+| | |
 | ------ | ----------- |
 | Inputs | any file types |
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
@@ -81,7 +82,7 @@
 > #### Just like WebTorrent handles all file types, WebTorrent should also handle any number of files; more files will just make the transfer/download process longer. However, files may still corrupt during transfer or during the download/zipping process.
 ---
 #### Transferring Large File(s) Download
-
+| | |
 | ------ | ----------- |
 | Inputs | file(s) with increasing size (1GB, 10 GB, 50 GB, 100 GB, …) |
 | Tested | varying sizes <= 120 GB |
