@@ -234,7 +234,7 @@
 
 - Expected Output: After the bump an object from the request body data will be created and sent to the MongoDB collection to find the object that matches the parameters given from the receiver. If they match the file from the collection will be sent to the Receiver to be parsed into Downloadable Files.
 
-### Delete Request
+### Delete Request -- Runs on a time interval
 #### Valid case
 
 - Input(s): Must create object in database by successfully completing the BUMP!
