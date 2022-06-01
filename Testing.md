@@ -21,21 +21,7 @@
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
 
 ##### **Test Steps:**
-1. Open two instances of the web app
-2. On the first instance, click ‘Choose Files’ button
-3. Pick test file
-4. Click ‘Send Files’ button
-5. On the second instance, click ‘Receive Files’ button
-6. Both instances should be on the waiting page
-7. For phone-to-phone test:
-    * Bump the two phones together
-8. For computer-to-phone test:
-    * Bump the phone on the spacebar
-9. Check the second instance for the file download
-10. Download the file using the:
-    * Individual File button
-    * ‘Download All Files’ button
-11. After the file has been downloaded, open the file
+Open two instances of the web app. On the first instance, pick test file on the first instance, then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the file and open the file.
 
 | Valid Input | Expected Outcome |
 | ------ | ----------- |
@@ -54,22 +40,7 @@
 | Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
 
 ##### **Test Steps:**
-1. Open two instances of the web app
-2. On the first instance, click ‘Choose Files’ button
-3. Pick multiple test files (vary the number of files on each test)
-4. Click ‘Send Files’ button
-5. On the second instance, click ‘Receive Files’ button
-6. Both instances should be on the waiting page
-7. For phone-to-phone test:
-    * Bump the two phones together
-8. For computer-to-phone test:
-    * Bump the phone on the spacebar
-9. Check the second instance for the file download
-10. Download the file using the:
-    * Individual File buttons
-    * ‘Download All Files’ buttons
-11. After the files has been downloaded, open the individually downloaded files
-12. Open the zip file and check the files.
+Open two instances of the web app. On the first instance, pick multiple test files (vary the number of files on each test), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
 
 | Valid Input | Expected Outcome |
 | ------ | ----------- |
@@ -88,21 +59,7 @@
 | Tested | varying sizes <= 120 GB |
 
 ##### **Test Steps:**
-1. Open two instances of the web app
-2. On the first instance, click ‘Choose Files’ button
-3. Pick large test file(s) (>1 GB)
-4. Click ‘Send Files’ button
-5. On the second instance, click ‘Receive Files’ button
-6. Both instances should be on the waiting page
-7. For phone-to-phone test:
-    * Bump the two phones together
-8. For computer-to-phone test:
-    * Bump the phone on the spacebar
-9. Check the second instance for the file download
-10. Download the file using the:
-    * Individual File buttons
-    * ‘Download All Files’ buttons
-11. After the file(s) has been downloaded, open the file(s)
+Open two instances of the web app. On the first instance, pick large test file(s) (>1 GB), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
 
 | Valid Input | Expected Outcome |
 | ------ | ----------- |
