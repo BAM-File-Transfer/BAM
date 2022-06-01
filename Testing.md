@@ -7,7 +7,9 @@
 
 # System Test Scenarios
 
-## User Story 1 from Sprint 2: As a person with multiple devices, I want to share files between devices easily so that I can continue my work on that other device.
+## User Story 1 from Sprint 2:
+> As a person with multiple devices, I want to share files between devices easily so that I can continue my work on that other device.
+
 1. Go to https://bambam.app on both devices.
 2. Press "Choose Files" and select the file you want to send to your other device.
 	1. Accept any device permission requests.
