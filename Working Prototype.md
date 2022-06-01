@@ -23,3 +23,5 @@
   - Occasional font changes on render
 - The text font takes a split-second to download when loading the page for the first time.
   A placeholder font may be visible for a split-second while the font downloads.
+- When multiple BAM!s happen in the same spot in quick succession, the receiver of the second BAM! (chronologically) will receive the files of the Sender in the first BAM!. This is because the database returns the oldest Sender entry within the given thresholds.
+  - The fix for this is to have the database return the Sender data that has the closest time value.
