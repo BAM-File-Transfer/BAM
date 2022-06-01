@@ -185,6 +185,36 @@
 
 
 ## James Miller
+### Geolocation
+### Invalid Case
+- Input(s): Location is turned off in browser settings.
+
+- Test Steps: Sender selects files to send or receiver clicks the receive button.
+
+- Expected Output: Permissions are denied. The application can not proceed from here.
+
+### Valid Case
+- Input(s): Location is turned on in browser settings.
+
+- Test Steps: Sender selects files to send or receiver clicks the receive button.
+
+- Expected Output: Longitude and latitude of the user is returned.
+
+### Time
+### Invalid Case
+- Input(s): A string that contains a non-whitespace character that is not a number is sent to the server for the matching algorithm.
+
+- Test Steps: Initiate the bump phase of the file transfer. Return an invalid input for the time. Run the server code.
+
+- Expected Output: NaN is returned and program will print "invalid".
+
+### Valid Case
+- Input(s): A string that can be parsed and turned into an integer.
+
+- Test Steps: Initiate the bump phase of the file transfer. Bump devices and record the milliseconds elapsed since the UNIX epoch.
+
+- Expected Output: An integer is returned with no error message.
+
 
 ## Brandon Minjares
 
