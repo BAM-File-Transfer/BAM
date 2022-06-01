@@ -194,7 +194,7 @@
  
 - Test Steps: After clicking Send button and accepting the permission requests, the client will be on the WaitForBumpSender page where the frontend listens for an acceleration of the client’s device. Once a valid bump occurs the HTTP request is made.
 
-- Expected Output: After the bump, an object from the request body data will be created in the MongoDB collection ready to be received by the receiver.
+- Expected Output: After the bump, an object from the request body data will be created in the MongoDB collection ready to be received by the receiver. You can confirm this by viewing MongoDB collection and finding object created or my completing the post request to "recv" on another device and successfully receiving the file to be downloaded.
 
 ### Post Request to "recv"
 #### Valid case
@@ -202,7 +202,7 @@
  
 - Test Steps: After clicking Receive button and accepting the permission requests, the client will be on the WaitForBumpReceiver page where the frontend listens for an acceleration of the client’s device. Once a valid bump occurs the HTTP request is made.
 
-- Expected Output: After the bump the an object from the request body data will be created and sent to the MongoDB collection to find the object that matches the parameters given from the receiver.
+- Expected Output: After the bump an object from the request body data will be created and sent to the MongoDB collection to find the object that matches the parameters given from the receiver. If they match the file from the collection will be sent to the Receiver to be parsed into Downloadable Files.
 
 ### Delete Request
 #### Valid case
