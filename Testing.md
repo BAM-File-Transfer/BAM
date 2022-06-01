@@ -259,7 +259,7 @@
 - Expected Output: Since the set of files chosen are different (even if it's a superset or subset), the magnet link generated will be different. Since this is a distinct magnet link, the Receiver will not be able to resume downloading and will need to BAM! once again to get the new magnet link.
 
 
-### Order of Operations:
+### API Order of Operations:
 #### Valid Case:
 - Input(s): Sender senses an API request slightly before the Receiver does.
 
