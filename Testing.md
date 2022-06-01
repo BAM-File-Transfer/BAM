@@ -29,64 +29,58 @@
 ## Christopher Cruz
 
 ### FileTransfer Component
----
-#### Receiving One File
+#### Receiving One File Download
+#### Valid Case
+- Input(s): any file type 
 
-| | |
-| ------ | ----------- |
-| Input(s) | any file type |
-| Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
+- Test Steps: Open two instances of the web app. On the first instance, pick test file on the first instance, then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the file and open the file.
 
-##### **Test Steps:**
-Open two instances of the web app. On the first instance, pick test file on the first instance, then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the file and open the file.
+- Expected Output: File should transfer and download correctly. Receiver should receive the original file. 
+  - The method through which the web application is transferring files is through a torrent. This is a peer-to-peer established connection where a 'sender' will break down a file into bits and send them to the 'receiver'. This is done through the WebTorrent API. This method should handle any file type.
 
-| Valid Input | Expected Outcome |
-| ------ | ----------- |
-| Any file type | File should transfer and download correctly. Receiver should receive the original file. |
+#### Invalid Case
+- Input(s): any file type(s)
 
-| Invalid Input | Expected Outcome |
-| ------ | ----------- |
-| N/A | File should still transfer. when downloading individually or as a zip, the file will appear as ‘Network Error’ or as a corrupted file. |
+- Test Steps: Open two instances of the web app. On the first instance, pick test file on the first instance, then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the file and open the file.
 
-> #### The method through which the web application is transferring files is through a torrent. This is a peer-to-peer established connection where a 'sender' will break down a file into bits and send them to the 'receiver'. This is done through the WebTorrent API. This method should handle any file type, but errors may occur during the file transfer process.
----
+- Expected Output: File should still transfer. After downloading the file, the file will appear as ‘Network Error’ when downloading individually or as a zip.
+  - Data may corrupt during transfer.
+
+
 #### Receiving Multiple File Download
-| | |
-| ------ | ----------- |
-| Inputs | any file types |
-| Tested | .jpg, .png, .gif, .zip, .pdf, .mp3, .mp4, .exe, .iso |
+#### Valid Case:
+- Input(s): any file type(s)
 
-##### **Test Steps:**
-Open two instances of the web app. On the first instance, pick multiple test files (vary the number of files on each test), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
+- Test Steps: Open two instances of the web app. On the first instance, pick multiple test files (vary the number of files on each test), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
 
-| Valid Input | Expected Outcome |
-| ------ | ----------- |
-| Any file type | Files should transfer and download correctly. Receiver should receive the original files. |
+- Expected Output: Files should transfer and download correctly. Receiver should receive the original files.
+  - Just like WebTorrent handles all file types, WebTorrent should also handle any number of files; more files will just make the transfer/download process longer.
 
-| Invalid Input | Expected Outcome |
-| ------ | ----------- |
-| N/A | Files should still transfer. After downloading the files, the files will appear as ‘Network Error’ when downloading individually or as a zip.  |
+#### Invalid Case:
+- Input(s): any file type(s)
 
-> #### Just like WebTorrent handles all file types, WebTorrent should also handle any number of files; more files will just make the transfer/download process longer. However, files may still corrupt during transfer or during the download/zipping process.
----
+- Test Steps: Open two instances of the web app. On the first instance, pick multiple test files (vary the number of files on each test), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
+
+- Expected Output: Files should still transfer. After downloading the files, the files will appear as ‘Network Error’ when downloading individually or as a zip.
+  - Files may still corrupt during transfer or during the download/zipping process.
+
+
 #### Transferring Large File(s) Download
-| | |
-| ------ | ----------- |
-| Inputs | file(s) with increasing size (1GB, 10 GB, 50 GB, 100 GB, …) |
-| Tested | varying sizes <= 120 GB |
+#### Valid Case:
+- Input(s): file(s) with increasing size (1GB, 10 GB, 50 GB, 100 GB, …)
 
-##### **Test Steps:**
-Open two instances of the web app. On the first instance, pick large test file(s) (>1 GB), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
+- Test Steps: Open two instances of the web app. On the first instance, pick large test file(s) (>1 GB), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
 
-| Valid Input | Expected Outcome |
-| ------ | ----------- |
-| Any file type | Files should transfer and download correctly. Receiver should receive the original files. |
+- Expected Output: Files should transfer and download correctly. Receiver should receive the original files.
 
-| Invalid Input | Expected Outcome |
-| ------ | ----------- |
-| N/A | File transfer may hang during transfer or get corrupted.  |
 
-> #### Larger files have a more likely chance of corrupting on file transfer. Larger files will also take a longer time to seed, maybe even getting to a state where it never seeds at all. One reason is a bug where WebTorrent fails to find a tracker it needs in order to start seeding for the client. 
+#### Invalid Case:
+- Input(s): any file type(s)
+
+- Test Steps: Open two instances of the web app. On the first instance, pick large test file(s) (>1 GB), then 'Send Files'. On the second instance, click ‘Receive Files’ button. Simulate the BAM! action to initiate file transfer. Download the files and open the files individually and as a zip.
+
+- Expected Output: File transfer may hang during transfer or get corrupted.
+  - Larger files have a more likely chance of corrupting on file transfer. Larger files will also take a longer time to seed, maybe even getting to a state where it never seeds at all. One reason is a bug where WebTorrent fails to find a tracker it needs in order to start seeding for the client. 
 
 
 ## Abdullah Kose
