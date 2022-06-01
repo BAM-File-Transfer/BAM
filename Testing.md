@@ -23,6 +23,18 @@
 5. Wait for the Receiver to download the files.
 6. Click on the download link for your file(s).
 
+## User Story 2 from Sprint 3:
+> As a social person, I would like a fun and interactive way of sharing files so that I can fist bump people.
+
+1. Go to https://bambam.app on all *mobile* devices.
+2. Press "Choose Files" and select the file you want to send to the other devices.
+	1. Accept any device permission requests.
+	2. Wait for the screen to finish loading your files. It should show an image of a fist-bump when it's ready.
+3. Press "Receive Files" on the other device.
+	1. Accept any device permission requests.
+4. Initiate a BAM! on all mobile devices by fist-bumping them together.
+5. We know the BAM! was detected if a loading spinner shows up on screen.
+
 
 #  Unit Tests
 
