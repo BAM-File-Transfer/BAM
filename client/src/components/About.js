@@ -10,16 +10,16 @@ const About = () => {
     <div className="App">
       <Header />
         <h1 className="About">
-            BAM! IS A FILE SHARING WEB APPLICATION, DESIGNED TO MAKE THE
-            PROCESS OF SHARING FILES BETWEEN DEVICES QUICK, EASY, AND FUN!
+            BAM! is a file sharing web application, designed to make the 
+            process of sharing files between devices, quick, easy, and fun!
             <br/> <br/>
             <u>HOW TO USE:</u>
             <br/>
-            SELECT THE FILES THAT YOU WOULD LIKE TO SEND.
+            Select the files that you would like to send.
             <br/> <br/>
-            FIST BUMP THE DEVICES TOGETHER!
+            Fist bump the devices together!
             <br/> <br/>
-            DOWNLOAD THE FILES!
+            Download the files!
             <button className = "button" onClick={() => {
               navigate('/')
             }}>Start Sharing!</button>
