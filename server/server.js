@@ -17,10 +17,6 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/api", (req, res) => {
-  res.json({ testObject: ["testElement"] });
-});
-
 app.post("/send", async (req, res) => {
   const dataEntry = {
     name: req.body.name,
