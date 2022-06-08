@@ -17,7 +17,13 @@ const About = () => {
             <br/>
             Select the files that you would like to send.
             <br/> <br/>
+            Mobile Devices:
+            <br/>
             Fist bump the devices together!
+            <br/> <br/>
+            Mobile Device + Computer:
+            <br/>
+            Bump mobile device on computer spacebar
             <br/> <br/>
             Download the files!
             <button className = "button" onClick={() => {
